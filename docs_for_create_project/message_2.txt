@@ -1,0 +1,373 @@
+// Palavras reservadas delimitam comandos compostos.
+Exemplo: if, else, while, for, do, switch, case, break, continue, return, goto, default, sizeof, typedef, struct, union, enum, auto, extern, register, static, const, volatile, signed, unsigned, char, short, int, long, float, double, void, enum, typedef, sizeof, struct, union, auto, extern, register, static, const, volatile, signed, unsigned, char, short, int, long, float, double, void, enum, typedef, sizeof, struct, union, auto, extern, register, static, const, volatile, signed, unsigned, char, short, int, long, float, double, void, enum, typedef, sizeof, struct, union, auto, extern, register, static, const, volatile, signed, unsigned, char, short, int, long, float, double, void, enum, typedef, sizeof, struct, union, auto, extern, register, static, const, volatile, signed, unsigned, char, short, int, long, float, double, void, enum, typedef, sizeof, struct, union, auto, extern, register, static, const, volatile, signed, unsigned, char, short, int, long, float, double, void, enum, typedef, sizeof, struct, union, auto, extern, register, static, const, volatile, signed, unsigned, char, short, int, long, float, double, void, enum, typedef, sizeof, struct, union, auto, extern, register, static, const, volatile, signed, unsigned, char, short, int, long, float, double, void, enum, typedef, sizeof, struct, union, auto, extern, register, static, const, volatile, signed, unsigned, char, short, int, long, float, double, void, enum, typedef, sizeof, struct, union, auto, extern, register, static, const, volatile, signed, unsigned, char, short, int, long, float, double, void, enum, typedef, sizeof, struct, union, auto, extern, register, static, const, volatile, signed, unsigned, char, short, int, long, float, double, void, enum, typedef, sizeof, struct, union, auto, extern, register, static, const, volatile, signed, unsigned, char, short, int, long, float,
+
+// Comandos compostos podem ser encadeados por pipes ou por redirecionamento com a condição que tenha uma saída.
+
+// Pipe só joga pro comando seguinte a saida padrão do comando anterior, a saida de erro é feito por &.
+
+// Operador de controle condiona a operação do comando seguinte ou o seu próprio.
+
+// Blocos de comandos [palavras reservadas]
+if (condição) {
+    // bloco de comandos
+} else {
+    // bloco de comandos
+}
+
+
+// Metacaracteres do shell;
+Exemplos: 
+    \n - nova linha
+    \t - tabulação
+    \b - backspace
+    \r - retorno de carro
+    \f - avanço de página
+    \0 - caractere nulo
+    \\ - barra invertida
+    \' - aspas simples
+    \" - aspas duplas
+    \? - ponto de interrogação
+    \a - sinal sonoro
+    \v - tabulação vertical
+    \x - caractere hexadecimal
+    \ooo - caractere octal
+    \c - supressão de saída
+    \u - caractere unicode
+    \U - caractere unicode
+    \e - escape
+
+Antes da segunda etapa de processamento, tudo é metacaracter.
+
+A primeira etapa de processamento é a leitura do comando.
+A segunda é a execução do comando.
+A terceira é a saída do comando.
+A quarta é a entrada do comando.
+A quinta é a saída de erro do comando.
+A sexta é a entrada de erro do comando.
+A setima é a saída de controle do comando.
+A oitava é a entrada de controle do comando.
+A nona é a saída de status do comando.
+A decima é a entrada de status do comando.
+A decima primeira é a saída de sinal do comando.
+A decima segunda é a entrada de sinal do comando.
+A decima terceira é a saída de tempo do comando.
+A decima quarta é a entrada de tempo do comando.
+A decima quinta é a saída de data do comando.
+A decima sexta é a entrada de data do comando.
+A decima setima é a saída de usuário do comando.
+A decima oitava é a entrada de usuário do comando.
+A decima nona é a saída de grupo do comando.
+A vigesima é a entrada de grupo do comando.
+A vigesima primeira é a saída de processo do comando.
+A vigesima segunda é a entrada de processo do comando.
+A vigesima terceira é a saída de arquivo do comando.
+A vigesima quarta é a entrada de arquivo do comando.
+A vigesima quinta é a saída de rede do comando.
+A vigesima sexta é a entrada de rede do comando.
+A vigesima setima é a saída de sistema do comando.
+A vigesima oitava é a entrada de sistema do comando.
+A vigesima nona é a saída de hardware do comando.
+A trigesima é a entrada de hardware do comando.
+
+// Tudo entre aspas é tratado como um único argumento e portanto se tornam caracteres normais
+
+// Se não estiver entre aspas, pode se tornar argumento com algum significado especial
+
+// Se tiver um caractere de escape, tudo após isso vira caractere normal e do caractere de escape até o inicio do argumento vira uma palavra só.
+// Se o caractere de escape estiver entre aspas, tudo, incluindo o caractere de escape, vira uma frase só, menos se tiver $ antes do caractere especial, que não vai ter significado.
+
+
+// volatile int x; - variável que pode ser alterada por um processo externo ao programa.
+
+// Redirecionamento só escreve em arquivo ou lê de arquivo.
+
+// Escrever ou transferir processos é feito por pipe.
+
+// Comando de controle de processos: kill, ps, top, nice, renice, killall, pkill, pgrep, jobs, fg, bg, nohup, disown, wait, sleep, at, batch, cron, crontab, time, date, uptime 
+
+// prompt de shell é o que aparece antes do comando, e suas expanções são feitas por variáveis de ambiente.
+
+
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+#include <signal.h>
+#include <sys/wait.h>
+#include <unistd.h>
+#include <sys/types.h>
+
+int last_exit_status = 0;
+
+int afterprompt(int is_after); // SIGNAL //
+
+
+[readline.h é usado para fazer a leitura de uma linha de texto. Aplicando no terminal como um prompt com um token.]
+
+// [SHELL INIT ESBOÇO] // char *prompt(void) 
+{
+    char *input = NULL;
+    afterprompt(0);
+
+    input = readline("Minihell>$ ");
+    if (!input) 
+    {
+        write(STDERR_FILENO, "Error reading input.\n", ft_strlen("Error reading input.\n"));
+        exit(EXIT_FAILURE);
+    }
+
+    afterprompt(1);
+
+    if (input[0] != '\0') 
+    {
+        add_history(input);
+    }
+
+    return input;
+}
+
+int afterprompt(int is_after) 
+{
+    static int after;
+    if (is_after != -1)
+        after = is_after;
+    return after;
+}
+
+void handle_signals(int signum) 
+{
+    if (signum == SIGINT) {
+        // CTRL+C
+        write(STDOUT_FILENO, "\nMinihell> ", 11);
+    } else if (signum == SIGQUIT) {
+        // CTRL+\ (SIGQUIT)
+        _exit(last_exit_status);
+    }
+}
+
+
+void execute_command(char* args[]) {
+    pid_t pid = fork();
+    if (pid < 0) {
+        perror("fork");
+        _exit(EXIT_FAILURE);
+    } else if (pid == 0) {
+        // Processo filho //
+        execvp(args[0], args); //Isso aqui eu não tenho certeza se pode, mas qualquer coisa a gente da um jeito depois trocando por execve e arrumando a lógica//
+        perror("execvp");
+        _exit(EXIT_FAILURE);
+    } else {
+        // Processo pai //
+        int status;
+        waitpid(pid, &status, 0);
+        last_exit_status = WIFEXITED(status) ? WEXITSTATUS(status) : 1; // Se não quiser usar macro é só alterar a linha para [last_exit_status = (status == 0) ? 0 : 1;] //
+    }
+}
+
+WIFEXITED é uma macro que verifica se o processo terminou normalmente.
+WIFEEXITSTATUS é uma macro que retorna o status de saída do processo.
+
+execvp é uma função que executa um programa em um processo filho.
+fork é uma função que cria um processo filho.
+Um processo filho é um processo que é criado por outro processo, chamado processo pai. O processo filho herda os recursos do processo pai, como o espaço de endereçamento, os descritores de arquivo e os sinais. O processo filho executa um programa diferente do processo pai, mas compartilha os recursos do processo pai.
+
+
+
+
+
+
+
+
+
+// [SHELL INIT ESBOÇO] //
+void shell_loop() 
+{
+    signal(SIGINT, handle_signals); // CTRL+C //
+    signal(SIGQUIT, handle_signals); // CTRL+\ (SIGQUIT) //
+    signal(SIGTSTP, SIG_IGN); // CTRL+Z (ignorado) //
+
+    char input[1024]; // Buffer variavel //
+    ssize_t read_bytes;
+    int input_index = 0;
+
+    while (1) {
+        write(STDOUT_FILENO, "Minihell> ", 11); 
+
+        read_bytes = read(STDIN_FILENO, &input[input_index], 1); 
+        if (read_bytes < 0) {
+            perror("read");
+            _exit(EXIT_FAILURE);
+        }
+
+        if (input[input_index] == '\n') {
+            input[input_index] = '\0';
+            char *args[50]; // Argumentos Variáveis (ignora o 50) //
+            int argc = 0;
+            args[argc++] = ft_strtok(input, " ");
+            while((args[argc++] = ft_strtok(NULL, " ")) != NULL);
+
+            execute_command(args);
+
+            input_index = 0;
+            ft_memset(input, 0, sizeof(input));
+        } else {
+            input_index++;
+        }
+    }
+}
+
+//Dependendo dá pra colocar um break pra controlar o loop da leitura dos caracteres //
+
+
+
+
+
+
+int main() 
+{
+    shell_loop();
+    return 0;
+}
+
+
+
+
+
+
+
+
+[ft_strtok() é uma função que divide uma string em tokens, que são strings menores. A função recebe como argumentos a string a ser dividida e uma string contendo os delimitadores dos tokens. A função retorna um ponteiro para a primeira string do token.]
+
+// [UTILS ESBOÇO para tokenização] // char *ft_strtok(char *str, const char *delim) 
+{
+    static char *token = NULL;
+    static char *nextToken = NULL;
+
+    if (str != NULL)
+        token = str;
+    else
+        token = nextToken;
+
+    if (token == NULL)
+        return NULL;
+
+    char *start = token;
+    char *end = token;
+
+    while (*end != '\0') {
+        int isDelimiter = 0;
+        const char *d = delim;
+        while (*d != '\0') {
+            if (*end == *d) {
+                isDelimiter = 1;
+                break;
+            }
+            d++;
+        }
+        if (isDelimiter)
+            break;
+        end++;
+    }
+
+    if (*end != '\0') {
+        *end = '\0';
+        nextToken = end + 1;
+    } else {
+        nextToken = NULL;
+    }
+
+    token = nextToken;
+
+    return start;
+}
+
+
+
+
+[Tokens são strings que são separadas por espaços ou por quebra de linha. Eles são usados para armazenar os comandos e argumentos que são passados para o shell.]
+
+// [Tokens ESBOÇO] int tokenization(char *input, char **tokens) {
+    char *token = NULL;
+    int i = 0;
+
+    token = ft_strtok(input, " \n");
+    while (token != NULL) {
+        tokens[i++] = classify_token(token);
+        token = ft_strtok(NULL, " \n");
+    }
+    tokens[i] = NULL;
+
+    return i;
+}
+
+
+    [TIPOS DE TOKEN]
+
+// [UTILS Mandatório para tokenização] // char *classify_token(const char *token) {
+    if (!ft_strncmp(token, "<<", 2)) return "HEREDOC";
+    if (!ft_strncmp(token, ">>", 2)) return "APPEND";
+    if (*token == '|') return "PIPE";
+    if (*token == '$') return "DOLLAR";
+    if (*token == '(') return "L_PAREN";
+    if (*token == ')') return "R_PAREN";
+    if (*token == '\'') return "QUOTE";
+    if (*token == '"') return "DOUBLE_QUOTE";
+    if (*token == '<') return "L_REDIR";
+    if (*token == '>') return "R_REDIR";
+    return "ARGUMENT";
+}
+
+//.H minishell //
+
+enum s_tokens // enumeração de tokens mandatório //
+{
+    ARGUMENT = 1,
+    APPEND,
+    BLOCK,
+    DOUBLE_QUOTE,
+    DOLLAR,
+    EXEC,
+    HEREDOC,
+    L_PAREN,
+    L_REDIR,
+    PIPE,
+    QUOTE,
+    R_PAREN,
+    R_REDIR,
+    TOKEN_NULL
+};
+
+
+
+
+
+
+
+
+// [SIGNALS ESBOÇO] // void handle_signals() 
+{
+    signal(SIGINT, SIG_IGN);
+    signal(SIGQUIT, SIG_IGN); // Também serve para o CTRL+D //
+    signal(SIGTSTP, SIG_IGN);
+    signal(SIGTTIN, SIG_IGN);
+    signal(SIGTTOU, SIG_IGN);
+    signal(SIGCHLD, SIG_IGN);
+}
+
+SIGINT é um sinal que é enviado para um processo quando o usuário pressiona Ctrl+C. O sinal é enviado para o processo para que ele possa realizar alguma ação, como limpar a memória alocada pelo processo ou finalizar o processo.
+SIGQUIT é um sinal que é enviado para um processo quando o usuário pressiona Ctrl+\ (Ctrl+barra invertida). O sinal é enviado para o processo para que ele possa realizar alguma ação, como limpar a memória alocada pelo processo ou finalizar o processo.
+SIGTSTP é um sinal que é enviado para um processo quando o usuário pressiona Ctrl+Z. O sinal é enviado para o processo para que ele possa realizar alguma ação, como suspender a execução do processo.
+SIGTTIN é um sinal que é enviado para um processo quando ele tenta ler da entrada padrão enquanto estiver em segundo plano. O sinal é enviado para o processo para que ele possa realizar alguma ação, como suspender a execução do processo.
+SIGTTOU é um sinal que é enviado para um processo quando ele tenta escrever na saída padrão enquanto estiver em segundo plano. O sinal é enviado para o processo para que ele possa realizar alguma ação, como suspender a execução do processo.
+SIGCHLD é um sinal que é enviado para um primeiro processo quando um segundo processo termina. O sinal é enviado para o primeiro processo para que ele possa realizar alguma ação, como limpar a memória alocada pelo segundo processo ou atualizar o status do segundo processo.
+
+SIG_IGN é uma constante que é usada para ignorar um sinal. Quando um sinal é configurado para ser ignorado, o sistema operacional não envia o sinal para o processo quando o sinal é gerado.
+SIG_DFL é uma constante que é usada para restaurar o tratamento padrão de um sinal. Quando um sinal é configurado para ser tratado de forma padrão, o sistema operacional envia o sinal para o processo quando o sinal é gerado.
+
+    signal(SIGQUIT, SIG_IGN); // nothing. ignore quit //
+    signal(SIGQUIT, SIG_DFL); // quit minishell // 
+
+

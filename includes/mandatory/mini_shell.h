@@ -10,11 +10,34 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINI_SHELL_H
-# define MINI_SHELL_H
+#	ifndef MINI_SHELL_H
+#	define MINI_SHELL_H
 
-# include <stdio.h>
-# include <readline/history.h>
-# include <readline/readline.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+#include <signal.h>
+#include <sys/wait.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <dirent.h>
+#include <string.h>
+#include <sys/errno.h>
+#include <fcntl.h>
 
-#endif
+#	ifndef ARG_MAX
+#	define ARG_MAX 4096  //Máximo do próprio shell//
+#	endif
+
+typedef struct			s_vars
+{
+	char				*name;
+	char				*value;
+	int					exported;
+	int					aftercmd;
+	struct s_vars		*next;
+}						t_vars;
+
+#	endif

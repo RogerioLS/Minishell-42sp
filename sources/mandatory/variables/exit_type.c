@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//Colocar .h depois q montar
+//#include "../../../includes/mandatory/mini_shell.h"
 
 int	ft_exit(char *buff)
 {

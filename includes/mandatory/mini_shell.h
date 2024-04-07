@@ -39,3 +39,5 @@ typedef struct			s_vars
 	int					aftercmd;
 	struct s_vars		*next;
 }						t_vars;
+
+#	endif

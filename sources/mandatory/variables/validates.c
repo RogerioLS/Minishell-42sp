@@ -7,7 +7,7 @@
 ** VALORES DE RETORNO
 ** Retorna verdadeiro se o nome da variável contém apenas caracteres permitidos é falso ou se não é.
 */
-#include "../../../include/mini_shell.h"
+#include "../../../include/mandatory/mini_shell.h"
 
 bool	validate_name(char *var_name)
 {

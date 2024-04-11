@@ -5,7 +5,7 @@
 ** [VALORES DE RETORNO]
 ** Retorna verdadeiro se a linha de comando for uma declaração de variável e falso se não for.
 */
-#include "../../../include/mini_shell.h"
+#include "../../../include/mandatory/mini_shell.h"
 
 bool	commandline_var(char *cmd)
 {

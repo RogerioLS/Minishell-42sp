@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/mini_shell.h"
+#include "../../../include/mandatory/mini_shell.h"
 
 char *ft_strtok(char *str, const char *delim) {
     static char *token = NULL;

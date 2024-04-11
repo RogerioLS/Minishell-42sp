@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "../../../includes/mandatory/mini_shell.h"
+#include "../../../include/mini_shell.h"
 
 int	ft_exit(char *buff)
 {

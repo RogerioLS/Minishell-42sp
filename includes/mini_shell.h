@@ -13,7 +13,7 @@
 #	ifndef MINI_SHELL_H
 #	define MINI_SHELL_H
 
-#include "../sources/mandatory/libft/include/ft_printf.h"
+#include "../../sources/mandatory/libft/include/ft_printf.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>

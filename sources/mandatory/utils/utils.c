@@ -3,57 +3,73 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lluiz-de <lluiz-de@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 06:34:32 by lluiz-de          #+#    #+#             */
-/*   Updated: 2024/04/07 06:34:37 by lluiz-de         ###   ########.fr       */
+/*   Updated: 2024/04/13 19:42:40 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/mandatory/mini_shell.h"
+#include "../../includes/mandatory/mini_shell.h"
 
-char *ft_strtok(char *str, const char *delim) {
-    static char *token = NULL;
-    static char *nextToken = NULL;
-    if (str != NULL)
-        token = str;
-    else
-        token = nextToken;
-    if (token == NULL)
-        return NULL;
-    char *start = token;
-    char *end = token;
-    while (*end != '\0') {
-        int isDelimiter = 0;
-        const char *d = delim;
-        while (*d != '\0') {
-            if (*end == *d) {
-                isDelimiter = 1;
-                break;
-            }
-            d++;
-        }
-        if (isDelimiter)
-            break;
-        end++;
-    }
-    if (*end != '\0') {
-        *end = '\0';
-        nextToken = end + 1;
-    } else {
-        nextToken = NULL;
-    }
-    token = nextToken;
-    return start;
-}
+/* char	*ft_strtok(char *str, const char *delim)
+{
+	static char	*token;
+	static char	*nextToken;
+	char		*start;
+	char		charisDelimiter;
+	const		*end;
+	int			*d;
+
+	token = NULL;
+	nextToken = NULL;
+	if (str != NULL)
+		token = str;
+	else
+		token = nextToken;
+	//printf("Comando recebido: %s\n", token);
+	if (token == NULL)
+		return (NULL);
+	start = token;
+	end = token;
+	while (*end != '\0')
+	{
+		isDelimiter = 0;
+		d = delim;
+		while (*d != '\0')
+		{
+			if (*end == *d)
+			{
+				isDelimiter = 1;
+				break ;
+			}
+			d++;
+		}
+		if (isDelimiter)
+			break ;
+		end++;
+	}
+	if (*end != '\0')
+	{
+		*end = '\0';
+		nextToken = end + 1;
+	}
+	else
+	{
+		nextToken = NULL;
+	}
+	token = nextToken;
+	return (start);
+}*/
 
 char	*ft_antispace(char *buff)
 {
-	int x;
+	int	x;
 
 	x = 0;
 	while (buff[x] && (buff[x] == ' ' || buff[x] == '\t'))
 		x++;
+	printf("Comando recebido: %s\n", &buff[x]);
 	return (&buff[x]);
 }
 

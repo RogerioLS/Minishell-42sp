@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exit_type.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lluiz-de <lluiz-de@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 06:30:15 by lluiz-de          #+#    #+#             */
-/*   Updated: 2024/04/07 06:30:16 by lluiz-de         ###   ########.fr       */
+/*   Updated: 2024/04/13 16:28:01 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/mandatory/mini_shell.h"
+#include "../../includes/mandatory/mini_shell.h"
 
 int	ft_exit(char *buff)
 {
@@ -27,7 +27,7 @@ int	ft_exit(char *buff)
 		return (255);
 	}
 	x = 0;
-	g_vars->aftercmd = 0;
+	//t_vars->aftercmd = 0;
 	if (ft_strlen(arg) && ft_isdigit((int)arg[0]))
 		x = ft_atoi(arg);
 	else if (!ft_isdigit((int)arg[0]) && arg[0] != 0)

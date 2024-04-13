@@ -6,39 +6,49 @@
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 16:52:11 by roglopes          #+#    #+#             */
-/*   Updated: 2024/03/31 18:41:35 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/04/13 16:30:35 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#	ifndef MINI_SHELL_H
-#	define MINI_SHELL_H
+#ifndef MINI_SHELL_H
+# define MINI_SHELL_H
 
-#include "../../sources/mandatory/libft/include/ft_printf.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <signal.h>
-#include <sys/wait.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <dirent.h>
-#include <string.h>
-#include <sys/errno.h>
-#include <fcntl.h>
+# include "../../libft/include/ft_printf.h"
+# include "../../libft/include/get_next_line.h"
+# include "../../libft/include/libft.h"
+# include <dirent.h>
+# include <fcntl.h>
+# include <readline/history.h>
+# include <readline/readline.h>
+# include <signal.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <sys/errno.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <unistd.h>
+# include <stdbool.h>
 
-#	ifndef ARG_MAX
-#	define ARG_MAX 4096  //Máximo do próprio shell//
-#	endif
+# define ARG_MAX 4096 // Máximo do próprio shell//
 
-typedef struct			s_vars
+typedef struct s_mini
 {
-	char				*name;
-	char				*value;
-	int					exported;
-	int					aftercmd;
-	struct s_vars		*next;
-}						t_vars;
+	char			*name;
+	char			*cmd_line;
+	int				exported;
+	int				aftercmd;
+	struct s_mini	*next;
+}					t_mini;
 
-#	endif
+// Utils
+char	*ft_strtok(char *str, const char *delim);
+char	*ft_antispace(char *buff);
+char	*ft_firstword(char *buff);
+
+// Variables
+int		ft_exit(char *buff);
+bool	commandline_var(char *cmd);
+bool	validate_name(char *var_name);
+
+#endif

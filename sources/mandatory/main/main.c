@@ -1,27 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   line_var.c                                         :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/13 15:33:15 by roglopes          #+#    #+#             */
-/*   Updated: 2024/04/13 15:33:31 by roglopes         ###   ########.fr       */
+/*   Created: 2024/04/13 15:27:05 by roglopes          #+#    #+#             */
+/*   Updated: 2024/04/13 19:08:36 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-** Verifica se a linha de comando é uma declaração de variável.
-** [PARÂMETROS]
-**#1. Os ponteiros para linha de comando (cmd);
-** [VALORES DE RETORNO]
-** Retorna verdadeiro se a linha de comando for uma declaração de variável e falso se não for.
-*/
 #include "../../includes/mandatory/mini_shell.h"
 
-bool	commandline_var(char *cmd)
+void	user_loop(char *cmd_line)
 {
-	if (ft_strchr(cmd, '=') == NULL)
-		return (false);
-	return (true);
+	cmd_line = NULL;
+	while (1)
+	{
+		cmd_line = readline("mini_shell> ");
+		if (!cmd_line)
+			break ;
+		if (cmd_line && cmd_line)
+		{
+			add_history(cmd_line);
+			ft_antispace(cmd_line);
+			//printf("Comando recebido: %s\n", cmd_line);
+			//ft_strtok(cmd_line, cmd_line);
+		}
+		//printf("Comando recebido: %s\n", cmd_line);
+		free(cmd_line);
+	}
+}
+
+int	main(void)
+{
+	t_mini	mini;
+
+	user_loop(mini.cmd_line);
+	return (0);
 }

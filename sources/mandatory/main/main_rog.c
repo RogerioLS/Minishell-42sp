@@ -316,6 +316,68 @@ Token	*tokenizeInput(char *input)
 	return (head);
 }
 
+// Token	*tokenizeInput(char *input)
+// {
+// 	Token	*head;
+// 	Token	**current;
+
+// 	head = NULL;
+// 	current = &head;
+// 	iterateTokens(input, current);
+// 	return (head);
+// }
+
+// void	iterateTokens(char *input, Token **current)
+// {
+// 	char	*start;
+// 	char	*cursor;
+
+// 	start = input;
+// 	cursor = input;
+// 	while (*cursor)
+// 	{
+// 		if (isInsideQuotes(cursor))
+// 			cursor = skipQuotes(cursor);
+// 		else if (isOperatorOrEnd(cursor))
+// 		{
+// 			if (start < cursor)
+// 			{
+// 				*current = createToken(start, TOKEN_WORD);
+// 				current = &(*current)->next;
+// 			}
+// 			if (isOperatorChar(*cursor))
+// 			{
+// 				*current = createToken(cursor, TOKEN_OPERATOR);
+// 				current = &(*current)->next;
+// 			}
+// 			start = cursor + 1;
+// 		}
+// 		cursor++;
+// 	}
+// }
+
+// bool	isInsideQuotes(char *cursor)
+// {
+// 	return (*cursor == '\'' || *cursor == '\"');
+// }
+
+// char	*skipQuotes(char *cursor)
+// {
+// 	char	quoteType;
+
+// 	quoteType = *cursor;
+// 	cursor++;
+// 	while (*cursor && *cursor != quoteType)
+// 		cursor++;
+// 	return (cursor);
+// }
+
+// bool	isOperatorOrEnd(char *cursor)
+// {
+// 	return (isOperatorChar(*cursor) || *(cursor + 1) == '\0');
+// }
+
+
 // Modificação na definição da função expandAliases
 void	expandAliases(Token *tokens, Alias *aliasMap)
 {

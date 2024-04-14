@@ -29,6 +29,7 @@
 # include <sys/wait.h>
 # include <unistd.h>
 # include <stdbool.h>
+# include <stddef.h>
 
 # define ARG_MAX 4096 // Máximo do próprio shell//
 
@@ -89,6 +90,7 @@ char	*ft_firstword(char *buff);
 // Utils2
 size_t	ft_strcspn(const char *s, const char *reject);
 size_t ft_strspn(const char *s, const char *accept);
+char	*strpbrk(const char *s, const char *accept);
 
 // Variables
 int		ft_exit(char *buff);

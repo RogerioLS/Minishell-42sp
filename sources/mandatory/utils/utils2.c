@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/mandatory/mini_shell.h"
+#include "../../includes/mandatory/mini_shell.h"
 
 size_t	ft_strcspn(const char *s, const char *reject)
 {

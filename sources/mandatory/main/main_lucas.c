@@ -14,20 +14,6 @@
 
 //Tudo daqui pra baixo são testes por enquanto
 
-#define TOKEN_WORD 1
-#define TOKEN_OPERATOR 2
-#define TOKEN_HEREDOC 3
-#define TOKEN_APPEND 4
-#define TOKEN_PIPE 5
-#define TOKEN_DOLLAR 6
-#define TOKEN_L_PAREN 7
-#define TOKEN_R_PAREN 8
-#define TOKEN_QUOTE 9
-#define TOKEN_DOUBLE_QUOTE 10
-#define TOKEN_L_REDIR 11
-#define TOKEN_R_REDIR 12
-
-
 int classify_token(const char *token) {
     if (!ft_strncmp(token, "<<", 2))
         return TOKEN_HEREDOC;
@@ -66,6 +52,31 @@ Token *input_tokenizer(char *input) {
     }
     return head;
 }
+
+// Token *input_tokenizer(char *input) {
+//     Token *head = NULL;
+//     Token **current = &head;
+
+//     char *start = input;
+//     char *cursor = input;
+//     while (*cursor) {
+//         if (is_inside_quotes(cursor)) {
+//             cursor = skip_quotes(cursor);
+//         } else if (is_operator_or_end(cursor)) {
+//             if (start < cursor) {
+//                 *current = create_token(start, classify_token(start));
+//                 current = &(*current)->next;
+//             }
+//             if (is_operator_char(*cursor)) {
+//                 *current = create_token(cursor, classify_token(cursor));
+//                 current = &(*current)->next;
+//             }
+//             start = cursor + 1;
+//         }
+//         cursor++;
+//     }
+//     return head;
+// }
 
 int afterprompt(int is_after) {
     static int after;

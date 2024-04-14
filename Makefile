@@ -20,6 +20,7 @@ HEADERS				= -I ./includes/mandatory/ -I ./libft/include/
 MAIN_DIR		= $(SOURCES_DIR)mandatory/main/
 UTILS_DIR		= $(SOURCES_DIR)mandatory/utils/
 VARIABLES_DIR	= $(SOURCES_DIR)mandatory/variables/
+TOKEN_DIR	= $(SOURCES_DIR)mandatory/tokenizer/
 
 LIBFT				= ./libft/libft.a
 
@@ -30,13 +31,17 @@ VALGRIND_LOG		= valgrind.log
 
 MAIN_SOURCES	= $(MAIN_DIR)main.c
 
-UTILS_SOURCES	= $(UTILS_DIR)utils.c
+UTILS_SOURCES	= $(UTILS_DIR)utils.c \
+			$(UTILS_DIR)utils2.c \
+
+TOKEN_SOURCES	= $(TOKEN_DIR)tokenizer.c \
+			$(TOKEN_DIR)create_token.c \
 
 VARIABLES_SOURCES	= $(VARIABLES_DIR)exit_type.c \
 					$(VARIABLES_DIR)line_var.c \
 					$(VARIABLES_DIR)validates.c \
 
-SOURCES				= $(MAIN_SOURCES) $(UTILS_SOURCES) $(VARIABLES_SOURCES)
+SOURCES				= $(MAIN_SOURCES) $(UTILS_SOURCES) $(VARIABLES_SOURCES) $(TOKEN_SOURCES) 
 
 OBJS				= $(patsubst $(SOURCES_DIR)%.c,$(OBJECTS_DIR)%.o, $(SOURCES))
 

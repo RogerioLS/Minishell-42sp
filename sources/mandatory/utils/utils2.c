@@ -55,23 +55,3 @@ size_t ft_strspn(const char *s, const char *accept)
 	}
 	return (i);
 }
-
-
-// percorre a string s e, para cada caractere, verifica se ele está presente na string accept. Se encontrar um caractere correspondente, retorna um ponteiro para esse caractere em s. Se nenhum caractere correspondente for encontrado, retorna NULL.
-char	*strpbrk(const char *s, const char *accept)
-{
-	while (*s != '\0')
-	{
-		const char *p = accept;
-		while (*p != '\0')
-		{
-			if (*s == *p)
-			{
-				return ((char *)s);
-			}
-			p++;
-		}
-		s++;
-	}
-	return (NULL);
-}

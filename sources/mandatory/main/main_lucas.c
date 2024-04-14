@@ -26,7 +26,7 @@
 #define TOKEN_DOUBLE_QUOTE 10
 #define TOKEN_L_REDIR 11
 #define TOKEN_R_REDIR 12
-#define MAX_COMMAND_LENGTH 1024
+
 
 int classify_token(const char *token) {
     if (!ft_strncmp(token, "<<", 2))
@@ -74,12 +74,23 @@ int afterprompt(int is_after) {
     return after;
 }
 
-void handle_signal(int signo) {
-    if (signo == SIGINT) {
-        write(STDOUT_FILENO, "\nMinihell>$ ", ft_strlen("\nMinihell>$ "));
+void handle_signal(int sign) {
+    if (sign == SIGINT) {
+        printf("\n\033[1;31mMINIHELL>$\033[0m ");
         fflush(stdout);
+    } else if (sign == SIGQUIT) {
+    } else if (sign == SIGTERM) {
+    } else if (sign == SIGTSTP) {
+    } else if (sign == SIGTTIN) {
+    } else if (sign == SIGTTOU) {
+    } else if (sign == SIGCHLD) {
+    } else if (sign == SIGPIPE) {
+    } else if (sign == SIGINT)  {
+    } else if (sign == SIGTERM) {
+        exit(EXIT_SUCCESS); // Ctrl+D || Vai sair do minishell
     }
 }
+
 
 char *prompt(void) {
     char *input;
@@ -110,10 +121,16 @@ char *prompt(void) {
 // }
 
 int main(void) {
-    printf("\033[1;33mMINIHELL started\033[0m\n");
+    printf("\033[1;33mMINIHELL started!\033[0m\n");
+    signal(SIGINT, handle_signal);
+    
     char *cmd_line;
     while (1) {
         cmd_line = prompt();
+        if (!cmd_line) {
+            printf("\n");
+            exit(EXIT_SUCCESS);
+        }
         if (cmd_line && *cmd_line) {
             Token *tokens = input_tokenizer(cmd_line);
             // print_tokens(tokens);

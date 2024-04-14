@@ -364,7 +364,7 @@ int	main(void)
 		free(expandedInput);
 		expandAliases(tokens, aliasMap);
 		commands = parseCommands(tokens);
-		freeTokens(tokens);
+		freetokens(tokens);
 		cmd = commands;
 		while (cmd != NULL)
 		{

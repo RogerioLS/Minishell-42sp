@@ -99,25 +99,25 @@ void	iterate_tokens(char *input, Token **current)
 //     char *classification = classify_token(start);
 //     TokenType token_type;
 
-//     if (strcmp(classification, "HEREDOC") == 0)
+//     if (ft_strcmp(classification, "HEREDOC") == 0)
 //         token_type = TOKEN_HEREDOC;
-//     else if (strcmp(classification, "APPEND") == 0)
+//     else if (ft_strcmp(classification, "APPEND") == 0)
 //         token_type = TOKEN_APPEND;
-//     else if (strcmp(classification, "PIPE") == 0)
+//     else if (ft_strcmp(classification, "PIPE") == 0)
 //         token_type = TOKEN_PIPE;
-//     else if (strcmp(classification, "DOLLAR") == 0)
+//     else if (ft_strcmp(classification, "DOLLAR") == 0)
 //         token_type = TOKEN_DOLLAR;
-//     else if (strcmp(classification, "L_PAREN") == 0)
+//     else if (ft_strcmp(classification, "L_PAREN") == 0)
 //         token_type = TOKEN_L_PAREN;
-//     else if (strcmp(classification, "R_PAREN") == 0)
+//     else if (ft_strcmp(classification, "R_PAREN") == 0)
 //         token_type = TOKEN_R_PAREN;
-//     else if (strcmp(classification, "QUOTE") == 0)
+//     else if (ft_strcmp(classification, "QUOTE") == 0)
 //         token_type = TOKEN_QUOTE;
-//     else if (strcmp(classification, "DOUBLE_QUOTE") == 0)
+//     else if (ft_strcmp(classification, "DOUBLE_QUOTE") == 0)
 //         token_type = TOKEN_DOUBLE_QUOTE;
-//     else if (strcmp(classification, "L_REDIR") == 0)
+//     else if (ft_strcmp(classification, "L_REDIR") == 0)
 //         token_type = TOKEN_L_REDIR;
-//     else if (strcmp(classification, "R_REDIR") == 0)
+//     else if (ft_strcmp(classification, "R_REDIR") == 0)
 //         token_type = TOKEN_R_REDIR;
 //     else
 //         token_type = TOKEN_WORD;
@@ -132,7 +132,7 @@ void	iterate_tokens(char *input, Token **current)
 //     current = &(*current)->next;
 // }
 
-// char	*classify_token(const char *token)
+// int	*classify_token(const char *token)
 // {
 // 	if (!ft_strncmp(token, "<<", 2))
 // 		return ("HEREDOC");
@@ -156,3 +156,23 @@ void	iterate_tokens(char *input, Token **current)
 // 		return ("R_REDIR");
 // 	return ("ARGUMENT");
 // }
+
+//.H minishell //
+
+// enum e_tokens
+// {
+//     ARGUMENT = 1,
+//     APPEND,
+//     BLOCK,
+//     DOUBLE_QUOTE,
+//     DOLLAR,
+//     EXEC,
+//     HEREDOC,
+//     L_PAREN,
+//     L_REDIR,
+//     PIPE,
+//     QUOTE,
+//     R_PAREN,
+//     R_REDIR,
+//     TOKEN_NULL
+// };

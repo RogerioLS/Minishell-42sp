@@ -177,18 +177,18 @@ Command	*parseCommands(Token *tokens)
 	return (head);
 }
 
-void	freeCommands(Command *head)
-{
-	Command	*temp;
+// void	freeCommands(Command *head)
+// {
+// 	Command	*temp;
 
-	while (head != NULL)
-	{
-		temp = head;
-		head = head->next;
-		free(temp->text);
-		free(temp);
-	}
-}
+// 	while (head != NULL)
+// 	{
+// 		temp = head;
+// 		head = head->next;
+// 		free(temp->text);
+// 		free(temp);
+// 	}
+// }
 
 char	*expandVariables(const char *input)
 {

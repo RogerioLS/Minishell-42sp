@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "../../../includes/mandatory/mini_shell.h"
+#include "../../includes/mandatory/mini_shell.h"
 
 Token	*tokenizeInput(char *input)
 {

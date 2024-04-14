@@ -10,184 +10,131 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <readline/history.h>
-#include <readline/readline.h>
-#include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <unistd.h>
+#include "../../includes/mandatory/mini_shell.h"
 
-int		last_exit_status = 0;
+//Tudo daqui pra baixo são testes por enquanto
 
-int	afterprompt(int is_after); // SIGNAL //
+#define TOKEN_WORD 1
+#define TOKEN_OPERATOR 2
+#define TOKEN_HEREDOC 3
+#define TOKEN_APPEND 4
+#define TOKEN_PIPE 5
+#define TOKEN_DOLLAR 6
+#define TOKEN_L_PAREN 7
+#define TOKEN_R_PAREN 8
+#define TOKEN_QUOTE 9
+#define TOKEN_DOUBLE_QUOTE 10
+#define TOKEN_L_REDIR 11
+#define TOKEN_R_REDIR 12
 
-char	*prompt(void)
-{
-	char	*input;
+typedef struct Token {
+    char *text;
+    int type;
+    struct Token *next;
+} Token;
 
-	input = NULL;
-	afterprompt(0);
-	input = readline("Minihell>$ ");
-	if (!input)
-	{
-		write(STDERR_FILENO, "Error reading input.\n",
-			ft_strlen("Error reading input.\n"));
-		exit(EXIT_FAILURE);
-	}
-	afterprompt(1);
-	if (input[0] != '\0')
-	{
-		add_history(input);
-	}
-	return (input);
+Token *create_token(const char *text, int type) {
+    Token *token = malloc(sizeof(Token));
+    if (!token)
+        return NULL;
+    token->text = ft_strdup(text);
+    token->type = type;
+    token->next = NULL;
+    return token;
 }
 
-int	afterprompt(int is_after)
-{
-	static int	after;
+Token *tokenize_input(char *input) {
+    Token *head = NULL;
+    Token **current = &head;
 
-	if (is_after != -1)
-		after = is_after;
-	return (after);
+    char *token;
+    token = ft_strtok(input, " ");
+    while (token != NULL) {
+        int token_type = classify_token(token);
+        *current = create_token(token, token_type);
+        current = &(*current)->next;
+        token = ft_strtok(NULL, " ");
+    }
+
+    return head;
 }
 
-void	handle_signals(int signum)
-{
-	if (signum == SIGINT)
-	{
-		// CTRL+C
-		write(STDOUT_FILENO, "\nMinihell> ", 11);
-	}
-	else if (signum == SIGQUIT)
-	{
-		// CTRL+\ (SIGQUIT)
-		_exit(last_exit_status);
-	}
+int classify_token(const char *token) {
+    if (!ft_strncmp(token, "<<", 2))
+        return TOKEN_HEREDOC;
+    if (!ft_strncmp(token, ">>", 2))
+        return TOKEN_APPEND;
+    if (*token == '|')
+        return TOKEN_PIPE;
+    if (*token == '$')
+        return TOKEN_DOLLAR;
+    if (*token == '(')
+        return TOKEN_L_PAREN;
+    if (*token == ')')
+        return TOKEN_R_PAREN;
+    if (*token == '\'')
+        return TOKEN_QUOTE;
+    if (*token == '"')
+        return TOKEN_DOUBLE_QUOTE;
+    if (*token == '<')
+        return TOKEN_L_REDIR;
+    if (*token == '>')
+        return TOKEN_R_REDIR;
+    return TOKEN_WORD;
 }
 
-void	execute_command(char *args[])
-{
-	pid_t	pid;
-		int status;
-
-	pid = fork();
-	if (pid < 0)
-	{
-		perror("fork");
-		_exit(EXIT_FAILURE);
-	}
-	else if (pid == 0)
-	{
-		execvp(args[0], args);
-		perror("execvp");
-		_exit(EXIT_FAILURE);
-	}
-	else
-	{
-		waitpid(pid, &status, 0);
-		last_exit_status = WIFEXITED(status) ? WEXITSTATUS(status) : 1;
-	}
+void print_tokens(Token *head) {
+    while (head != NULL) {
+        printf("Token: %s, Type: %d\n", head->text, head->type);
+        head = head->next;
+    }
 }
 
-void	shell_loop(void)
-{
-	char	input[1024];
-	ssize_t	read_bytes;
-	int		input_index;
-			char *args[50];
-	int		argc;
-
-	signal(SIGINT, handle_signals);  // CTRL+C //
-	signal(SIGQUIT, handle_signals); // CTRL+\ (SIGQUIT) //
-	signal(SIGTSTP, SIG_IGN);        // CTRL+Z (ignorado) //
-	input_index = 0;
-	while (1)
-	{
-		write(STDOUT_FILENO, "Minihell> ", 11);
-		read_bytes = read(STDIN_FILENO, &input[input_index], 1);
-		if (read_bytes < 0)
-		{
-			perror("read");
-			_exit(EXIT_FAILURE);
-		}
-		if (input[input_index] == '\n')
-		{
-			input[input_index] = '\0';
-			argc = 0;
-			args[argc++] = ft_strtok(input, " ");
-			while ((args[argc++] = ft_strtok(NULL, " ")) != NULL)
-				;
-			execute_command(args);
-			input_index = 0;
-			ft_memset(input, 0, sizeof(input));
-		}
-		else
-		{
-			input_index++;
-		}
-	}
+char *prompt(void) {
+    char *input;
+    afterprompt(0);
+    input = readline("Minihell>$ ");
+    if (!input) {
+        write(STDERR_FILENO, "Error reading input.\n", ft_strlen("Error reading input.\n"));
+        exit(EXIT_FAILURE);
+    }
+    afterprompt(1);
+    if (input[0] != '\0') {
+        add_history(input);
+    }
+    return input;
 }
 
-int	main(void)
-{
-	shell_loop();
-	return (0);
+int afterprompt(int is_after) {
+    static int after;
+    if (is_after != -1)
+        after = is_after;
+    return after;
 }
 
-int	tokenization(char *input, char **tokens)
-{
-	char	*token;
-	int		i;
-
-	token = NULL;
-	i = 0;
-	token = ft_strtok(input, " \n");
-	while (token != NULL)
-	{
-		tokens[i++] = classify_token(token);
-		token = ft_strtok(NULL, " \n");
-	}
-	tokens[i] = NULL;
-	return (i);
+int main(void) {
+    char *cmd_line;
+    while (1) {
+        cmd_line = prompt();
+        if (cmd_line && *cmd_line) {
+            Token *tokens = tokenize_input(cmd_line);
+            print_tokens(tokens);
+            freeTokens(tokens);
+        }
+        free(cmd_line);
+    }
+    return 0;
 }
 
-// [UTILS Mandatório para tokenização] //
-char	*classify_token(const char *token)
-{
-	if (!ft_strncmp(token, "<<", 2))
-		return ("HEREDOC");
-	if (!ft_strncmp(token, ">>", 2))
-		return ("APPEND");
-	if (*token == '|')
-		return ("PIPE");
-	if (*token == '$')
-		return ("DOLLAR");
-	if (*token == '(')
-		return ("L_PAREN");
-	if (*token == ')')
-		return ("R_PAREN");
-	if (*token == '\'')
-		return ("QUOTE");
-	if (*token == '"')
-		return ("DOUBLE_QUOTE");
-	if (*token == '<')
-		return ("L_REDIR");
-	if (*token == '>')
-		return ("R_REDIR");
-	return ("ARGUMENT");
-}
-
-void	handle_signals(void)
-{
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN); // Também serve para o CTRL+D //
-	signal(SIGTSTP, SIG_IGN);
-	signal(SIGTTIN, SIG_IGN);
-	signal(SIGTTOU, SIG_IGN);
-	signal(SIGCHLD, SIG_IGN);
-}
+// void	handle_signals(void)
+// {
+// 	signal(SIGINT, SIG_IGN);
+// 	signal(SIGQUIT, SIG_IGN); // Também serve para o CTRL+D //
+// 	signal(SIGTSTP, SIG_IGN);
+// 	signal(SIGTTIN, SIG_IGN);
+// 	signal(SIGTTOU, SIG_IGN);
+// 	signal(SIGCHLD, SIG_IGN);
+// }
 
 //.H minishell //
 

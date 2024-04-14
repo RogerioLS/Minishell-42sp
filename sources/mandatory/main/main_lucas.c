@@ -43,7 +43,7 @@ Token *create_token(const char *text, int type) {
     return token;
 }
 
-Token *tokenize_input(char *input) {
+Token *input_tokenizer(char *input) {
     Token *head = NULL;
     Token **current = &head;
 
@@ -117,7 +117,7 @@ int main(void) {
     while (1) {
         cmd_line = prompt();
         if (cmd_line && *cmd_line) {
-            Token *tokens = tokenize_input(cmd_line);
+            Token *tokens = input_tokenizer(cmd_line);
             print_tokens(tokens);
             freeTokens(tokens);
         }

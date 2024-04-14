@@ -14,19 +14,30 @@
 
 char	*ft_strtok(char *str, const char *delim)
 {
-	static char	*last = NULL;
+	static char	*last;
 	char		*ret;
 
-	if (str)
+	last = NULL;
+	if (str != NULL)
+	{
 		last = str;
-	if (!last)
+	}
+	else if (last == NULL || *last == '\0')
+	{
 		return (NULL);
-	ret = last + ft_strspn(last, delim);
-	last = ret + ft_strcspn(ret, delim);
-	if (last == ret)
-		return (last = NULL);
-	if (*last)
-		*last++ = '\0';
+	}
+	last += ft_strspn(last, delim);
+	if (*last == '\0')
+	{
+		return (NULL);
+	}
+	ret = last;
+	last += ft_strcspn(last, delim);
+	if (*last != '\0')
+	{
+		*last = '\0';
+		last++;
+	}
 	return (ret);
 }
 

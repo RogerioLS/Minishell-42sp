@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_rog.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lluiz-de <lluiz-de@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 16:58:49 by roglopes          #+#    #+#             */
-/*   Updated: 2024/04/14 01:21:57 by lluiz-de         ###   ########.fr       */
+/*   Updated: 2024/04/14 18:34:17 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,88 +233,88 @@ char	*expandVariables(const char *input)
 	return (buffer);
 }
 
-// Token	*createToken(const char *text, TokenType type)
-// {
-// 	Token	*token;
+Token	*createToken(const char *text, TokenType type)
+{
+	Token	*token;
 
-// 	token = malloc(sizeof(Token));
-// 	if (!token)
-// 		return (NULL);
-// 	token->text = strdup(text);
-// 	token->type = type;
-// 	token->next = NULL;
-// 	return (token);
-// }
+	token = malloc(sizeof(Token));
+	if (!token)
+		return (NULL);
+	token->text = strdup(text);
+	token->type = type;
+	token->next = NULL;
+	return (token);
+}
 
-// void	freeTokens(Token *head)
-// {
-// 	Token	*temp;
+void	freeTokens(Token *head)
+{
+	Token	*temp;
 
-// 	while (head != NULL)
-// 	{
-// 		temp = head;
-// 		head = head->next;
-// 		free(temp->text);
-// 		free(temp);
-// 	}
-// }
+	while (head != NULL)
+	{
+		temp = head;
+		head = head->next;
+		free(temp->text);
+		free(temp);
+	}
+}
 
-// bool	isOperatorChar(char c)
-// {
-// 	return (strchr(" \t\n|&;()<>", c) != NULL);
-// }
+bool	isOperatorChar(char c)
+{
+	return (strchr(" \t\n|&;()<>", c) != NULL);
+}
 
-// Token	*tokenizeInput(char *input)
-// {
-// 	Token	*head;
-// 	Token	**current;
-// 	char	*start;
-// 	char	*cursor;
-// 	bool	inQuotes;
-// 	char	quoteType;
-// 	char	op[2];
+Token	*tokenizeInput(char *input)
+{
+	Token	*head;
+	Token	**current;
+	char	*start;
+	char	*cursor;
+	bool	inQuotes;
+	char	quoteType;
+	char	op[2];
 
-// 	head = NULL;
-// 	current = &head;
-// 	start = input;
-// 	cursor = input;
-// 	inQuotes = false;
-// 	quoteType = 0;
-// 	while (*cursor)
-// 	{
-// 		if (inQuotes)
-// 		{
-// 			if (*cursor == quoteType)
-// 				inQuotes = false;
-// 			cursor++;
-// 		}
-// 		else
-// 		{
-// 			if (*cursor == '\'' || *cursor == '\"')
-// 			{
-// 				inQuotes = true;
-// 				quoteType = *cursor;
-// 			}
-// 			else if (isOperatorChar(*cursor) || *(cursor + 1) == '\0')
-// 			{
-// 				if (start < cursor)
-// 				{
-// 					*current = createToken(start, TOKEN_WORD);
-// 					current = &(*current)->next;
-// 				}
-// 				if (isOperatorChar(*cursor))
-// 				{
-// 					op[2] = {*cursor, '\0'};
-// 					*current = createToken(op, TOKEN_OPERATOR);
-// 					current = &(*current)->next;
-// 				}
-// 				start = cursor + 1;
-// 			}
-// 			cursor++;
-// 		}
-// 	}
-// 	return (head);
-// }
+	head = NULL;
+	current = &head;
+	start = input;
+	cursor = input;
+	inQuotes = false;
+	quoteType = 0;
+	while (*cursor)
+	{
+		if (inQuotes)
+		{
+			if (*cursor == quoteType)
+				inQuotes = false;
+			cursor++;
+		}
+		else
+		{
+			if (*cursor == '\'' || *cursor == '\"')
+			{
+				inQuotes = true;
+				quoteType = *cursor;
+			}
+			else if (isOperatorChar(*cursor) || *(cursor + 1) == '\0')
+			{
+				if (start < cursor)
+				{
+					*current = createToken(start, TOKEN_WORD);
+					current = &(*current)->next;
+				}
+				if (isOperatorChar(*cursor))
+				{
+					op[2] = {*cursor, '\0'};
+					*current = createToken(op, TOKEN_OPERATOR);
+					current = &(*current)->next;
+				}
+				start = cursor + 1;
+			}
+			cursor++;
+		}
+	}
+	return (head);
+}
 
 // Modificação na definição da função expandAliases
 void	expandAliases(Token *tokens, Alias *aliasMap)

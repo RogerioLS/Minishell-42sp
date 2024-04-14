@@ -6,11 +6,11 @@
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 06:30:15 by lluiz-de          #+#    #+#             */
-/*   Updated: 2024/04/13 16:28:01 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/04/14 13:12:18 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/mandatory/mini_shell.h"
+#include "../../../includes/mandatory/mini_shell.h"
 
 int	ft_exit(char *buff)
 {

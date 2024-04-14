@@ -6,7 +6,7 @@
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 15:33:15 by roglopes          #+#    #+#             */
-/*   Updated: 2024/04/13 15:33:31 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/04/14 13:12:33 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** [VALORES DE RETORNO]
 ** Retorna verdadeiro se a linha de comando for uma declaração de variável e falso se não for.
 */
-#include "../../includes/mandatory/mini_shell.h"
+#include "../../../includes/mandatory/mini_shell.h"
 
 bool	commandline_var(char *cmd)
 {

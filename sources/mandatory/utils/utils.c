@@ -6,11 +6,11 @@
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 06:34:32 by lluiz-de          #+#    #+#             */
-/*   Updated: 2024/04/13 19:42:40 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/04/14 16:54:48 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/mandatory/mini_shell.h"
+#include "../../../includes/mandatory/mini_shell.h"
 
 char	*ft_strtok(char *str, const char *delim)
 {

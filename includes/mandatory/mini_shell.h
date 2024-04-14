@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lluiz-de <lluiz-de@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 16:52:11 by roglopes          #+#    #+#             */
-/*   Updated: 2024/04/14 01:21:01 by lluiz-de         ###   ########.fr       */
+/*   Updated: 2024/04/14 18:16:28 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,18 @@
 # include <unistd.h>
 
 # define ARG_MAX 4096 // Máximo do próprio shell//
-#define TOKEN_WORD 1
-#define TOKEN_OPERATOR 2
-#define TOKEN_HEREDOC 3
-#define TOKEN_APPEND 4
-#define TOKEN_PIPE 5
-#define TOKEN_DOLLAR 6
-#define TOKEN_L_PAREN 7
-#define TOKEN_R_PAREN 8
-#define TOKEN_QUOTE 9
-#define TOKEN_DOUBLE_QUOTE 10
-#define TOKEN_L_REDIR 11
-#define TOKEN_R_REDIR 12
+/* # define TOKEN_WORD 1
+# define TOKEN_OPERATOR 2
+# define TOKEN_HEREDOC 3
+# define TOKEN_APPEND 4
+# define TOKEN_PIPE 5
+# define TOKEN_DOLLAR 6
+# define TOKEN_L_PAREN 7
+# define TOKEN_R_PAREN 8
+# define TOKEN_QUOTE 9
+# define TOKEN_DOUBLE_QUOTE 10
+# define TOKEN_L_REDIR 11
+# define TOKEN_R_REDIR 12 */
 
 typedef struct s_mini
 {
@@ -54,34 +54,35 @@ typedef struct s_mini
 	struct s_mini	*next;
 }					t_mini;
 
-typedef enum {
-    TOKEN_WORD,
-    TOKEN_OPERATOR,
-    TOKEN_HEREDOC,
-    TOKEN_APPEND,
-    TOKEN_PIPE,
-    TOKEN_DOLLAR,
-    TOKEN_L_PAREN,
-    TOKEN_R_PAREN,
-    TOKEN_QUOTE,
-    TOKEN_DOUBLE_QUOTE,
-    TOKEN_L_REDIR,
-    TOKEN_R_REDIR
-} TokenType;
+typedef enum
+{
+	TOKEN_WORD,
+	TOKEN_OPERATOR,
+	TOKEN_HEREDOC,
+	TOKEN_APPEND,
+	TOKEN_PIPE,
+	TOKEN_DOLLAR,
+	TOKEN_L_PAREN,
+	TOKEN_R_PAREN,
+	TOKEN_QUOTE,
+	TOKEN_DOUBLE_QUOTE,
+	TOKEN_L_REDIR,
+	TOKEN_R_REDIR
+}					TokenType;
 
-typedef struct Token
+typedef struct s_token
 {
 	char			*text;
 	TokenType		type;
-	struct Token	*next;
-}					Token;
+	struct s_token	*next;
+}				t_token;
 
-typedef struct Alias
+typedef struct s_alias
 {
 	char			*name;
 	char			*command;
-	struct Alias	*next;
-}					Alias;
+	struct s_alias	*next;
+}			t_alias;
 
 typedef enum
 {
@@ -90,14 +91,14 @@ typedef enum
 	COMMAND_REDIRECTION_INPUT,
 	COMMAND_REDIRECTION_OUTPUT,
 	COMMAND_REDIRECTION_APPEND
-}					CommandType;
+}				CommandType;
 
-typedef struct Command
+typedef struct s_command
 {
 	char			*text;
 	CommandType		type;
-	struct Command	*next;
-}					Command;
+	struct s_command	*next;
+}			t_command;
 
 // Utils
 char				*ft_strtok(char *str, const char *delim);
@@ -114,16 +115,27 @@ bool				commandline_var(char *cmd);
 bool				validate_name(char *var_name);
 
 // Free
-void				freecommands(Command *head);
-void				freetokens(Token *head);
+void				ft_free_commands(t_command *head);
+void				ft_free_tokens(t_token *head);
 
 // Tokenizer
-Token				*create_token(const char *text, TokenType type);
-Token				*tokenize_input(char *input);
-void				iterate_tokens(char *input, Token **current);
+t_token				*create_token(const char *text, TokenType type);
+
+t_token				*input_tokenizer(char *input);
+//t_token				*tokenize_input(char *input);
+void				iterate_tokens(char *input, t_token **current);
 bool				is_operator_char(char c);
 bool				is_inside_quotes(char *cursor);
 char				*skip_quotes(char *cursor);
 bool				is_operator_or_end(char *cursor);
+
+int					classify_token(const char *token);
+
+// Prompt
+char				*prompt(void);
+int					afterprompt(int is_after);
+
+// Signal
+void				handle_signal(int sign);
 
 #endif

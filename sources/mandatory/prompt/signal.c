@@ -1,39 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_type.c                                        :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/14 00:34:57 by lluiz-de          #+#    #+#             */
-/*   Updated: 2024/04/14 16:42:19 by roglopes         ###   ########.fr       */
+/*   Created: 2024/04/14 18:15:28 by roglopes          #+#    #+#             */
+/*   Updated: 2024/04/14 18:16:01 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/mandatory/mini_shell.h"
 
-void	ft_free_tokens(t_token *head)
+void	handle_signal(int sign)
 {
-	t_token	*temp;
-
-	while (head != NULL)
+	if (sign == SIGINT)
 	{
-		temp = head;
-		head = head->next;
-		free(temp->text);
-		free(temp);
+		printf("\n\033[1;31mMINIHELL>$\033[0m ");
+		fflush(stdout);
 	}
-}
-
-void	ft_free_commands(t_command *head)
-{
-	t_command	*temp;
-
-	while (head != NULL)
+	else if (sign == SIGQUIT)
 	{
-		temp = head;
-		head = head->next;
-		free(temp->text);
-		free(temp);
+	}
+	else if (sign == SIGTERM)
+	{
+	}
+	else if (sign == SIGTSTP)
+	{
+	}
+	else if (sign == SIGTTIN)
+	{
+	}
+	else if (sign == SIGTTOU)
+	{
+	}
+	else if (sign == SIGCHLD)
+	{
+	}
+	else if (sign == SIGPIPE)
+	{
+	}
+	else if (sign == SIGINT)
+	{
+	}
+	else if (sign == SIGTERM)
+	{
+		exit(EXIT_SUCCESS); // Ctrl+D || Vai sair do minishell
 	}
 }

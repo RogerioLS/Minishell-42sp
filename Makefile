@@ -6,7 +6,7 @@
 #    By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/31 16:34:27 by roglopes          #+#    #+#              #
-#    Updated: 2024/04/13 19:05:45 by roglopes         ###   ########.fr        #
+#    Updated: 2024/04/14 18:44:55 by roglopes         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,9 @@ HEADERS				= -I ./includes/mandatory/ -I ./libft/include/
 MAIN_DIR		= $(SOURCES_DIR)mandatory/main/
 UTILS_DIR		= $(SOURCES_DIR)mandatory/utils/
 VARIABLES_DIR	= $(SOURCES_DIR)mandatory/variables/
-TOKEN_DIR	= $(SOURCES_DIR)mandatory/tokenizer/
-FREE_DIR	= $(SOURCES_DIR)mandatory/free/
+TOKEN_DIR		= $(SOURCES_DIR)mandatory/tokenizer/
+FREE_DIR		= $(SOURCES_DIR)mandatory/free/
+PROMPT_DIR		= $(SOURCES_DIR)mandatory/prompt/
 
 LIBFT				= ./libft/libft.a
 
@@ -33,10 +34,10 @@ VALGRIND_LOG		= valgrind.log
 MAIN_SOURCES	= $(MAIN_DIR)main.c
 
 UTILS_SOURCES	= $(UTILS_DIR)utils.c \
-			$(UTILS_DIR)utils2.c \
+				$(UTILS_DIR)utils2.c \
 
 TOKEN_SOURCES	= $(TOKEN_DIR)tokenizer.c \
-			$(TOKEN_DIR)create_token.c \
+				$(TOKEN_DIR)create_token.c \
 
 FREE_SOURCES	= $(FREE_DIR)free_type.c
 
@@ -44,7 +45,10 @@ VARIABLES_SOURCES	= $(VARIABLES_DIR)exit_type.c \
 					$(VARIABLES_DIR)line_var.c \
 					$(VARIABLES_DIR)validates.c \
 
-SOURCES				= $(MAIN_SOURCES) $(UTILS_SOURCES) $(VARIABLES_SOURCES) $(TOKEN_SOURCES) $(FREE_SOURCES)
+PROMPT_SOURCES		= $(PROMPT_DIR)prompt.c \
+					$(PROMPT_DIR)signal.c
+
+SOURCES				= $(MAIN_SOURCES) $(UTILS_SOURCES) $(VARIABLES_SOURCES) $(TOKEN_SOURCES) $(FREE_SOURCES) $(PROMPT_SOURCES)
 
 OBJS				= $(patsubst $(SOURCES_DIR)%.c,$(OBJECTS_DIR)%.o, $(SOURCES))
 

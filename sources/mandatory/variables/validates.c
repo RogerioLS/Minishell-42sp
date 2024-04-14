@@ -6,7 +6,7 @@
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 15:34:18 by roglopes          #+#    #+#             */
-/*   Updated: 2024/04/13 15:34:35 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/04/14 13:12:45 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 ** VALORES DE RETORNO
 ** Retorna verdadeiro se o nome da variável contém apenas caracteres permitidos é falso ou se não é.
 */
-#include "../../includes/mandatory/mini_shell.h"
+#include "../../../includes/mandatory/mini_shell.h"
 
 bool	validate_name(char *var_name)
 {

@@ -1,14 +1,14 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main_lucas.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: lluiz-de <lluiz-de@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/13 18:43:16 by lluiz-de          #+#    #+#             */
-/*   Updated: 2024/04/13 18:46:58 by lluiz-de         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+// /* ************************************************************************** */
+// /*                                                                            */
+// /*                                                        :::      ::::::::   */
+// /*   main_lucas.c                                       :+:      :+:    :+:   */
+// /*                                                    +:+ +:+         +:+     */
+// /*   By: lluiz-de <lluiz-de@student.42.fr>          +#+  +:+       +#+        */
+// /*                                                +#+#+#+#+#+   +#+           */
+// /*   Created: 2024/04/13 18:43:16 by lluiz-de          #+#    #+#             */
+// /*   Updated: 2024/04/14 04:20:09 by lluiz-de         ###   ########.fr       */
+// /*                                                                            */
+// /* ************************************************************************** */
 
 #include "../../includes/mandatory/mini_shell.h"
 
@@ -26,45 +26,7 @@
 #define TOKEN_DOUBLE_QUOTE 10
 #define TOKEN_L_REDIR 11
 #define TOKEN_R_REDIR 12
-
-typedef struct Token {
-    char *text;
-    int type;
-    struct Token *next;
-} Token;
-
-Token *create_token(const char *text, int type) {
-    Token *token = malloc(sizeof(Token));
-    if (!token)
-        return NULL;
-    token->text = ft_strdup(text);
-    token->type = type;
-    token->next = NULL;
-    return token;
-}
-
-Token *input_tokenizer(char *input) {
-    Token *head = NULL;
-    Token **current = &head;
-
-    char *token;
-    token = ft_strtok(input, " ");
-    while (token != NULL) {
-        int token_type = classify_token(token);
-        *current = create_token(token, token_type);
-        current = &(*current)->next;
-        token = ft_strtok(NULL, " ");
-    }
-
-    return head;
-}
-
-int afterprompt(int is_after) {
-    static int after;
-    if (is_after != -1)
-        after = is_after;
-    return after;
-}
+#define MAX_COMMAND_LENGTH 1024
 
 int classify_token(const char *token) {
     if (!ft_strncmp(token, "<<", 2))
@@ -90,19 +52,41 @@ int classify_token(const char *token) {
     return TOKEN_WORD;
 }
 
-void print_tokens(Token *head) {
-    while (head != NULL) {
-        printf("Token: %s, Type: %d\n", head->text, head->type);
-        head = head->next;
+Token *input_tokenizer(char *input) {
+    Token *head = NULL;
+    Token **current = &head;
+
+    char *token;
+    token = ft_strtok(input, " ");
+    while (token != NULL) {
+        int token_type = classify_token(token);
+        *current = create_token(token, token_type);
+        current = &(*current)->next;
+        token = ft_strtok(NULL, " ");
+    }
+    return head;
+}
+
+int afterprompt(int is_after) {
+    static int after;
+    if (is_after != -1)
+        after = is_after;
+    return after;
+}
+
+void handle_signal(int signo) {
+    if (signo == SIGINT) {
+        write(STDOUT_FILENO, "\nMinihell>$ ", ft_strlen("\nMinihell>$ "));
+        fflush(stdout);
     }
 }
 
 char *prompt(void) {
     char *input;
     afterprompt(0);
-    input = readline("Minihell>$ ");
+    input = readline("\033[1;31mMINIHELL>$\033[0m ");
     if (!input) {
-        write(STDERR_FILENO, "Error reading input.\n", strlen("Error reading input.\n"));
+        write(STDERR_FILENO, "Error reading input.\n", ft_strlen("Error reading input.\n"));
         exit(EXIT_FAILURE);
     }
     afterprompt(1);
@@ -110,50 +94,32 @@ char *prompt(void) {
         add_history(input);
         ft_antispace(input);
     }
+    if (input[0] == '\0' || ft_strchr(input, ' ') != NULL) {
+        printf("\U0001F9CA ");
+    } else {
+        printf("\U0001F525 ");
+    }
     return input;
 }
 
+// void print_tokens(Token *head) {
+//     while (head != NULL) {
+//         printf("Recebido: %s \nToken de tipo: %d\n\n", head->text, head->type);
+//         head = head->next;
+//     }
+// }
 
 int main(void) {
+    printf("\033[1;33mMINIHELL started\033[0m\n");
     char *cmd_line;
     while (1) {
         cmd_line = prompt();
         if (cmd_line && *cmd_line) {
             Token *tokens = input_tokenizer(cmd_line);
-            print_tokens(tokens);
-            freeTokens(tokens);
+            // print_tokens(tokens);
+            freetokens(tokens);
         }
         free(cmd_line);
     }
     return 0;
 }
-
-// void	handle_signals(void)
-// {
-// 	signal(SIGINT, SIG_IGN);
-// 	signal(SIGQUIT, SIG_IGN); // Também serve para o CTRL+D //
-// 	signal(SIGTSTP, SIG_IGN);
-// 	signal(SIGTTIN, SIG_IGN);
-// 	signal(SIGTTOU, SIG_IGN);
-// 	signal(SIGCHLD, SIG_IGN);
-// }
-
-//.H minishell //
-
-// enum s_tokens
-// {
-//     ARGUMENT = 1,
-//     APPEND,
-//     BLOCK,
-//     DOUBLE_QUOTE,
-//     DOLLAR,
-//     EXEC,
-//     HEREDOC,
-//     L_PAREN,
-//     L_REDIR,
-//     PIPE,
-//     QUOTE,
-//     R_PAREN,
-//     R_REDIR,
-//     TOKEN_NULL
-// };

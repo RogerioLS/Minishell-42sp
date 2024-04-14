@@ -95,4 +95,8 @@ int		ft_exit(char *buff);
 bool	commandline_var(char *cmd);
 bool	validate_name(char *var_name);
 
+// Free
+void	freeCommands(Command *head);
+void	freeTokens(Token *head);
+
 #endif

@@ -41,10 +41,54 @@ typedef struct s_mini
 	struct s_mini	*next;
 }					t_mini;
 
+typedef enum
+{
+	TOKEN_WORD,
+	TOKEN_OPERATOR,
+	TOKEN_PIPE,
+	TOKEN_REDIRECT_IN,
+	TOKEN_REDIRECT_OUT,
+	TOKEN_APPEND_OUT
+}					TokenType;
+
+typedef struct Token
+{
+	char			*text;
+	TokenType		type;
+	struct Token	*next;
+}					Token;
+
+typedef struct Alias
+{
+	char			*name;
+	char			*command;
+	struct Alias	*next;
+}					Alias;
+
+typedef enum
+{
+	COMMAND_SIMPLE,
+	COMMAND_PIPELINE,
+	COMMAND_REDIRECTION_INPUT,
+	COMMAND_REDIRECTION_OUTPUT,
+	COMMAND_REDIRECTION_APPEND
+}					CommandType;
+
+typedef struct Command
+{
+	char			*text;
+	CommandType		type;
+	struct Command	*next;
+}					Command;
+
 // Utils
 char	*ft_strtok(char *str, const char *delim);
 char	*ft_antispace(char *buff);
 char	*ft_firstword(char *buff);
+
+// Utils2
+size_t	ft_strcspn(const char *s, const char *reject);
+size_t ft_strspn(const char *s, const char *accept);
 
 // Variables
 int		ft_exit(char *buff);

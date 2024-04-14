@@ -102,15 +102,17 @@ char *prompt(void) {
     afterprompt(0);
     input = readline("Minihell>$ ");
     if (!input) {
-        write(STDERR_FILENO, "Error reading input.\n", ft_strlen("Error reading input.\n"));
+        write(STDERR_FILENO, "Error reading input.\n", strlen("Error reading input.\n"));
         exit(EXIT_FAILURE);
     }
     afterprompt(1);
     if (input[0] != '\0') {
         add_history(input);
+        ft_antispace(input);
     }
     return input;
 }
+
 
 int main(void) {
     char *cmd_line;

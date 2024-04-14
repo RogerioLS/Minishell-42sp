@@ -25,16 +25,16 @@ Token	*create_token(const char *text, TokenType type)
 	return (token);
 }
 
-Token	*tokenize_input(char *input)
-{
-	Token	*head;
-	Token	**current;
+// Token	*tokenize_input(char *input)
+// {
+// 	Token	*head;
+// 	Token	**current;
 
-	head = NULL;
-	current = &head;
-	iterate_tokens(input, current);
-	return (head);
-}
+// 	head = NULL;
+// 	current = &head;
+// 	iterate_tokens(input, current);
+// 	return (head);
+// }
 
 void	iterate_tokens(char *input, Token **current)
 {

@@ -25,19 +25,6 @@ Token	*createToken(const char *text, TokenType type)
 	return (token);
 }
 
-// void	freeTokens(Token *head)
-// {
-// 	Token	*temp;
-
-// 	while (head != NULL)
-// 	{
-// 		temp = head;
-// 		head = head->next;
-// 		free(temp->text);
-// 		free(temp);
-// 	}
-// }
-
 bool	isOperatorChar(char c)
 {
 	return (ft_strchr(" \t\n|&;()<>", c) != NULL);

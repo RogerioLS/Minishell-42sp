@@ -59,6 +59,13 @@ Token *tokenize_input(char *input) {
     return head;
 }
 
+int afterprompt(int is_after) {
+    static int after;
+    if (is_after != -1)
+        after = is_after;
+    return after;
+}
+
 int classify_token(const char *token) {
     if (!ft_strncmp(token, "<<", 2))
         return TOKEN_HEREDOC;
@@ -103,13 +110,6 @@ char *prompt(void) {
         add_history(input);
     }
     return input;
-}
-
-int afterprompt(int is_after) {
-    static int after;
-    if (is_after != -1)
-        after = is_after;
-    return after;
 }
 
 int main(void) {

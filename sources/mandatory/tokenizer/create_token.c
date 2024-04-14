@@ -68,111 +68,78 @@ void	iterate_tokens(char *input, Token **current)
 
 //Tudo daqui pra baixo são testes por enquanto
 
-// void process_word(char *start, char *end, Token **current);
-// void process_operator(char *operator_char, Token **current);
+// #define TOKEN_WORD 1
+// #define TOKEN_OPERATOR 2
+// #define TOKEN_HEREDOC 3
+// #define TOKEN_APPEND 4
+// #define TOKEN_PIPE 5
+// #define TOKEN_DOLLAR 6
+// #define TOKEN_L_PAREN 7
+// #define TOKEN_R_PAREN 8
+// #define TOKEN_QUOTE 9
+// #define TOKEN_DOUBLE_QUOTE 10
+// #define TOKEN_L_REDIR 11
+// #define TOKEN_R_REDIR 12
 
-// void iterate_tokens(char *input, Token **current)
-// {
-//     char *start = input;
-//     char *cursor = input;
+// typedef struct Token {
+//     char *text;
+//     int type;
+//     struct Token *next;
+// } Token;
 
-//     while (*cursor)
-//     {
-//         if (is_inside_quotes(cursor))
-//             cursor = skip_quotes(cursor);
-//         else if (is_operator_or_end(cursor))
-//         {
-//             if (start < cursor)
-//                 process_word(start, cursor, current);
+// Token *create_token(const char *text, int type) {
+//     Token *token = malloc(sizeof(Token));
+//     if (!token)
+//         return NULL;
+//     token->text = ft_strdup(text);
+//     token->type = type;
+//     token->next = NULL;
+//     return token;
+// }
 
-//             if (is_operator_char(*cursor))
-//                 process_operator(cursor, current);
+// Token *tokenize_input(char *input) {
+//     Token *head = NULL;
+//     Token **current = &head;
 
-//             start = cursor + 1;
-//         }
-//         cursor++;
+//     char *token;
+//     token = ft_strtok(input, " ");
+//     while (token != NULL) {
+//         int token_type = classify_token(token);
+//         *current = create_token(token, token_type);
+//         current = &(*current)->next;
+//         token = ft_strtok(NULL, " ");
+//     }
+
+//     return head;
+// }
+
+// int classify_token(const char *token) {
+//     if (!strncmp(token, "<<", 2))
+//         return TOKEN_HEREDOC;
+//     if (!strncmp(token, ">>", 2))
+//         return TOKEN_APPEND;
+//     if (*token == '|')
+//         return TOKEN_PIPE;
+//     if (*token == '$')
+//         return TOKEN_DOLLAR;
+//     if (*token == '(')
+//         return TOKEN_L_PAREN;
+//     if (*token == ')')
+//         return TOKEN_R_PAREN;
+//     if (*token == '\'')
+//         return TOKEN_QUOTE;
+//     if (*token == '"')
+//         return TOKEN_DOUBLE_QUOTE;
+//     if (*token == '<')
+//         return TOKEN_L_REDIR;
+//     if (*token == '>')
+//         return TOKEN_R_REDIR;
+//     return TOKEN_WORD;
+// }
+
+// void print_tokens(Token *head) {
+//     while (head != NULL) {
+//         printf("Token: %s, Tipo: %d\n", head->text, head->type);
+//         head = head->next;
 //     }
 // }
-
-// void process_word(char *start, char *end, Token **current)
-// {
-//     char *classification = classify_token(start);
-//     TokenType token_type;
-
-//     if (ft_strcmp(classification, "HEREDOC") == 0)
-//         token_type = TOKEN_HEREDOC;
-//     else if (ft_strcmp(classification, "APPEND") == 0)
-//         token_type = TOKEN_APPEND;
-//     else if (ft_strcmp(classification, "PIPE") == 0)
-//         token_type = TOKEN_PIPE;
-//     else if (ft_strcmp(classification, "DOLLAR") == 0)
-//         token_type = TOKEN_DOLLAR;
-//     else if (ft_strcmp(classification, "L_PAREN") == 0)
-//         token_type = TOKEN_L_PAREN;
-//     else if (ft_strcmp(classification, "R_PAREN") == 0)
-//         token_type = TOKEN_R_PAREN;
-//     else if (ft_strcmp(classification, "QUOTE") == 0)
-//         token_type = TOKEN_QUOTE;
-//     else if (ft_strcmp(classification, "DOUBLE_QUOTE") == 0)
-//         token_type = TOKEN_DOUBLE_QUOTE;
-//     else if (ft_strcmp(classification, "L_REDIR") == 0)
-//         token_type = TOKEN_L_REDIR;
-//     else if (ft_strcmp(classification, "R_REDIR") == 0)
-//         token_type = TOKEN_R_REDIR;
-//     else
-//         token_type = TOKEN_WORD;
-
-//     *current = create_token(start, token_type);
-//     current = &(*current)->next;
-// }
-
-// void process_operator(char *operator_char, Token **current)
-// {
-//     *current = create_token(operator_char, TOKEN_OPERATOR);
-//     current = &(*current)->next;
-// }
-
-// int	*classify_token(const char *token)
-// {
-// 	if (!ft_strncmp(token, "<<", 2))
-// 		return ("HEREDOC");
-// 	if (!ft_strncmp(token, ">>", 2))
-// 		return ("APPEND");
-// 	if (*token == '|')
-// 		return ("PIPE");
-// 	if (*token == '$')
-// 		return ("DOLLAR");
-// 	if (*token == '(')
-// 		return ("L_PAREN");
-// 	if (*token == ')')
-// 		return ("R_PAREN");
-// 	if (*token == '\'')
-// 		return ("QUOTE");
-// 	if (*token == '"')
-// 		return ("DOUBLE_QUOTE");
-// 	if (*token == '<')
-// 		return ("L_REDIR");
-// 	if (*token == '>')
-// 		return ("R_REDIR");
-// 	return ("ARGUMENT");
-// }
-
-//.H minishell //
-
-// enum e_tokens
-// {
-//     ARGUMENT = 1,
-//     APPEND,
-//     BLOCK,
-//     DOUBLE_QUOTE,
-//     DOLLAR,
-//     EXEC,
-//     HEREDOC,
-//     L_PAREN,
-//     L_REDIR,
-//     PIPE,
-//     QUOTE,
-//     R_PAREN,
-//     R_REDIR,
-//     TOKEN_NULL
-// };

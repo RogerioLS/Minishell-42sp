@@ -32,6 +32,18 @@
 # include <unistd.h>
 
 # define ARG_MAX 4096 // Máximo do próprio shell//
+#define TOKEN_WORD 1
+#define TOKEN_OPERATOR 2
+#define TOKEN_HEREDOC 3
+#define TOKEN_APPEND 4
+#define TOKEN_PIPE 5
+#define TOKEN_DOLLAR 6
+#define TOKEN_L_PAREN 7
+#define TOKEN_R_PAREN 8
+#define TOKEN_QUOTE 9
+#define TOKEN_DOUBLE_QUOTE 10
+#define TOKEN_L_REDIR 11
+#define TOKEN_R_REDIR 12
 
 typedef struct s_mini
 {
@@ -42,15 +54,20 @@ typedef struct s_mini
 	struct s_mini	*next;
 }					t_mini;
 
-typedef enum
-{
-	TOKEN_WORD,
-	TOKEN_OPERATOR,
-	TOKEN_PIPE,
-	TOKEN_REDIRECT_IN,
-	TOKEN_REDIRECT_OUT,
-	TOKEN_APPEND_OUT
-}					TokenType;
+typedef enum {
+    TOKEN_WORD,
+    TOKEN_OPERATOR,
+    TOKEN_HEREDOC,
+    TOKEN_APPEND,
+    TOKEN_PIPE,
+    TOKEN_DOLLAR,
+    TOKEN_L_PAREN,
+    TOKEN_R_PAREN,
+    TOKEN_QUOTE,
+    TOKEN_DOUBLE_QUOTE,
+    TOKEN_L_REDIR,
+    TOKEN_R_REDIR
+} TokenType;
 
 typedef struct Token
 {

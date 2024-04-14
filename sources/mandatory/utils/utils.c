@@ -12,55 +12,23 @@
 
 #include "../../includes/mandatory/mini_shell.h"
 
-/* char	*ft_strtok(char *str, const char *delim)
+char	*ft_strtok(char *str, const char *delim)
 {
-	static char	*token;
-	static char	*nextToken;
-	char		*start;
-	char		charisDelimiter;
-	const		*end;
-	int			*d;
+	static char	*last = NULL;
+	char		*ret;
 
-	token = NULL;
-	nextToken = NULL;
-	if (str != NULL)
-		token = str;
-	else
-		token = nextToken;
-	//printf("Comando recebido: %s\n", token);
-	if (token == NULL)
+	if (str)
+		last = str;
+	if (!last)
 		return (NULL);
-	start = token;
-	end = token;
-	while (*end != '\0')
-	{
-		isDelimiter = 0;
-		d = delim;
-		while (*d != '\0')
-		{
-			if (*end == *d)
-			{
-				isDelimiter = 1;
-				break ;
-			}
-			d++;
-		}
-		if (isDelimiter)
-			break ;
-		end++;
-	}
-	if (*end != '\0')
-	{
-		*end = '\0';
-		nextToken = end + 1;
-	}
-	else
-	{
-		nextToken = NULL;
-	}
-	token = nextToken;
-	return (start);
-}*/
+	ret = last + ft_strspn(last, delim);
+	last = ret + ft_strcspn(ret, delim);
+	if (last == ret)
+		return (last = NULL);
+	if (*last)
+		*last++ = '\0';
+	return (ret);
+}
 
 char	*ft_antispace(char *buff)
 {
@@ -69,7 +37,6 @@ char	*ft_antispace(char *buff)
 	x = 0;
 	while (buff[x] && (buff[x] == ' ' || buff[x] == '\t'))
 		x++;
-	printf("Comando recebido: %s\n", &buff[x]);
 	return (&buff[x]);
 }
 
@@ -86,4 +53,17 @@ char	*ft_firstword(char *buff)
 			break ;
 	aux[x] = '\0';
 	return (aux);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	while (*s)
+	{
+		if (*s == c)
+			return ((char *)s);
+		s++;
+	}
+	if (c == '\0')
+		return ((char *)s);
+	return (NULL);
 }

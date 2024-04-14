@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main_rog.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lluiz-de <lluiz-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 16:58:49 by roglopes          #+#    #+#             */
-/*   Updated: 2024/04/13 15:50:21 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/04/14 01:21:57 by lluiz-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "../../../includes/mandatory/mini_shell.h"
+#include "../../includes/mandatory/mini_shell.h"
 // A primeira etapa de processamento é a leitura do comando.
 // Funcao para lidar com entrada do usuario
 
@@ -20,54 +20,54 @@
 // apos a execucao digite algo.
 // para finalizar o programa basta da crtl+d
 
-#include <readline/history.h>
-#include <readline/readline.h>
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/wait.h>
-#include <unistd.h>
+// #include <readline/history.h>
+// #include <readline/readline.h>
+// #include <stdbool.h>
+// #include <stdio.h>
+// #include <stdlib.h>
+// #include <string.h>
+// #include <sys/wait.h>
+// #include <unistd.h>
 
-typedef enum
-{
-	TOKEN_WORD,
-	TOKEN_OPERATOR,
-	TOKEN_PIPE,
-	TOKEN_REDIRECT_IN,
-	TOKEN_REDIRECT_OUT,
-	TOKEN_APPEND_OUT
-}					TokenType;
+// typedef enum
+// {
+// 	TOKEN_WORD,
+// 	TOKEN_OPERATOR,
+// 	TOKEN_PIPE,
+// 	TOKEN_REDIRECT_IN,
+// 	TOKEN_REDIRECT_OUT,
+// 	TOKEN_APPEND_OUT
+// }					TokenType;
 
-typedef struct Token
-{
-	char			*text;
-	TokenType		type;
-	struct Token	*next;
-}					Token;
+// typedef struct Token
+// {
+// 	char			*text;
+// 	TokenType		type;
+// 	struct Token	*next;
+// }					Token;
 
-typedef struct Alias
-{
-	char			*name;
-	char			*command;
-	struct Alias	*next;
-}					Alias;
+// typedef struct Alias
+// {
+// 	char			*name;
+// 	char			*command;
+// 	struct Alias	*next;
+// }					Alias;
 
-typedef enum
-{
-	COMMAND_SIMPLE,
-	COMMAND_PIPELINE,
-	COMMAND_REDIRECTION_INPUT,
-	COMMAND_REDIRECTION_OUTPUT,
-	COMMAND_REDIRECTION_APPEND
-}					CommandType;
+// typedef enum
+// {
+// 	COMMAND_SIMPLE,
+// 	COMMAND_PIPELINE,
+// 	COMMAND_REDIRECTION_INPUT,
+// 	COMMAND_REDIRECTION_OUTPUT,
+// 	COMMAND_REDIRECTION_APPEND
+// }					CommandType;
 
-typedef struct Command
-{
-	char			*text;
-	CommandType		type;
-	struct Command	*next;
-}					Command;
+// typedef struct Command
+// {
+// 	char			*text;
+// 	CommandType		type;
+// 	struct Command	*next;
+// }					Command;
 
 void	executeCommand(Command *cmd)
 {
@@ -177,18 +177,18 @@ Command	*parseCommands(Token *tokens)
 	return (head);
 }
 
-void	freeCommands(Command *head)
-{
-	Command	*temp;
+// void	freeCommands(Command *head)
+// {
+// 	Command	*temp;
 
-	while (head != NULL)
-	{
-		temp = head;
-		head = head->next;
-		free(temp->text);
-		free(temp);
-	}
-}
+// 	while (head != NULL)
+// 	{
+// 		temp = head;
+// 		head = head->next;
+// 		free(temp->text);
+// 		free(temp);
+// 	}
+// }
 
 char	*expandVariables(const char *input)
 {
@@ -233,88 +233,88 @@ char	*expandVariables(const char *input)
 	return (buffer);
 }
 
-Token	*createToken(const char *text, TokenType type)
-{
-	Token	*token;
+// Token	*createToken(const char *text, TokenType type)
+// {
+// 	Token	*token;
 
-	token = malloc(sizeof(Token));
-	if (!token)
-		return (NULL);
-	token->text = strdup(text);
-	token->type = type;
-	token->next = NULL;
-	return (token);
-}
+// 	token = malloc(sizeof(Token));
+// 	if (!token)
+// 		return (NULL);
+// 	token->text = strdup(text);
+// 	token->type = type;
+// 	token->next = NULL;
+// 	return (token);
+// }
 
-void	freeTokens(Token *head)
-{
-	Token	*temp;
+// void	freeTokens(Token *head)
+// {
+// 	Token	*temp;
 
-	while (head != NULL)
-	{
-		temp = head;
-		head = head->next;
-		free(temp->text);
-		free(temp);
-	}
-}
+// 	while (head != NULL)
+// 	{
+// 		temp = head;
+// 		head = head->next;
+// 		free(temp->text);
+// 		free(temp);
+// 	}
+// }
 
-bool	isOperatorChar(char c)
-{
-	return (strchr(" \t\n|&;()<>", c) != NULL);
-}
+// bool	isOperatorChar(char c)
+// {
+// 	return (strchr(" \t\n|&;()<>", c) != NULL);
+// }
 
-Token	*tokenizeInput(char *input)
-{
-	Token	*head;
-	Token	**current;
-	char	*start;
-	char	*cursor;
-	bool	inQuotes;
-	char	quoteType;
-	char	op[2];
+// Token	*tokenizeInput(char *input)
+// {
+// 	Token	*head;
+// 	Token	**current;
+// 	char	*start;
+// 	char	*cursor;
+// 	bool	inQuotes;
+// 	char	quoteType;
+// 	char	op[2];
 
-	head = NULL;
-	current = &head;
-	start = input;
-	cursor = input;
-	inQuotes = false;
-	quoteType = 0;
-	while (*cursor)
-	{
-		if (inQuotes)
-		{
-			if (*cursor == quoteType)
-				inQuotes = false;
-			cursor++;
-		}
-		else
-		{
-			if (*cursor == '\'' || *cursor == '\"')
-			{
-				inQuotes = true;
-				quoteType = *cursor;
-			}
-			else if (isOperatorChar(*cursor) || *(cursor + 1) == '\0')
-			{
-				if (start < cursor)
-				{
-					*current = createToken(start, TOKEN_WORD);
-					current = &(*current)->next;
-				}
-				if (isOperatorChar(*cursor))
-				{
-					op[2] = {*cursor, '\0'};
-					*current = createToken(op, TOKEN_OPERATOR);
-					current = &(*current)->next;
-				}
-				start = cursor + 1;
-			}
-			cursor++;
-		}
-	}
-	return (head);
-}
+// 	head = NULL;
+// 	current = &head;
+// 	start = input;
+// 	cursor = input;
+// 	inQuotes = false;
+// 	quoteType = 0;
+// 	while (*cursor)
+// 	{
+// 		if (inQuotes)
+// 		{
+// 			if (*cursor == quoteType)
+// 				inQuotes = false;
+// 			cursor++;
+// 		}
+// 		else
+// 		{
+// 			if (*cursor == '\'' || *cursor == '\"')
+// 			{
+// 				inQuotes = true;
+// 				quoteType = *cursor;
+// 			}
+// 			else if (isOperatorChar(*cursor) || *(cursor + 1) == '\0')
+// 			{
+// 				if (start < cursor)
+// 				{
+// 					*current = createToken(start, TOKEN_WORD);
+// 					current = &(*current)->next;
+// 				}
+// 				if (isOperatorChar(*cursor))
+// 				{
+// 					op[2] = {*cursor, '\0'};
+// 					*current = createToken(op, TOKEN_OPERATOR);
+// 					current = &(*current)->next;
+// 				}
+// 				start = cursor + 1;
+// 			}
+// 			cursor++;
+// 		}
+// 	}
+// 	return (head);
+// }
 
 // Modificação na definição da função expandAliases
 void	expandAliases(Token *tokens, Alias *aliasMap)
@@ -360,18 +360,18 @@ int	main(void)
 			add_history(input);
 		expandedInput = expandVariables(input);
 		free(input);
-		tokens = tokenizeInput(expandedInput);
+		tokens = tokenize_input(expandedInput);
 		free(expandedInput);
 		expandAliases(tokens, aliasMap);
 		commands = parseCommands(tokens);
-		freeTokens(tokens);
+		freetokens(tokens);
 		cmd = commands;
 		while (cmd != NULL)
 		{
 			executeCommand(cmd);
 			cmd = cmd->next;
 		}
-		freeCommands(commands);
+		freecommands(commands);
 		input = readline("shell> ");
 	}
 	return (0);

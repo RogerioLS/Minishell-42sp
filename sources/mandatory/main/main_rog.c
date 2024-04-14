@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_rog.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lluiz-de <lluiz-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 16:58:49 by roglopes          #+#    #+#             */
-/*   Updated: 2024/04/13 15:50:21 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/04/14 01:21:57 by lluiz-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -360,7 +360,7 @@ int	main(void)
 			add_history(input);
 		expandedInput = expandVariables(input);
 		free(input);
-		tokens = tokenizeInput(expandedInput);
+		tokens = tokenize_input(expandedInput);
 		free(expandedInput);
 		expandAliases(tokens, aliasMap);
 		commands = parseCommands(tokens);
@@ -371,7 +371,7 @@ int	main(void)
 			executeCommand(cmd);
 			cmd = cmd->next;
 		}
-		freeCommands(commands);
+		freecommands(commands);
 		input = readline("shell> ");
 	}
 	return (0);

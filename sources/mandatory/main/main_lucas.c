@@ -231,7 +231,9 @@ int main(void)
     t_token *tokens;
 
     ft_printf("\033[1;33mMINISHELL started!\033[0m\n");
-    signal(SIGINT, handle_signal);
+    signal(SIGINT, handle_signal); 
+    signal(SIGQUIT, SIG_IGN);       
+    signal(SIGTERM, handle_signal); 
     while (1)
     {
         mini.cmd_line = prompt();

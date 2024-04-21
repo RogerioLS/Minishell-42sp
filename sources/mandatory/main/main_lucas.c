@@ -149,6 +149,7 @@ void	ft_pwd(void)
 	getcwd(wd, sizeof(wd));
 	ft_putendl_fd(wd, 1);
 }
+
 void export_variable(char **args) {
     if (args[1] != NULL) {
         char *name = ft_strtok(args[1], "=");
@@ -186,7 +187,7 @@ void execute_command(char **args) {
         return;
     }
 
-    if (strcmp(args[0], "pwd") == 0) {
+    if (ft_strcmp(args[0], "pwd") == 0) {
         ft_pwd();
     } else if (ft_strcmp(args[0], "ls") == 0) {
         list_directory(args);

@@ -89,7 +89,7 @@ void	iterate_tokens(char *input, t_token **current)
 	current = &head;
 	iterate_tokens(input, current);
 	return (head);
-} */
+}*/
 
 t_token	*input_tokenizer(char *input)
 {
@@ -100,11 +100,14 @@ t_token	*input_tokenizer(char *input)
 
 	head = NULL;
 	current = &head;
+	printf("Input received by input_tokenizer: '%s'\n", input); // Verifica a entrada recebida
 	token = ft_strtok(input, " ");
+	printf("Update received by input_tokenizer: '%s'\n", input); // Verifica a entrada recebida
 	while (token != NULL)
 	{
 		token_type = classify_token(token);
 		*current = create_token(token, token_type);
+		printf("Created token: '%s' with type %d\n", token, token_type);  // Debug print
 		current = &(*current)->next;
 		token = ft_strtok(NULL, " ");
 	}

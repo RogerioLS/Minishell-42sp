@@ -12,7 +12,7 @@
 
 #include "../../../includes/mandatory/mini_shell.h"
 
-char	*ft_strtok(char *str, const char *delim)
+/* char	*ft_strtok(char *str, const char *delim)
 {
 	static char	*last;
 	char		*ret;
@@ -37,6 +37,39 @@ char	*ft_strtok(char *str, const char *delim)
 	{
 		*last = '\0';
 		last++;
+	}
+	printf("Tokenizing: '%s'\n", ret);
+	return (ret);
+} */
+
+char	*ft_strtok(char *str, const char *delim)
+{
+	static char	*last;
+	char		*ret;
+
+	if (str != NULL)
+	{
+		last = str;
+	}
+	else if (last == NULL || *last == '\0')
+	{
+		return (NULL);
+	}
+	last += ft_strspn(last, delim);
+	if (*last == '\0')
+	{
+		return (NULL);
+	}
+	ret = last;
+	last += ft_strcspn(last, delim);
+	if (*last != '\0')
+	{
+		*last = '\0';
+		last++;
+	}
+	else
+	{
+		last = NULL;
 	}
 	return (ret);
 }

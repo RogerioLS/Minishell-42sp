@@ -6,7 +6,7 @@
 /*   By: lluiz-de <lluiz-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 15:27:05 by roglopes          #+#    #+#             */
-/*   Updated: 2024/04/21 03:10:00 by lluiz-de         ###   ########.fr       */
+/*   Updated: 2024/05/01 18:49:28 by lluiz-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,16 @@ char *ft_strcpy(char *dest, const char *src){
 	while ((*dest++ = *src++) != '\0');
 	return tmp;
 
+}
+
+int ft_strcmp(const char *s1, const char *s2)
+{
+	while (*s1 && *s1 == *s2)
+	{
+		s1++;
+		s2++;
+	}
+	return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }
 
 void print_file_info(struct dirent *entry, char *path) {
@@ -142,14 +152,6 @@ void print_environment() {
     }
 }
 
-void	ft_pwd(void)
-{
-	char	wd[1024];
-	
-	getcwd(wd, sizeof(wd));
-	ft_putendl_fd(wd, 1);
-}
-
 void export_variable(char **args) {
     if (args[1] != NULL) {
         char *name = ft_strtok(args[1], "=");
@@ -166,44 +168,6 @@ void export_variable(char **args) {
         print_environment();
     }
 }
-
-void clear_screen() {
-    ft_printf("\e[2J\e[H");
-}
-
-int ft_strcmp(const char *s1, const char *s2)
-{
-	while (*s1 && *s1 == *s2)
-	{
-		s1++;
-		s2++;
-	}
-	return (*(unsigned char *)s1 - *(unsigned char *)s2);
-}
-
-
-void execute_command(char **args) {
-    if (args == NULL || args[0] == NULL) {
-        return;
-    }
-
-    if (ft_strcmp(args[0], "pwd") == 0) {
-        ft_pwd();
-    } else if (ft_strcmp(args[0], "ls") == 0) {
-        list_directory(args);
-    } else if (ft_strcmp(args[0], "clear") == 0) {
-        clear_screen();
-    } else if (ft_strcmp(args[0], "exit") == 0) {
-        exit(EXIT_SUCCESS);
-    } else if (ft_strcmp(args[0], "export") == 0) {
-        export_variable(args);
-    } else if (ft_strcmp(args[0], "env") == 0) {
-        print_environment();
-    } else {
-        ft_printf("command not found: %s\n", args[0]);
-    }
-}
-
 
 char **tokens_to_argv(t_token *tokens) {
     int count = ft_lstsize(tokens);
@@ -225,8 +189,75 @@ char **tokens_to_argv(t_token *tokens) {
 }
 
 
-int main(void)
-{
+void clear_screen() {
+    ft_printf("\e[2J\e[H");
+}
+
+size_t ft_arraylen(char **array) {
+    size_t len = 0;
+    while (array[len] != NULL) {
+        len++;
+    }
+    return len;
+}
+
+void ft_pwd(int argc, char **argv) {
+    if (argc > 1) {
+        ft_printf("pwd: too many arguments\n");
+    } else if (argc == 1) {
+        if (argv[0][0] == '-' && argv[0][1] != '\0') {
+            ft_printf("pwd: bad option: %s\n", argv[0]);
+        } else {
+            ft_printf("zsh: %s not found\n", argv[0]);
+        }
+    } else {
+        char wd[1024];
+        getcwd(wd, sizeof(wd));
+        ft_putendl_fd(wd, 1);
+    }
+}
+
+void ft_cd(char *path) {
+    if (!path) {
+        char *home = getenv("HOME");
+        if (home == NULL) {
+            ft_printf("cd: HOME not set\n");
+            return;
+        }
+        path = home;
+    }
+
+    if (chdir(path) != 0) {
+        perror("cd");
+    }
+}
+
+
+void execute_command(char **args, int argc) {
+    if (args == NULL || args[0] == NULL) {
+        return;
+    }
+
+    if (ft_strcmp(args[0], "pwd") == 0) {
+        ft_pwd(argc - 1, args + 1); 
+    } else if (ft_strcmp(args[0], "ls") == 0) {
+        list_directory(args);
+    } else if (ft_strcmp(args[0], "clear") == 0) {
+        clear_screen();
+    } else if (ft_strcmp(args[0], "exit") == 0) {
+        exit(EXIT_SUCCESS);
+    } else if (ft_strcmp(args[0], "cd") == 0) {
+        ft_cd(args[1]);
+    } else if (ft_strcmp(args[0], "export") == 0) {
+        export_variable(args);
+    } else if (ft_strcmp(args[0], "env") == 0) {
+        print_environment();
+    } else {
+        ft_printf("command not found: %s\n", args[0]);
+    }
+}
+
+int main(void) {
     t_mini  mini;
     t_token *tokens;
 
@@ -234,20 +265,17 @@ int main(void)
     signal(SIGINT, handle_signal); 
     signal(SIGQUIT, SIG_IGN);       
     signal(SIGTERM, handle_signal); 
-    while (1)
-    {
+    while (1) {
         mini.cmd_line = prompt();
-        if (!mini.cmd_line)
-        {
+        if (!mini.cmd_line) {
             ft_printf("\n");
             exit(EXIT_SUCCESS);
         }
-        if (mini.cmd_line && *mini.cmd_line)
-        {
+        if (mini.cmd_line && *mini.cmd_line) {
             tokens = input_tokenizer(mini.cmd_line);
             char **args = tokens_to_argv(tokens);
 
-            execute_command(args);
+            execute_command(args, ft_arraylen(args));
 
             free(args);
             ft_free_tokens(tokens);

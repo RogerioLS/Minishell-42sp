@@ -6,7 +6,7 @@
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 23:33:24 by lluiz-de          #+#    #+#             */
-/*   Updated: 2024/04/14 19:05:42 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/05/05 17:50:50 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,30 @@ void	iterate_tokens(char *input, t_token **current)
 	}
 }
 
+char	**tokens_to_argv(t_token *tokens)
+{
+	int		count;
+	char	**args;
+	int		i;
+
+	count = ft_lstsize_token(tokens);
+	args = malloc((count + 1) * sizeof(char *));
+	if (!args)
+	{
+		perror("malloc() error");
+		exit(EXIT_FAILURE);
+	}
+	i = 0;
+	while (tokens)
+	{
+		args[i] = ft_strdup(tokens->text);
+		tokens = tokens->next;
+		i++;
+	}
+	args[i] = NULL;
+	return (args);
+}
+
 /* t_token	*tokenize_input(char *input)
 {
 	t_token	*head;
@@ -100,14 +124,11 @@ t_token	*input_tokenizer(char *input)
 
 	head = NULL;
 	current = &head;
-	printf("Input received by input_tokenizer: '%s'\n", input); // Verifica a entrada recebida
 	token = ft_strtok(input, " ");
-	printf("Update received by input_tokenizer: '%s'\n", input); // Verifica a entrada recebida
 	while (token != NULL)
 	{
 		token_type = classify_token(token);
 		*current = create_token(token, token_type);
-		printf("Created token: '%s' with type %d\n", token, token_type);  // Debug print
 		current = &(*current)->next;
 		token = ft_strtok(NULL, " ");
 	}

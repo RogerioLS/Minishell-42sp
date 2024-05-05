@@ -6,7 +6,7 @@
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 16:52:11 by roglopes          #+#    #+#             */
-/*   Updated: 2024/04/14 18:16:28 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/05/05 17:49:29 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,12 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# include <grp.h>
+# include <pwd.h>
+# include <sys/stat.h>
+# include <limits.h>
 
+# define MAX_PATH_LEN 1024
 # define ARG_MAX 4096 // Máximo do próprio shell//
 /* # define TOKEN_WORD 1
 # define TOKEN_OPERATOR 2
@@ -128,8 +133,8 @@ bool				is_operator_char(char c);
 bool				is_inside_quotes(char *cursor);
 char				*skip_quotes(char *cursor);
 bool				is_operator_or_end(char *cursor);
-
 int					classify_token(const char *token);
+char				**tokens_to_argv(t_token *tokens);
 
 // Prompt
 char				*prompt(void);
@@ -137,5 +142,20 @@ int					afterprompt(int is_after);
 
 // Signal
 void				handle_signal(int sign);
+
+// Command
+void				execute_command(char **args, int argc);
+size_t				ft_arraylen(char **array);
+void				export_variable(char **args);
+void				ft_cd(char *path);
+void				clear_screen(void);
+void				list_directory(char **args);
+void				ft_pwd(int argc, char **argv);
+
+// Command Utils
+char				*ft_strcpy(char *dest, const char *src);
+void				process_arguments(char **args, char *path, int *long_format);
+void				print_file_info(struct dirent *entry, char *path);
+int					ft_lstsize_token(t_token *head);
 
 #endif

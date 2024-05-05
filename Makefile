@@ -6,7 +6,7 @@
 #    By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/31 16:34:27 by roglopes          #+#    #+#              #
-#    Updated: 2024/04/14 18:44:55 by roglopes         ###   ########.fr        #
+#    Updated: 2024/05/05 17:52:22 by roglopes         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ VARIABLES_DIR	= $(SOURCES_DIR)mandatory/variables/
 TOKEN_DIR		= $(SOURCES_DIR)mandatory/tokenizer/
 FREE_DIR		= $(SOURCES_DIR)mandatory/free/
 PROMPT_DIR		= $(SOURCES_DIR)mandatory/prompt/
+COMMAND_DIR		= $(SOURCES_DIR)mandatory/command/
 
 LIBFT				= ./libft/libft.a
 
@@ -48,7 +49,10 @@ VARIABLES_SOURCES	= $(VARIABLES_DIR)exit_type.c \
 PROMPT_SOURCES		= $(PROMPT_DIR)prompt.c \
 					$(PROMPT_DIR)signal.c
 
-SOURCES				= $(MAIN_SOURCES) $(UTILS_SOURCES) $(VARIABLES_SOURCES) $(TOKEN_SOURCES) $(FREE_SOURCES) $(PROMPT_SOURCES)
+COMMAND_SOURCES		= $(COMMAND_DIR)execute_command.c \
+					$(COMMAND_DIR)execute_command2.c
+
+SOURCES				= $(MAIN_SOURCES) $(UTILS_SOURCES) $(VARIABLES_SOURCES) $(TOKEN_SOURCES) $(FREE_SOURCES) $(PROMPT_SOURCES) $(COMMAND_SOURCES)
 
 OBJS				= $(patsubst $(SOURCES_DIR)%.c,$(OBJECTS_DIR)%.o, $(SOURCES))
 

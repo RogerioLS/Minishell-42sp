@@ -6,7 +6,7 @@
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 06:30:15 by lluiz-de          #+#    #+#             */
-/*   Updated: 2024/04/14 13:12:18 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/05/05 16:38:57 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	ft_exit(char *buff)
 		return (255);
 	}
 	x = 0;
-	//t_vars->aftercmd = 0;
 	if (ft_strlen(arg) && ft_isdigit((int)arg[0]))
 		x = ft_atoi(arg);
 	else if (!ft_isdigit((int)arg[0]) && arg[0] != 0)

@@ -151,6 +151,7 @@ void				ft_cd(char *path);
 void				clear_screen(void);
 void				list_directory(char **args);
 void				ft_pwd(int argc, char **argv);
+void				print_environment(void);
 
 // Command Utils
 char				*ft_strcpy(char *dest, const char *src);

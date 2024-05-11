@@ -6,7 +6,7 @@
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 23:33:24 by lluiz-de          #+#    #+#             */
-/*   Updated: 2024/05/05 17:50:50 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/05/11 14:10:18 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ char	**tokens_to_argv(t_token *tokens)
 	while (tokens)
 	{
 		args[i] = ft_strdup(tokens->text);
+		ft_printf("Lista: %s \n", args[i]);
 		tokens = tokens->next;
 		i++;
 	}

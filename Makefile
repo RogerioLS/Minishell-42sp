@@ -6,7 +6,7 @@
 #    By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/31 16:34:27 by roglopes          #+#    #+#              #
-#    Updated: 2024/05/05 17:52:22 by roglopes         ###   ########.fr        #
+#    Updated: 2024/05/11 12:12:00 by roglopes         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ MAIN_SOURCES	= $(MAIN_DIR)main.c
 
 UTILS_SOURCES	= $(UTILS_DIR)utils.c \
 				$(UTILS_DIR)utils2.c \
+				$(UTILS_DIR)utils_execute_command.c
 
 TOKEN_SOURCES	= $(TOKEN_DIR)tokenizer.c \
 				$(TOKEN_DIR)create_token.c \

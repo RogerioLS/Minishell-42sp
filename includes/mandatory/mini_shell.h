@@ -6,7 +6,7 @@
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 16:52:11 by roglopes          #+#    #+#             */
-/*   Updated: 2024/05/05 17:49:29 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/05/11 12:07:48 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ void				clear_screen(void);
 void				list_directory(char **args);
 void				ft_pwd(int argc, char **argv);
 void				print_environment(void);
+void				process_arguments(char **args, char *path, int *long_format);
 
 // Command Utils
 char				*ft_strcpy(char *dest, const char *src);

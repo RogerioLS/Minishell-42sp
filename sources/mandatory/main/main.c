@@ -6,20 +6,20 @@
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 15:27:05 by roglopes          #+#    #+#             */
-/*   Updated: 2024/05/05 17:49:38 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/05/11 14:09:33 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/mandatory/mini_shell.h"
 
-/* void	print_tokens(t_token *head)
+void	print_tokens(t_token *head)
 {
 	while (head != NULL)
 	{
 		ft_printf("Recebido: %s \nToken de tipo: %d\n\n", head->text, head->type);
 		head = head->next;
 	}
-} */
+}
 
 int	main(void)
 {
@@ -44,8 +44,10 @@ int	main(void)
 		{
 			tokens = input_tokenizer(mini.cmd_line);
 			tokens_parce = tokens_to_argv(tokens);
+			execute_command(tokens_parce, ft_arraylen(tokens_parce));
 			// aqui tem que ter as expansões
-			ft_printf("Tamanho da lista %d \n", ft_lstsize_token(tokens));
+			//ft_printf("Tamanho da lista %d \n", ft_lstsize_token(tokens));
+			//print_tokens(tokens);
 			free(tokens_parce);
 			ft_free_tokens(tokens);
 		}

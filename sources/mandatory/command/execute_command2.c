@@ -6,7 +6,7 @@
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:14:40 by roglopes          #+#    #+#             */
-/*   Updated: 2024/05/05 17:20:36 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/05/11 11:55:52 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	list_directory(char **args)
 	struct dirent	*entry;
 
 	long_format = 0;
-	path[MAX_PATH_LEN] = "";
+	path[0] = '\0';
 	process_arguments(args, path, &long_format);
 	if (path[0] == '\0')
 	{

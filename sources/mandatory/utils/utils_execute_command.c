@@ -6,11 +6,26 @@
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:24:40 by roglopes          #+#    #+#             */
-/*   Updated: 2024/05/05 17:48:19 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/05/11 12:04:44 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/mandatory/mini_shell.h"
+
+int	ft_lstsize_token(t_token *head)
+{
+	int	count;
+
+	count = 1;
+	if (head == NULL)
+		return (0);
+	while (head->next != NULL)
+	{
+		head = head->next;
+		count++;
+	}
+	return (count);
+}
 
 char	*ft_strcpy(char *dest, const char *src)
 {
@@ -79,19 +94,4 @@ void	print_file_info(struct dirent *entry, char *path)
 			file_info.st_nlink, file_info.st_uid, file_info.st_gid,
 			file_info.st_size, ctime(&file_info.st_mtime) + 4, entry->d_name);
 	}
-}
-
-int	ft_lstsize(t_token *head)
-{
-	int	count;
-
-	count = 1;
-	if (head == NULL)
-		return (0);
-	while (head->next != NULL)
-	{
-		head = head->next;
-		count++;
-	}
-	return (count);
 }

@@ -153,6 +153,10 @@ void				list_directory(char **args);
 void				ft_pwd(int argc, char **argv);
 void				print_environment(void);
 void				process_arguments(char **args, char *path, int *long_format);
+void 				ft_unset(char **args);
+void 				ft_echo(char **args);
+void 				ft_free_string_array(char **array);
+char 				*ft_strjoin_free(char *s1, char *s2);
 
 // Command Utils
 char				*ft_strcpy(char *dest, const char *src);

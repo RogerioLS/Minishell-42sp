@@ -12,39 +12,22 @@
 
 #include "../../../includes/mandatory/mini_shell.h"
 
-void	handle_signal(int sign)
-{
-	if (sign == SIGINT)
-	{
-		printf("\n\033[1;31mMINIHELL>$\033[0m ");
-		fflush(stdout);
-	}
-	else if (sign == SIGQUIT)
-	{
-	}
-	else if (sign == SIGTERM)
-	{
-	}
-	else if (sign == SIGTSTP)
-	{
-	}
-	else if (sign == SIGTTIN)
-	{
-	}
-	else if (sign == SIGTTOU)
-	{
-	}
-	else if (sign == SIGCHLD)
-	{
-	}
-	else if (sign == SIGPIPE)
-	{
-	}
-	else if (sign == SIGINT)
-	{
-	}
-	else if (sign == SIGTERM)
-	{
-		exit(EXIT_SUCCESS); // Ctrl+D || Vai sair do minishell
-	}
+void handle_signal(int signum) {
+    if (isatty(STDIN_FILENO)) { 
+        if (signum == SIGINT) {
+
+            // write(STDOUT_FILENO, "\n\033[1;31mMINIHELL>$\033[0m ", 24);
+				rl_on_new_line();
+				rl_replace_line("", 0);
+				ft_putstr_fd("\n", 2);
+				if (!afterprompt(-1))
+				rl_redisplay();
+        } else if (signum == SIGQUIT) {
+ 
+        } else if (signum == SIGTERM) {
+            write(STDOUT_FILENO, "exit\n", 5);
+            exit(EXIT_SUCCESS);
+        }
+    } else {
+    }
 }

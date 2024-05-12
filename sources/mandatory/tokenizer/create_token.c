@@ -12,7 +12,6 @@
 
 #include "../../../includes/mandatory/mini_shell.h"
 
-// Tudo daqui pra baixo são testes por enquanto
 int	classify_token(const char *token)
 {
 	if (!ft_strncmp(token, "<<", 2))
@@ -38,47 +37,23 @@ int	classify_token(const char *token)
 	return (TOKEN_WORD);
 }
 
-t_token	*create_token(const char *text, TokenType type)
-{
-	t_token	*token;
-
-	token = malloc(sizeof(t_token));
-	if (!token)
-		return (NULL);
-	token->text = ft_strdup(text);
-	token->type = type;
-	token->next = NULL;
-	return (token);
+t_token *create_token(const char *text, TokenType type) {
+    t_token *token = malloc(sizeof(t_token));
+    if (!token) {
+        perror("malloc"); 
+        exit(EXIT_FAILURE); 
+    }
+    token->text = ft_strdup(text);
+    if (!token->text) {
+        free(token); 
+        perror("ft_strdup");
+        exit(EXIT_FAILURE); 
+    }
+    token->type = type;
+    token->next = NULL;
+    return token;
 }
 
-void	iterate_tokens(char *input, t_token **current)
-{
-	char	*start;
-	char	*cursor;
-
-	start = input;
-	cursor = input;
-	while (*cursor)
-	{
-		if (is_inside_quotes(cursor))
-			cursor = skip_quotes(cursor);
-		else if (is_operator_or_end(cursor))
-		{
-			if (start < cursor)
-			{
-				*current = create_token(start, TOKEN_WORD);
-				current = &(*current)->next;
-			}
-			if (is_operator_char(*cursor))
-			{
-				*current = create_token(cursor, TOKEN_OPERATOR);
-				current = &(*current)->next;
-			}
-			start = cursor + 1;
-		}
-		cursor++;
-	}
-}
 
 char	**tokens_to_argv(t_token *tokens)
 {
@@ -105,16 +80,6 @@ char	**tokens_to_argv(t_token *tokens)
 	return (args);
 }
 
-/* t_token	*tokenize_input(char *input)
-{
-	t_token	*head;
-	t_token	**current;
-
-	head = NULL;
-	current = &head;
-	iterate_tokens(input, current);
-	return (head);
-}*/
 
 t_token	*input_tokenizer(char *input)
 {

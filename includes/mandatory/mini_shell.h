@@ -127,7 +127,7 @@ void				ft_free_tokens(t_token *head);
 t_token				*create_token(const char *text, TokenType type);
 
 t_token				*input_tokenizer(char *input);
-//t_token				*tokenize_input(char *input);
+//t_token			*tokenize_input(char *input);
 void				iterate_tokens(char *input, t_token **current);
 bool				is_operator_char(char c);
 bool				is_inside_quotes(char *cursor);
@@ -144,7 +144,8 @@ int					afterprompt(int is_after);
 void				handle_signal(int sign);
 
 // Command
-void				execute_command(char **args, int argc);
+// void				execute_command(char **args, int argc);
+void 				execute_command(char **args, int argc, int input_fd, int output_fd);
 size_t				ft_arraylen(char **array);
 void				export_variable(char **args);
 void				ft_cd(char *path);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lluiz-de <lluiz-de@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 16:52:11 by roglopes          #+#    #+#             */
-/*   Updated: 2024/05/19 01:23:15 by lluiz-de         ###   ########.fr       */
+/*   Updated: 2024/05/19 18:13:54 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,33 +34,12 @@
 # include <pwd.h>
 # include <sys/stat.h>
 # include <limits.h>
-#include <errno.h> 
+# include <errno.h> 
 
 # define MAX_PATH_LEN 1024
 # define ARG_MAX 4096 // Máximo do próprio shell//
-/* # define TOKEN_WORD 1
-# define TOKEN_OPERATOR 2
-# define TOKEN_HEREDOC 3
-# define TOKEN_APPEND 4
-# define TOKEN_PIPE 5
-# define TOKEN_DOLLAR 6
-# define TOKEN_L_PAREN 7
-# define TOKEN_R_PAREN 8
-# define TOKEN_QUOTE 9
-# define TOKEN_DOUBLE_QUOTE 10
-# define TOKEN_L_REDIR 11
-# define TOKEN_R_REDIR 12 */
 
-typedef struct s_mini
-{
-	char			*name;
-	char			*cmd_line;
-	int				exported;
-	int				aftercmd;
-	struct s_mini	*next;
-}					t_mini;
-
-typedef enum
+enum e_token_type
 {
 	TOKEN_WORD,
 	TOKEN_OPERATOR,
@@ -74,13 +53,22 @@ typedef enum
 	TOKEN_DOUBLE_QUOTE,
 	TOKEN_L_REDIR,
 	TOKEN_R_REDIR
-}					TokenType;
+};
+
+typedef struct s_mini
+{
+	char			*name;
+	char			*cmd_line;
+	int				exported;
+	int				aftercmd;
+	struct s_mini	*next;
+}					t_mini;
 
 typedef struct s_token
 {
-	char			*text;
-	TokenType		type;
-	struct s_token	*next;
+	char				*text;
+	enum e_token_type	type;
+	struct s_token		*next;
 }				t_token;
 
 typedef struct s_alias
@@ -125,7 +113,7 @@ void				ft_free_commands(t_command *head);
 void				ft_free_tokens(t_token *head);
 
 // Tokenizer
-t_token				*create_token(const char *text, TokenType type);
+t_token				*create_token(const char *text, enum e_token_type type);
 
 t_token				*input_tokenizer(char *input);
 //t_token			*tokenize_input(char *input);

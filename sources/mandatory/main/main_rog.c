@@ -6,7 +6,7 @@
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 16:58:49 by roglopes          #+#    #+#             */
-/*   Updated: 2024/05/11 11:51:34 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/05/19 18:03:19 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,54 +20,54 @@
 // apos a execucao digite algo.
 // para finalizar o programa basta da crtl+d
 
-// #include <readline/history.h>
-// #include <readline/readline.h>
-// #include <stdbool.h>
-// #include <stdio.h>
-// #include <stdlib.h>
-// #include <string.h>
-// #include <sys/wait.h>
-// #include <unistd.h>
+#include <readline/history.h>
+#include <readline/readline.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/wait.h>
+#include <unistd.h>
 
-// typedef enum
-// {
-// 	TOKEN_WORD,
-// 	TOKEN_OPERATOR,
-// 	TOKEN_PIPE,
-// 	TOKEN_REDIRECT_IN,
-// 	TOKEN_REDIRECT_OUT,
-// 	TOKEN_APPEND_OUT
-// }					TokenType;
+typedef enum
+{
+	TOKEN_WORD,
+	TOKEN_OPERATOR,
+	TOKEN_PIPE,
+	TOKEN_REDIRECT_IN,
+	TOKEN_REDIRECT_OUT,
+	TOKEN_APPEND_OUT
+}					e_token_type;
 
-// typedef struct Token
-// {
-// 	char			*text;
-// 	TokenType		type;
-// 	struct Token	*next;
-// }					Token;
+typedef struct Token
+{
+	char			*text;
+	e_token_type		type;
+	struct Token	*next;
+}					Token;
 
-// typedef struct Alias
-// {
-// 	char			*name;
-// 	char			*command;
-// 	struct Alias	*next;
-// }					Alias;
+typedef struct Alias
+{
+	char			*name;
+	char			*command;
+	struct Alias	*next;
+}					Alias;
 
-// typedef enum
-// {
-// 	COMMAND_SIMPLE,
-// 	COMMAND_PIPELINE,
-// 	COMMAND_REDIRECTION_INPUT,
-// 	COMMAND_REDIRECTION_OUTPUT,
-// 	COMMAND_REDIRECTION_APPEND
-// }					CommandType;
+typedef enum
+{
+	COMMAND_SIMPLE,
+	COMMAND_PIPELINE,
+	COMMAND_REDIRECTION_INPUT,
+	COMMAND_REDIRECTION_OUTPUT,
+	COMMAND_REDIRECTION_APPEND
+}					CommandType;
 
-// typedef struct Command
-// {
-// 	char			*text;
-// 	CommandType		type;
-// 	struct Command	*next;
-// }					Command;
+typedef struct Command
+{
+	char			*text;
+	CommandType		type;
+	struct Command	*next;
+}					Command;
 
 void	executeCommand(Command *cmd)
 {
@@ -177,18 +177,18 @@ Command	*parseCommands(Token *tokens)
 	return (head);
 }
 
-// void	freeCommands(Command *head)
-// {
-// 	Command	*temp;
+void	freeCommands(Command *head)
+{
+	Command	*temp;
 
-// 	while (head != NULL)
-// 	{
-// 		temp = head;
-// 		head = head->next;
-// 		free(temp->text);
-// 		free(temp);
-// 	}
-// }
+	while (head != NULL)
+	{
+		temp = head;
+		head = head->next;
+		free(temp->text);
+		free(temp);
+	}
+}
 
 char	*expandVariables(const char *input)
 {
@@ -233,7 +233,7 @@ char	*expandVariables(const char *input)
 	return (buffer);
 }
 
-Token	*createToken(const char *text, TokenType type)
+Token	*createToken(const char *text, e_token_type type)
 {
 	Token	*token;
 

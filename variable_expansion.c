@@ -6,10 +6,10 @@ char	*expandVariables(const char *input)
 {
 	char		*buffer;
 	const char	*cursor;
-	size_t		varNameLen;
-			char varName[varNameLen + 1];
-	char		*varValue;
-	size_t		currentLength;
+	size_t		name_length;
+	char		*name;
+	char		*valeu;
+	size_t		current_length;
 
 	buffer = malloc(strlen(input) + 1);
 	if (!buffer)
@@ -24,27 +24,41 @@ char	*expandVariables(const char *input)
 		if (*cursor == '$')
 		{
 			cursor++;
-			varNameLen = strcspn(cursor, " $/\t\n");
-			strncpy(varName, cursor, varNameLen);
-			varName[varNameLen] = '\0';
-			varValue = getenv(varName);
-			if (varValue)
+			name_length = strcspn(cursor, " $/\t\n,.");
+			name = malloc(name_length + 1);
+			if (!name)
 			{
-				strcat(buffer, varValue);
+				perror("malloc failed");
+				free(buffer);
+				return (NULL);
 			}
-			cursor += varNameLen;
+			strncpy(name, cursor, name_length);
+			name[name_length] = '\0';
+			valeu = getenv(name);
+			free(name);
+			if (valeu)
+			{
+				buffer = realloc(buffer, strlen(buffer) + strlen(valeu) + 1);
+				if (!buffer)
+				{
+					perror("realloc failed");
+					return (NULL);
+				}
+				strcat(buffer, valeu);
+			}
+			cursor += name_length;
 		}
 		else
 		{
-			currentLength = strlen(buffer);
-			buffer = realloc(buffer, currentLength + 2);
+			current_length = strlen(buffer);
+			buffer = realloc(buffer, current_length + 2);
 			if (!buffer)
 			{
 				perror("realloc failed");
 				return (NULL);
 			}
-			buffer[currentLength] = *cursor++;
-			buffer[currentLength + 1] = '\0';
+			buffer[current_length] = *cursor++;
+			buffer[current_length + 1] = '\0';
 		}
 	}
 	return (buffer);
@@ -55,7 +69,7 @@ int	main(void)
 	char	*input;
 	char	*expanded;
 
-	input = "$HOME";
+	input = "Hello $USER, your home directory is $HOME.";
 	expanded = expandVariables(input);
 	if (expanded)
 	{

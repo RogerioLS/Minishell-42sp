@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lluiz-de <lluiz-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 16:52:11 by roglopes          #+#    #+#             */
-/*   Updated: 2024/05/11 12:07:48 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/05/19 01:23:15 by lluiz-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # include <pwd.h>
 # include <sys/stat.h>
 # include <limits.h>
+#include <errno.h> 
 
 # define MAX_PATH_LEN 1024
 # define ARG_MAX 4096 // Máximo do próprio shell//
@@ -128,7 +129,7 @@ t_token				*create_token(const char *text, TokenType type);
 
 t_token				*input_tokenizer(char *input);
 //t_token			*tokenize_input(char *input);
-void				iterate_tokens(char *input, t_token **current);
+// void				iterate_tokens(char *input, t_token **current);
 bool				is_operator_char(char c);
 bool				is_inside_quotes(char *cursor);
 char				*skip_quotes(char *cursor);
@@ -145,12 +146,12 @@ void				handle_signal(int sign);
 
 // Command
 // void				execute_command(char **args, int argc);
-void 				execute_command(char **args, int argc, int input_fd, int output_fd);
+void execute_command(char **args, int argc, int input_fd, int output_fd);
 size_t				ft_arraylen(char **array);
 void				export_variable(char **args);
 void				ft_cd(char *path);
 void				clear_screen(void);
-void				list_directory(char **args);
+// void				list_directory(char **args);
 void				ft_pwd(int argc, char **argv);
 void				print_environment(void);
 void				process_arguments(char **args, char *path, int *long_format);

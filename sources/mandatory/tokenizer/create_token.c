@@ -6,7 +6,7 @@
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 23:33:24 by lluiz-de          #+#    #+#             */
-/*   Updated: 2024/05/19 18:01:02 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/06/01 19:06:21 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ char	**tokens_to_argv(t_token *tokens)
 	int		i;
 
 	count = ft_lstsize_token(tokens);
-	//ft_printf("Total lista: %d \n", count);
 	args = malloc((count + 1) * sizeof(char *));
 	if (!args)
 	{
@@ -77,7 +76,6 @@ char	**tokens_to_argv(t_token *tokens)
 	while (tokens)
 	{
 		args[i] = ft_strdup(tokens->text);
-		//ft_printf("Lista: %s \n", args[i]);
 		tokens = tokens->next;
 		i++;
 	}
@@ -90,15 +88,19 @@ t_token	*input_tokenizer(char *input)
 	t_token	*head;
 	t_token	**current;
 	char	*token;
-	int		e_token_type;
+	//char	quote;
 
 	head = NULL;
 	current = &head;
 	token = ft_strtok(input, " ");
-	while (token != NULL)
+	while (token)
 	{
-		e_token_type = classify_token(token);
-		*current = create_token(token, e_token_type);
+		/* if (*token == '\'' || *token == '"')
+		{
+			quote = *token++;
+			token = ft_strtok(NULL, &quote);
+		} */
+		*current = create_token(token, classify_token(token));
 		current = &(*current)->next;
 		token = ft_strtok(NULL, " ");
 	}

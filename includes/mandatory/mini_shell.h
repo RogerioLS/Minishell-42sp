@@ -6,7 +6,7 @@
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 16:52:11 by roglopes          #+#    #+#             */
-/*   Updated: 2024/05/19 18:13:54 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/06/01 17:33:53 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,5 +153,12 @@ char				*ft_strcpy(char *dest, const char *src);
 void				process_arguments(char **args, char *path, int *long_format);
 void				print_file_info(struct dirent *entry, char *path);
 int					ft_lstsize_token(t_token *head);
+
+// Expansion
+char				*expand_variable(const char *variable);
+void				append_variable_expanded(char **expanded, const char **cursor);
+void				append_char_expanded(char **expanded, const char **cursor);
+void				expand_token(t_token *token);
+void				expand_variables_tokens(t_token *head);
 
 #endif

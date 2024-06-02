@@ -6,7 +6,7 @@
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 23:33:24 by lluiz-de          #+#    #+#             */
-/*   Updated: 2024/06/01 19:06:21 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/06/02 12:51:20 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ t_token	*create_token(const char *text, enum e_token_type type)
 	return (token);
 }
 
+/* we will probably delete */
 char	**tokens_to_argv(t_token *tokens)
 {
 	int		count;

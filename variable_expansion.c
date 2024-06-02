@@ -1,86 +1,86 @@
-#include <stdio.h>
+/* #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-// char	*expandVariables(const char *input)
-// {
-// 	char		*buffer;
-// 	const char	*cursor;
-// 	size_t		name_length;
-// 	char		*name;
-// 	char		*valeu;
-// 	size_t		current_length;
+char	*expandVariables(const char *input)
+{
+	char		*buffer;
+	const char	*cursor;
+	size_t		name_length;
+	char		*name;
+	char		*valeu;
+	size_t		current_length;
 
-// 	buffer = malloc(strlen(input) + 1);
-// 	if (!buffer)
-// 	{
-// 		perror("malloc failed");
-// 		return (NULL);
-// 	}
-// 	buffer[0] = '\0';
-// 	cursor = input;
-// 	while (*cursor)
-// 	{
-// 		if (*cursor == '$')
-// 		{
-// 			cursor++;
-// 			name_length = strcspn(cursor, " $/\t\n,.");
-// 			name = malloc(name_length + 1);
-// 			if (!name)
-// 			{
-// 				perror("malloc failed");
-// 				free(buffer);
-// 				return (NULL);
-// 			}
-// 			strncpy(name, cursor, name_length);
-// 			name[name_length] = '\0';
-// 			valeu = getenv(name);
-// 			free(name);
-// 			if (valeu)
-// 			{
-// 				buffer = realloc(buffer, strlen(buffer) + strlen(valeu) + 1);
-// 				if (!buffer)
-// 				{
-// 					perror("realloc failed");
-// 					return (NULL);
-// 				}
-// 				strcat(buffer, valeu);
-// 			}
-// 			cursor += name_length;
-// 		}
-// 		else
-// 		{
-// 			current_length = strlen(buffer);
-// 			buffer = realloc(buffer, current_length + 2);
-// 			if (!buffer)
-// 			{
-// 				perror("realloc failed");
-// 				return (NULL);
-// 			}
-// 			buffer[current_length] = *cursor++;
-// 			buffer[current_length + 1] = '\0';
-// 		}
-// 	}
-// 	return (buffer);
-// }
+	buffer = malloc(strlen(input) + 1);
+	if (!buffer)
+	{
+		perror("malloc failed");
+		return (NULL);
+	}
+	buffer[0] = '\0';
+	cursor = input;
+	while (*cursor)
+	{
+		if (*cursor == '$')
+		{
+			cursor++;
+			name_length = strcspn(cursor, " $/\t\n,.");
+			name = malloc(name_length + 1);
+			if (!name)
+			{
+				perror("malloc failed");
+				free(buffer);
+				return (NULL);
+			}
+			strncpy(name, cursor, name_length);
+			name[name_length] = '\0';
+			valeu = getenv(name);
+			free(name);
+			if (valeu)
+			{
+				buffer = realloc(buffer, strlen(buffer) + strlen(valeu) + 1);
+				if (!buffer)
+				{
+					perror("realloc failed");
+					return (NULL);
+				}
+				strcat(buffer, valeu);
+			}
+			cursor += name_length;
+		}
+		else
+		{
+			current_length = strlen(buffer);
+			buffer = realloc(buffer, current_length + 2);
+			if (!buffer)
+			{
+				perror("realloc failed");
+				return (NULL);
+			}
+			buffer[current_length] = *cursor++;
+			buffer[current_length + 1] = '\0';
+		}
+	}
+	return (buffer);
+}
 
-// int	main(void)
-// {
-// 	char	*input;
-// 	char	*expanded;
+int	main(void)
+{
+	char	*input;
+	char	*expanded;
 
-// 	input = "Hello $USER, your home directory is $HOME.";
-// 	expanded = expandVariables(input);
-// 	if (expanded)
-// 	{
-// 		printf("Original: %s\n", input);
-// 		printf("Expanded: %s\n", expanded);
-// 		free(expanded);
-// 	}
-// 	return (0);
-// }
+	input = "Hello $USER, your home directory is $HOME.";
+	expanded = expandVariables(input);
+	if (expanded)
+	{
+		printf("Original: %s\n", input);
+		printf("Expanded: %s\n", expanded);
+		free(expanded);
+	}
+	return (0);
+} */
 
-#include <stdio.h>
+/* #include <stdio.h> // lista lincada
 #include <stdlib.h>
 #include <string.h>
 
@@ -274,4 +274,97 @@ int	main(void)
 
 	free_tokens(tokens);
 	return (0);
+} */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// Supondo que ft_strlen e ft_strcspn são definidos corretamente
+
+char *expand_variable(const char *variable) {
+    char *value = getenv(variable);
+    if (value) {
+        char *expanded_value = strdup(value);
+        if (!expanded_value) {
+            perror("strdup failed");
+            return NULL;
+        }
+        return expanded_value;
+    }
+    return NULL;
+}
+
+void append_variable_expanded(char **expanded, const char **cursor) {
+    size_t name_length = strcspn(*cursor, " $/\t\n,.'\"");
+    char *name = strndup(*cursor, name_length);
+    char *value;
+
+    if (!name) {
+        perror("malloc failed");
+        free(*expanded);
+        exit(EXIT_FAILURE);
+    }
+    value = expand_variable(name);
+    free(name);
+    if (value) {
+        size_t new_length = strlen(*expanded) + strlen(value) + 1;
+        *expanded = realloc(*expanded, new_length);
+        if (!*expanded) {
+            perror("realloc failed");
+            free(value);
+            exit(EXIT_FAILURE);
+        }
+        strcat(*expanded, value);
+        free(value);
+    }
+    *cursor += name_length;
+}
+
+void append_char_expanded(char **expanded, const char **cursor) {
+    size_t current_length = strlen(*expanded);
+    *expanded = realloc(*expanded, current_length + 2);
+    if (!*expanded) {
+        perror("realloc failed");
+        exit(EXIT_FAILURE);
+    }
+    (*expanded)[current_length] = **cursor;
+    (*expanded)[current_length + 1] = '\0';
+    (*cursor)++;
+}
+
+void expand_string(char **str) {
+    const char *cursor = *str;
+    char *expanded = malloc(strlen(*str) + 1);
+
+    if (!expanded) {
+        perror("malloc failed");
+        return;
+    }
+    expanded[0] = '\0';
+    while (*cursor) {
+        if (*cursor == '$') {
+            append_variable_expanded(&expanded, &cursor);
+        } else {
+            append_char_expanded(&expanded, &cursor);
+        }
+    }
+    free(*str);
+    *str = expanded;
+}
+
+int main(void) {
+    char *input = strdup("$USER, your home directory is $HOME.");
+
+    if (!input) {
+        perror("strdup failed");
+        return EXIT_FAILURE;
+    }
+
+    printf("Original: %s\n", input);
+    expand_string(&input);
+    printf("Expanded: %s\n", input);
+    free(input);
+
+    return EXIT_SUCCESS;
 }

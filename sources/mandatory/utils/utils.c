@@ -6,7 +6,7 @@
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 06:34:32 by lluiz-de          #+#    #+#             */
-/*   Updated: 2024/04/14 16:54:48 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/06/02 12:57:43 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ char	*ft_strtok(char *str, const char *delim)
 	return (ret);
 }
 
+/* we will probably delete */
 char	*ft_antispace(char *buff)
 {
 	int	x;
@@ -84,6 +85,7 @@ char	*ft_antispace(char *buff)
 	return (&buff[x]);
 }
 
+/* we will probably delete */
 char	*ft_firstword(char *buff)
 {
 	char	*aux;

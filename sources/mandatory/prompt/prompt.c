@@ -6,7 +6,7 @@
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 18:05:13 by roglopes          #+#    #+#             */
-/*   Updated: 2024/04/14 18:07:15 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/06/02 14:44:25 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,31 +21,105 @@ int	afterprompt(int is_after)
 	return (after);
 }
 
+void	handle_single_quotes(char **input, char *result, size_t *res_len)
+{
+	(*input)++;
+
+	while (**input && **input != '\'')
+		result[(*res_len)++] = *(*input)++;
+	if (**input == '\'')
+		(*input)++;
+	result[*res_len] = '\0';
+}
+
+void handle_double_quotes(char **input, char *result, size_t *res_len)
+{
+	char	*value;
+
+	(*input)++;
+
+	while (**input && **input != '"')
+	{
+		if (**input == '$')
+		{
+			(*input)++;
+			char varname[256];
+			int i = 0;
+			while ((*input)[i] && (ft_isalnum((*input)[i]) || (*input)[i] == '_'))
+			{
+				varname[i] = (*input)[i];
+				i++;
+			}
+			varname[i] = '\0';
+			value = getenv(varname);
+			if (value)
+			{
+				ft_strcpy(&result[*res_len], value);
+				*res_len += ft_strlen(value);
+			}
+			else
+			{
+				result[(*res_len)++] = '$';
+				strcpy(&result[*res_len], varname);
+				*res_len += ft_strlen(varname);
+			}
+			*input += i;
+		}
+		else if (**input == '\\')
+		{
+			(*input)++;
+			if (**input)
+				result[(*res_len)++] = *(*input)++;
+		}
+		else
+			result[(*res_len)++] = *(*input)++;
+	}
+	if (**input == '"')
+		(*input)++;
+	result[*res_len] = '\0';
+}
+
+void	parse_input(char *input, char *result)
+{
+	size_t	res_len;
+
+	res_len = 0;
+	while (*input)
+	{
+		if (*input == '\"')
+			handle_single_quotes(&input, result, &res_len);
+		else if (*input == '"')
+			handle_double_quotes(&input, result, &res_len);
+		else
+			result[res_len++] = *input++;
+	}
+	result[res_len] = '\0';
+}
+
 char	*prompt(void)
 {
 	char	*cmd_line;
+	char	*cmd_parser;
 
 	cmd_line = NULL;
+	cmd_parser = NULL;
 	afterprompt(0);
 	cmd_line = readline("\033[1;31mMINIHELL>$\033[0m ");
 	if (!cmd_line)
 	{
-		write(STDERR_FILENO, "Error reading input.\n",
-			ft_strlen("Error reading input.\n"));
+		ft_printf("Error reading input.\n");
 		exit(EXIT_FAILURE);
 	}
 	afterprompt(1);
 	if (cmd_line[0] != '\0')
-	{
 		add_history(cmd_line);
-	}
-	if (cmd_line[0] == '\0' || ft_strchr(cmd_line, ' ') != NULL)
+	cmd_parser = (char *)malloc(1024 * sizeof(char));
+	if (cmd_parser == NULL)
 	{
-		ft_printf("\U0001F9CA");
+		ft_printf("Memory allocation failed.\n");
+		exit(EXIT_FAILURE);
 	}
-	else
-	{
-		printf("\U0001F525");
-	}
-	return (cmd_line);
+	parse_input(cmd_line, cmd_parser);
+	free(cmd_line);
+	return (cmd_parser);
 }

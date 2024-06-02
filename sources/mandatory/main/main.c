@@ -5,42 +5,117 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/31 16:58:49 by roglopes          #+#    #+#             */
-/*   Updated: 2024/03/31 19:08:57 by roglopes         ###   ########.fr       */
+/*   Created: 2024/04/13 15:27:05 by roglopes          #+#    #+#             */
+/*   Updated: 2024/05/19 18:39:41 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "../../../includes/mandatory/mini_shell.h"
-# include <stdio.h>
-# include <stdlib.h>
-# include <readline/history.h>
-# include <readline/readline.h>
-//A primeira etapa de processamento é a leitura do comando.
-//Funcao para lidar com entrada do usuario
+#include "../../../includes/mandatory/mini_shell.h"
 
-// para executar o nao esquece de add a flag de readline pois precisamos capturar 
-// entrada do usuaruio.
-// gcc -o minishell main.c -lreadline
-// apos a execucao digite algo.
-// para finalizar o programa basta da crtl+d
-void	user_loop(void)
+void	print_tokens(t_token *head)
 {
-	char	*input;
-
-	while (1)
+	while (head != NULL)
 	{
-		input = readline("mini_shell> ");
-		if (!input)
-			break ;
-		if (input && *input)
-			add_history(input);
-		printf("Comando recebido: %s\n", input);
-		free(input);
+		ft_printf("Recebido: %s \nToken de tipo: %d\n\n", head->text, head->type);
+		head = head->next;
 	}
 }
 
+char	*expandVariables(const char *input)
+{
+	char		*buffer;
+	const char	*cursor;
+	size_t		name_length;
+	char		*name;
+	char		*valeu;
+	size_t		current_length;
+
+	buffer = malloc(ft_strlen(input) + 1);
+	if (!buffer)
+	{
+		perror("malloc failed");
+		return (NULL);
+	}
+	buffer[0] = '\0';
+	cursor = input;
+	while (*cursor)
+	{
+		if (*cursor == '$')
+		{
+			cursor++;
+			name_length = strcspn(cursor, " $/\t\n,.");
+			name = malloc(name_length + 1);
+			if (!name)
+			{
+				perror("malloc failed");
+				free(buffer);
+				return (NULL);
+			}
+			strncpy(name, cursor, name_length);
+			name[name_length] = '\0';
+			valeu = getenv(name);
+			free(name);
+			if (valeu)
+			{
+				buffer = realloc(buffer, strlen(buffer) + strlen(valeu) + 1);
+				if (!buffer)
+				{
+					perror("realloc failed");
+					return (NULL);
+				}
+				strcat(buffer, valeu);
+			}
+			cursor += name_length;
+		}
+		else
+		{
+			current_length = strlen(buffer);
+			buffer = realloc(buffer, current_length + 2);
+			if (!buffer)
+			{
+				perror("realloc failed");
+				return (NULL);
+			}
+			buffer[current_length] = *cursor++;
+			buffer[current_length + 1] = '\0';
+		}
+	}
+	return (buffer);
+}
+
+//e_token_type
 int	main(void)
 {
-	user_loop();
+	t_mini	mini;
+	t_token	*tokens;
+	char	**parce;
+	char	*expanded;
+
+	ft_printf("\033[1;33mMINIHELL started!\033[0m\n");
+	// lembrar de pegar prioridade do terminal com term_ios.h
+	signal(SIGINT, handle_signal);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGTERM, handle_signal);
+	while (1)
+	{
+		mini.cmd_line = prompt();
+		if (!mini.cmd_line)
+		{
+			ft_printf("\n");
+			exit(EXIT_SUCCESS);
+		}
+		if (mini.cmd_line && *mini.cmd_line)
+		{
+			tokens = input_tokenizer(mini.cmd_line);
+			parce = tokens_to_argv(tokens);
+			expanded = expandVariables(*parce);
+			ft_printf("aqui %s \n", expanded);
+			//execute_command(parce, ft_arraylen(tokens_parce), STDIN_FILENO, STDOUT_FILENO);
+			print_tokens(tokens);
+			ft_free_tokens(tokens);
+			free(parce);
+		}
+		free(mini.cmd_line);
+	}
 	return (0);
 }

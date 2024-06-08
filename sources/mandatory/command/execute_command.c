@@ -411,7 +411,31 @@ void	handle_redirection_and_execution(char **tokens, \
 }
 
 
-//*ESSE Heredoc funciona com o retorno do delimiter e signal
+//*Init de uma global pra sinais
+// volatile sig_atomic_t stop = 0;
+
+// void handle_sig(int signum) {
+//     if (isatty(STDIN_FILENO)) {
+//         if (signum == SIGINT) {
+//             rl_on_new_line();
+//             rl_replace_line("", 0);
+//             ft_putstr_fd("\n", STDOUT_FILENO);
+//             if (!afterprompt(-1)) {
+//                 rl_redisplay();
+//             }
+//             stop = 1;
+//         } else if (signum == SIGQUIT) {
+//             // Tratamento para SIGQUIT, se necessário
+//         } else if (signum == SIGTERM) {
+//             write(STDOUT_FILENO, "exit\n", 5);
+//             exit(EXIT_SUCCESS);
+//         }
+//     } else 
+//     {
+//     }
+// }
+
+//*ESSE Heredoc funciona com o retorno do delimiter
 // void handle_redirection_and_execution(char **tokens, int input_fd, int output_fd) {
 //     int i = 0;
 //     char *delimiter = NULL;

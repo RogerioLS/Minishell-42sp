@@ -409,3 +409,116 @@ void	handle_redirection_and_execution(char **tokens, \
 	}
 	execute_command(tokens);
 }
+
+
+//*ESSE Heredoc funciona com o retorno do delimiter e signal
+// void handle_redirection_and_execution(char **tokens, int input_fd, int output_fd) {
+//     int i = 0;
+//     char *delimiter = NULL;
+
+//     signal(SIGINT, handle_sig); // Configurar manipulador de sinal para Ctrl+C
+
+//     while (tokens[i] != NULL) {
+//         if (strcmp(tokens[i], "<") == 0) {
+//             if (tokens[i + 1] == NULL) {
+//                 printf("syntax error near unexpected token 'newline'\n");
+//                 return;
+//             }
+//             input_fd = open(tokens[i + 1], O_RDONLY);
+//             if (input_fd < 0) {
+//                 perror("open failed");
+//                 return;
+//             }
+//             tokens[i] = NULL;
+//             tokens[i + 1] = NULL;
+//         } else if (strcmp(tokens[i], ">") == 0) {
+//             if (tokens[i + 1] == NULL) {
+//                 printf("syntax error near unexpected token 'newline'\n");
+//                 return;
+//             }
+//             output_fd = open(tokens[i + 1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+//             if (output_fd < 0) {
+//                 perror("open failed");
+//                 return;
+//             }
+//             tokens[i] = NULL;
+//             tokens[i + 1] = NULL;
+//         } else if (strcmp(tokens[i], ">>") == 0) {
+//             if (tokens[i + 1] == NULL) {
+//                 printf("syntax error near unexpected token 'newline'\n");
+//                 return;
+//             }
+//             output_fd = open(tokens[i + 1], O_CREAT | O_WRONLY | O_APPEND, 0644);
+//             if (output_fd < 0) {
+//                 perror("open failed");
+//                 return;
+//             }
+//             tokens[i] = NULL;
+//             tokens[i + 1] = NULL;
+//         } else if (strcmp(tokens[i], "<<") == 0) {
+//             if (tokens[i + 1] == NULL) {
+//                 printf("syntax error near unexpected token 'newline'\n");
+//                 return;
+//             }
+//             delimiter = strdup(tokens[i + 1]);
+//             tokens[i] = NULL;
+//             tokens[i + 1] = NULL;
+
+//             // Ler o heredoc diretamente do arquivo
+//             FILE *heredoc_file = fopen("/dev/stdin", "r");
+//             if (!heredoc_file) {
+//                 perror("fopen");
+//                 return;
+//             }
+
+//             char *line = NULL;
+//             size_t bufsize = 0;
+//             ssize_t chars_read;
+
+//             // Buffer para armazenar todas as linhas do heredoc
+//             char *heredoc_buffer = malloc(1);
+//             heredoc_buffer[0] = '\0';
+//             size_t heredoc_size = 1;
+
+//             // Loop para ler as linhas do heredoc até encontrar o delimitador ou Ctrl+C
+//             while (!stop && (chars_read = getline(&line, &bufsize, heredoc_file)) != -1) {
+//                 // Remover o '\n' do final da linha para comparação com o delimitador
+//                 line[strcspn(line, "\n")] = '\0';
+
+//                 if (strcmp(line, delimiter) == 0) {
+//                     break;
+//                 }
+
+//                 // Adicionar a linha lida ao buffer do heredoc
+//                 heredoc_size += strlen(line) + 1;
+//                 heredoc_buffer = realloc(heredoc_buffer, heredoc_size);
+//                 strcat(heredoc_buffer, line);
+//                 strcat(heredoc_buffer, "\n");
+//             }
+
+//             if (stop) {
+//                 // Se Ctrl+C foi pressionado, liberar recursos e retornar ao prompt
+//                 free(line);
+//                 free(delimiter);
+//                 free(heredoc_buffer);
+//                 stop = 0;
+//                 fclose(heredoc_file);
+//                 return;
+//             }
+//             ft_printf("%s", heredoc_buffer);
+//             free(line);
+//             free(delimiter);
+//             free(heredoc_buffer);
+//             fclose(heredoc_file);
+//             return;
+//         }
+//         i++;
+//     }
+//     execute_command(tokens);
+//     if (input_fd != STDIN_FILENO) {
+//         close(input_fd);
+//     }
+//     if (output_fd != STDOUT_FILENO) {
+//         close(output_fd);
+//     }
+// }

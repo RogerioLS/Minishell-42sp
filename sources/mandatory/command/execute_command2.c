@@ -79,54 +79,76 @@ void ft_unset(char **args)
     }
 }
 
-int open_file(char *filename, int append)
-{
-    int fd = open(filename, O_WRONLY | O_CREAT | (append * O_APPEND), 0644); // Multiplicação por 0 ou 1
-    if (fd == -1) 
-        ft_putstr_fd("ft_echo: error opening file\n", STDERR_FILENO);
-    return fd;
-}
+// int open_file(char *filename, int append)
+// {
+//     int fd = open(filename, O_WRONLY | O_CREAT | (append * O_APPEND), 0644); // Multiplicação por 0 ou 1
+//     if (fd == -1) 
+//         ft_putstr_fd("ft_echo: error opening file\n", STDERR_FILENO);
+//     return fd;
+// }
 
-void print_args(char **args, int i, int fd)
-{
-    while (args[i])
-    {
-        ft_putstr_fd(args[i], fd);
-        if (args[i + 1])
-            ft_putchar_fd(' ', fd);
+// void print_args(char **args, int i, int fd)
+// {
+//     while (args[i])
+//     {
+//         ft_putstr_fd(args[i], fd);
+//         if (args[i + 1])
+//             ft_putchar_fd(' ', fd);
+//         i++;
+//     }
+// }
+
+// void ft_echo(char **args)
+// {
+//     int i = 1, newline = 1, fd = STDOUT_FILENO, append = 0;
+//     char *filename = NULL;
+
+//     while (args[i] && (args[i][0] == ' ' || args[i][0] == '\t' || !ft_strcmp(args[i], "-n"))) 
+//         newline = ft_strcmp(args[i++], "-n") != 0; // Inverte a condição
+
+//     while (args[i] && !filename) 
+//     {
+//         if (is_operator_or_end(args[i]))
+//         {
+//             append = ft_strncmp(args[i], ">>", 2) == 0;
+//             i++;
+//         }
+//         else
+//             filename = is_inside_quotes(args[i]) ? skip_quotes(args[i] + 1) - 1 : args[i++];
+//     }
+
+//     if (filename)
+//         fd = open_file(filename, append);
+
+//     print_args(args, i, fd);
+
+//     if (newline)
+//         ft_putchar_fd('\n', fd);
+
+//     if (fd != STDOUT_FILENO)
+//         close(fd);
+// }
+
+void ft_echo(char **args) {
+    int i = 1;
+    int newline = 1; // Flag para controlar a impressão da nova linha no final
+
+    if (ft_strcmp(args[1], "-n") == 0) {
+        newline = 0;
         i++;
     }
-}
-
-void ft_echo(char **args)
-{
-    int i = 1, newline = 1, fd = STDOUT_FILENO, append = 0;
-    char *filename = NULL;
-
-    while (args[i] && (args[i][0] == ' ' || args[i][0] == '\t' || !ft_strcmp(args[i], "-n"))) 
-        newline = ft_strcmp(args[i++], "-n") != 0; // Inverte a condição
-
-    while (args[i] && !filename) 
-    {
-        if (is_operator_or_end(args[i]))
-        {
-            append = ft_strncmp(args[i], ">>", 2) == 0;
-            i++;
+	
+    while (args[i] != NULL) {
+        ft_printf("%s", args[i]);
+        i++;
+        if (args[i] != NULL) {
+            ft_printf(" ");
         }
-        else
-            filename = is_inside_quotes(args[i]) ? skip_quotes(args[i] + 1) - 1 : args[i++];
     }
 
-    if (filename)
-        fd = open_file(filename, append);
-
-    print_args(args, i, fd);
-
-    if (newline)
-        ft_putchar_fd('\n', fd);
-
-    if (fd != STDOUT_FILENO)
-        close(fd);
+    if (newline) {
+        ft_printf("\n");
+    }
 }
 
 void	clear_screen(void)

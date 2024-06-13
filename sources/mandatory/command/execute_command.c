@@ -36,22 +36,21 @@ void	print_environment(void)
 }
 
 char *ft_strjoin_free(char *s1, char *s2) {
-    if (!s1 || !s2) {
-        return NULL;
+    if (!s1 || !s2) 
+	{
+        return (NULL);
     }
-
-    char *result = malloc(strlen(s1) + strlen(s2) + 1);
-    if (!result) {
+	char *result;
+    result = malloc(strlen(s1) + strlen(s2) + 1);
+    if (!result)
+	{
         perror("malloc");
         exit(EXIT_FAILURE);
     }
-
     strcpy(result, s1);
     strcat(result, s2);
-
     free(s1);
-
-    return result;
+    return (result);
 }
 
 void	ft_free_string_array(char **array)
@@ -66,18 +65,21 @@ void	ft_free_string_array(char **array)
 	free(array);
 }
 
-void execute_pipeline(char ***commands)
+/*void execute_pipeline(char ***commands)
 {
-    int num_commands = 0;
-    while (commands[num_commands] != NULL) {
+    int num_commands;
+    int i;
+
+	num_commands = 0;
+	i = 0;
+    while (commands[num_commands] != NULL)
         num_commands++;
-    }
 
     int pipefds[2 * (num_commands - 1)];
-    int i = 0;
-
-    while (i < num_commands - 1) {
-        if (pipe(pipefds + i*2) == -1) {
+    while (i < num_commands - 1)
+	{
+        if (pipe(pipefds + i*2) == -1)
+		{
             perror("pipe");
             exit(EXIT_FAILURE);
         }
@@ -85,25 +87,32 @@ void execute_pipeline(char ***commands)
     }
 
     i = 0;
-    while (i < num_commands) {
+    while (i < num_commands)
+	{
         pid_t pid = fork();
-        if (pid == 0) {
-            if (i > 0) {
-                if (dup2(pipefds[(i-1)*2], 0) == -1) {
+        if (pid == 0)
+		{
+            if (i > 0)
+			{
+                if (dup2(pipefds[(i-1)*2], 0) == -1)
+				{
                     perror("dup2");
                     exit(EXIT_FAILURE);
                 }
             }
 
-            if (i < num_commands - 1) {
-                if (dup2(pipefds[i*2 + 1], 1) == -1) {
+            if (i < num_commands - 1)
+			{
+                if (dup2(pipefds[i*2 + 1], 1) == -1)
+				{
                     perror("dup2");
                     exit(EXIT_FAILURE);
                 }
             }
 
             int j = 0;
-            while (j < 2 * (num_commands - 1)) {
+            while (j < 2 * (num_commands - 1))
+			{
                 close(pipefds[j]);
                 j++;
             }
@@ -116,42 +125,145 @@ void execute_pipeline(char ***commands)
     }
 
     i = 0;
-    while (i < 2 * (num_commands - 1)) {
+    while (i < 2 * (num_commands - 1))
+	{
         close(pipefds[i]);
         i++;
     }
 
     i = 0;
-    while (i < num_commands) {
+    while (i < num_commands)
+	{
+        wait(NULL);
+        i++;
+    }
+} */
+
+// New excute pipeline
+int	count_commands(char ***commands)
+{
+    int count;
+
+	count = 0;
+    while (commands[count] != NULL)
+        count++;
+    return count;
+}
+
+void	create_pipes(int *pipefds, int num_pipes)
+{
+    int	i;
+	
+	i = 0;
+    while (i < num_pipes)
+    {
+        if (pipe(pipefds + i * 2) == -1)
+        {
+            perror("pipe");
+            exit(EXIT_FAILURE);
+        }
+        i++;
+    }
+}
+
+void	close_pipes(int *pipefds, int num_pipes)
+{
+    int	i;
+	
+	i = 0;
+    while (i < num_pipes * 2)
+    {
+        close(pipefds[i]);
+        i++;
+    }
+}
+
+void setup_redirection(int *pipefds, int num_pipes, int i)
+{
+    if (i > 0)
+    {
+        if (dup2(pipefds[(i - 1) * 2], 0) == -1)
+        {
+            perror("dup2");
+            exit(EXIT_FAILURE);
+        }
+    }
+
+    if (i < num_pipes)
+    {
+        if (dup2(pipefds[i * 2 + 1], 1) == -1)
+        {
+            perror("dup2");
+            exit(EXIT_FAILURE);
+        }
+    }
+}
+
+void execute_command_in_pipeline(char **command, int *pipefds, int num_pipes, int i)
+{
+    setup_redirection(pipefds, num_pipes, i);
+    close_pipes(pipefds, num_pipes);
+    execvp(command[0], command);
+    perror("execvp");
+    exit(EXIT_FAILURE);
+}
+
+void execute_pipeline(char ***commands)
+{
+    int num_commands;
+    int i;
+
+	num_commands = count_commands(commands);
+    int pipefds[2 * (num_commands - 1)];
+
+    create_pipes(pipefds, num_commands - 1);
+    i = 0;
+    while (i < num_commands)
+    {
+        pid_t pid = fork();
+        if (pid == 0)
+        {
+            execute_command_in_pipeline(commands[i], pipefds, num_commands - 1, i);
+        }
+        i++;
+    }
+    close_pipes(pipefds, num_commands - 1);
+    i = 0;
+    while (i < num_commands)
+    {
         wait(NULL);
         i++;
     }
 }
 
-char ***parse_commands_with_pipes(char **args)
+/*char ***parse_commands_with_pipes(char **args)
 {
-    int num_pipes = 0;
-    int i = 0;
+    int num_pipes;
+    int i;
+	int cmd_idx;
+	char ***commands;
 
-    // Contar o número de pipes
-    while (args[i] != NULL) {
-        if (strcmp(args[i], "|") == 0) {
+	num_pipes = 0;
+    i = 0;
+	cmd_idx = 0;
+    while (args[i] != NULL)
+	{
+        if (strcmp(args[i], "|") == 0)
             num_pipes++;
-        }
         i++;
     }
-
-    char ***commands = malloc((num_pipes + 2) * sizeof(char **));
-    if (!commands) {
+    commands = malloc((num_pipes + 2) * sizeof(char **));
+    if (!commands)
+	{
         perror("malloc");
         exit(EXIT_FAILURE);
     }
-
-    int cmd_idx = 0;
     commands[cmd_idx] = args;
     i = 0;
-    while (args[i] != NULL) {
-        if (strcmp(args[i], "|") == 0) {
+    while (args[i] != NULL)
+	{
+        if (strcmp(args[i], "|") == 0)
+		{
             args[i] = NULL;
             commands[++cmd_idx] = &args[i + 1];
         }
@@ -159,8 +271,67 @@ char ***parse_commands_with_pipes(char **args)
     }
     commands[cmd_idx + 1] = NULL;
 
-    return commands;
+    return (commands);
+}*/
+ //New parse commands with pipes
+char	***parse_commands_with_pipes(char **args)
+{
+	int	num_pipes;
+	char	***commands;
+
+	num_pipes = count_pipes(args);
+	commands = allocate_commands(num_pipes);
+	split_commands(args, commands);
+	return (commands);
 }
+
+int	count_pipes(char **args)
+{
+	int	count;
+	int	i;
+
+	count = 0;
+	i = 0;
+	while (args[i])
+	{
+		if (strcmp(args[i], "|") == 0)
+			count++;
+		i++;
+	}
+	return (count);
+}
+
+char	***allocate_commands(int num_pipes)
+{
+	char	***commands;
+
+	commands = malloc((num_pipes + 2) * sizeof(char **));
+	if (!commands)
+	{
+		perror("malloc");
+		exit(EXIT_FAILURE);
+	}
+	return (commands);
+}
+
+void	split_commands(char **args, char ***commands)
+{
+	int	i = 0;
+	int	cmd_idx = 0;
+
+	commands[cmd_idx] = args;
+	while (args[i])
+	{
+		if (strcmp(args[i], "|") == 0)
+		{
+			args[i] = NULL;
+			commands[++cmd_idx] = &args[i + 1];
+		}
+		i++;
+	}
+	commands[cmd_idx + 1] = NULL;
+}
+
 
 /* int execute_external_command(char **args)
 {

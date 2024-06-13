@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <limits.h>
 #include "../../../includes/mandatory/mini_shell.h"
-#include <linux/limits.h>
 
 char *ft_realpath(const char *path, char *resolved_path) {
     char *tmp = realpath(path, resolved_path); // no argument for sizes

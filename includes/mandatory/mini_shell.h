@@ -21,6 +21,7 @@
 # include <fcntl.h>
 # include <grp.h>
 # include <limits.h>
+# include <linux/limits.h>
 # include <pwd.h>
 # include <readline/history.h>
 # include <readline/readline.h>
@@ -164,8 +165,20 @@ void					process_arguments(char **args, char *path,
 							int *long_format);
 void					ft_free_string_array(char **array);
 char					*ft_strjoin_free(char *s1, char *s2);
+
 char					***parse_commands_with_pipes(char **args);
+int						count_pipes(char **args);
+char					***allocate_commands(int num_pipes);
+void					split_commands(char **args, char ***commands);
+
+
 void					execute_pipeline(char ***commands);
+int						count_commands(char ***commands);
+void					create_pipes(int *pipefds, int num_pipes);
+void					close_pipes(int *pipefds, int num_pipes);
+void 					setup_redirection(int *pipefds, int num_pipes, int i);
+void					execute_command_in_pipeline(char **command, int *pipefds, int num_pipes, int i);
+
 int						execute_external_command(char **args);
 
 // Command Utils

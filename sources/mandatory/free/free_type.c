@@ -6,7 +6,7 @@
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 00:34:57 by lluiz-de          #+#    #+#             */
-/*   Updated: 2024/04/14 16:42:19 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/06/16 16:07:39 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,39 @@ void	ft_free_commands(t_command *head)
 		free(temp->text);
 		free(temp);
 	}
+}
+
+void	ft_free_string_array(char **array)
+{
+	int	i;
+
+	i = 0;
+	if (!array)
+		return ;
+	while (array[i])
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
+}
+
+char	*ft_strjoin_free(char *s1, char *s2)
+{
+	char	*result;
+
+	if (!s1 || !s2)
+	{
+		return (NULL);
+	}
+	result = malloc(strlen(s1) + strlen(s2) + 1);
+	if (!result)
+	{
+		perror("malloc");
+		exit(EXIT_FAILURE);
+	}
+	strcpy(result, s1);
+	strcat(result, s2);
+	free(s1);
+	return (result);
 }

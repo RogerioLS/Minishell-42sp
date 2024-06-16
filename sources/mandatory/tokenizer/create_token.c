@@ -6,7 +6,7 @@
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 23:33:24 by lluiz-de          #+#    #+#             */
-/*   Updated: 2024/06/02 12:51:20 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/06/15 13:58:07 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ t_token	*create_token(const char *text, enum e_token_type type)
 	return (token);
 }
 
-/* we will probably delete */
 char	**tokens_to_argv(t_token *tokens)
 {
 	int		count;
@@ -89,18 +88,12 @@ t_token	*input_tokenizer(char *input)
 	t_token	*head;
 	t_token	**current;
 	char	*token;
-	//char	quote;
 
 	head = NULL;
 	current = &head;
 	token = ft_strtok(input, " ");
 	while (token)
 	{
-		/* if (*token == '\'' || *token == '"')
-		{
-			quote = *token++;
-			token = ft_strtok(NULL, &quote);
-		} */
 		*current = create_token(token, classify_token(token));
 		current = &(*current)->next;
 		token = ft_strtok(NULL, " ");

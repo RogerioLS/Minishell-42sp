@@ -6,97 +6,84 @@
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 06:34:32 by lluiz-de          #+#    #+#             */
-/*   Updated: 2024/06/02 12:57:43 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/06/16 16:10:07 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/mandatory/mini_shell.h"
 
-/* char	*ft_strtok(char *str, const char *delim)
+char	*ft_strspn_end(char *str, const char *delim)
 {
-	static char	*last;
-	char		*ret;
-
-	last = NULL;
-	if (str != NULL)
-	{
-		last = str;
-	}
-	else if (last == NULL || *last == '\0')
-	{
-		return (NULL);
-	}
-	last += ft_strspn(last, delim);
-	if (*last == '\0')
-	{
-		return (NULL);
-	}
-	ret = last;
-	last += ft_strcspn(last, delim);
-	if (*last != '\0')
-	{
-		*last = '\0';
-		last++;
-	}
-	printf("Tokenizing: '%s'\n", ret);
-	return (ret);
-} */
+	while (*str && strchr(delim, *str))
+		str++;
+	return (str);
+}
 
 char	*ft_strtok(char *str, const char *delim)
 {
 	static char	*last;
 	char		*ret;
 
-	if (str != NULL)
-	{
+	if (str)
 		last = str;
-	}
-	else if (last == NULL || *last == '\0')
-	{
+	if (!last || !*last)
 		return (NULL);
-	}
-	last += ft_strspn(last, delim);
-	if (*last == '\0')
-	{
+	last = ft_strspn_end(last, delim);
+	if (!*last)
 		return (NULL);
-	}
 	ret = last;
-	last += ft_strcspn(last, delim);
-	if (*last != '\0')
+	while (*last && !strchr(delim, *last))
+		last++;
+	if (*last)
 	{
 		*last = '\0';
 		last++;
 	}
 	else
-	{
 		last = NULL;
-	}
 	return (ret);
 }
 
-/* we will probably delete */
-char	*ft_antispace(char *buff)
+int	ft_lstsize_token(t_token *head)
 {
-	int	x;
+	int	count;
 
-	x = 0;
-	while (buff[x] && (buff[x] == ' ' || buff[x] == '\t'))
-		x++;
-	return (&buff[x]);
+	count = 1;
+	if (head == NULL)
+		return (0);
+	while (head->next != NULL)
+	{
+		head = head->next;
+		count++;
+	}
+	return (count);
 }
 
-/* we will probably delete */
-char	*ft_firstword(char *buff)
+void	ft_unset(char **args)
 {
-	char	*aux;
-	int		x;
+	int	i;
 
-	x = -1;
-	aux = ft_strdup(buff);
-	aux = ft_antispace(aux);
-	while (aux[++x])
-		if (ft_isspace(aux[x]))
-			break ;
-	aux[x] = '\0';
-	return (aux);
+	if (!args[1])
+	{
+		ft_printf("unset: not enough arguments\n");
+		return ;
+	}
+	i = 1;
+	while (args[i])
+	{
+		if (unsetenv(args[i]) != 0)
+		{
+			perror("unsetenv");
+		}
+		i++;
+	}
+}
+
+void	ft_valid_malloc(int *pipefds)
+{
+	if (!pipefds)
+	{
+		perror("malloc");
+		exit(EXIT_FAILURE);
+	}
 }

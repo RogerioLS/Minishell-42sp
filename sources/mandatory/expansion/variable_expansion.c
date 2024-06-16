@@ -6,7 +6,7 @@
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 17:28:58 by roglopes          #+#    #+#             */
-/*   Updated: 2024/06/01 19:43:32 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/06/15 15:43:57 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,39 +29,6 @@ char	*expand_variable(const char *variable)
 		return (expanded_value);
 	}
 	return (NULL);
-}
-
-void	append_variable_expanded(char **expanded, const char **cursor)
-{
-	size_t	name_length;
-	char	*name;
-	char	*value;
-
-	(*cursor)++;
-	name_length = ft_strcspn(*cursor, " $/\t\n,.'\"");
-	// strndup not implemantion
-	name = strndup(*cursor, name_length);
-	if (!name)
-	{
-		perror("malloc failed");
-		free(*expanded);
-		exit(EXIT_FAILURE);
-	}
-	value = expand_variable(name);
-	free(name);
-	if (value)
-	{
-		*expanded = realloc(*expanded, ft_strlen(*expanded) + ft_strlen(value) + 1);
-		if (!*expanded)
-		{
-			perror("realloc failed");
-			exit(EXIT_FAILURE);
-		}
-		// not are implementation
-		strcat(*expanded, value);
-		free(value);
-	}
-	*cursor += name_length;
 }
 
 void	append_char_expanded(char **expanded, const char **cursor)

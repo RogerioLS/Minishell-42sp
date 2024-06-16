@@ -6,75 +6,18 @@
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 18:05:13 by roglopes          #+#    #+#             */
-/*   Updated: 2024/06/02 14:44:25 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/06/15 16:52:45 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/mandatory/mini_shell.h"
 
-int	afterprompt(int is_after)
-{
-	static int	after;
-
-	if (is_after != -1)
-		after = is_after;
-	return (after);
-}
-
 void	handle_single_quotes(char **input, char *result, size_t *res_len)
 {
 	(*input)++;
-
 	while (**input && **input != '\'')
 		result[(*res_len)++] = *(*input)++;
 	if (**input == '\'')
-		(*input)++;
-	result[*res_len] = '\0';
-}
-
-void handle_double_quotes(char **input, char *result, size_t *res_len)
-{
-	char	*value;
-
-	(*input)++;
-
-	while (**input && **input != '"')
-	{
-		if (**input == '$')
-		{
-			(*input)++;
-			char varname[256];
-			int i = 0;
-			while ((*input)[i] && (ft_isalnum((*input)[i]) || (*input)[i] == '_'))
-			{
-				varname[i] = (*input)[i];
-				i++;
-			}
-			varname[i] = '\0';
-			value = getenv(varname);
-			if (value)
-			{
-				ft_strcpy(&result[*res_len], value);
-				*res_len += ft_strlen(value);
-			}
-			else
-			{
-				result[(*res_len)++] = '$';
-				strcpy(&result[*res_len], varname);
-				*res_len += ft_strlen(varname);
-			}
-			*input += i;
-		}
-		else if (**input == '\\')
-		{
-			(*input)++;
-			if (**input)
-				result[(*res_len)++] = *(*input)++;
-		}
-		else
-			result[(*res_len)++] = *(*input)++;
-	}
-	if (**input == '"')
 		(*input)++;
 	result[*res_len] = '\0';
 }

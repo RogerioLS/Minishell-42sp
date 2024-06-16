@@ -6,197 +6,124 @@
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:14:40 by roglopes          #+#    #+#             */
-/*   Updated: 2024/06/02 18:00:19 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/06/16 14:29:22 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/mandatory/mini_shell.h"
 
-char *ft_realpath(const char *path, char *resolved_path) {
-    char *tmp = realpath(path, resolved_path); // no argument for sizes
-    if (tmp) {
-        return tmp;
-    } else {
-        if (access(path, F_OK) == 0) {
-            errno = ELOOP;
-        }
-        return NULL;
-    }
-}
-
-
-void ft_pwd(int argc, char **argv) {
-    char wd[PATH_MAX];
-    int use_logical_path = 0;
-    char *ptr_argv = *argv;
-    int i = 0;
-
-    while (i < argc) {
-        if (ptr_argv[0] == '-') {
-            if (ft_strcmp(ptr_argv, "-L") != 0) {
-                ft_printf("pwd: bad option: %s\n", ptr_argv);
-                return;
-            }
-            use_logical_path = 1;
-        } else {
-            ft_printf("pwd: too many arguments\n");
-            return;
-        }
-        i++;
-        ptr_argv++;
-    }
-
-    if (use_logical_path || getcwd(wd, sizeof(wd)) == NULL) {
-        char resolved_path[PATH_MAX]; 
-        if (ft_realpath(".", resolved_path) == NULL) { 
-            perror("pwd");
-        } else {
-            ft_putendl_fd(resolved_path, 1);
-        }
-    } else {
-        ft_putendl_fd(wd, 1);
-    }
-}
-
-void ft_unset(char **args)
+char	*find_command_path(char **paths, char *command)
 {
-    if (!args[1]) 
-    {
-        ft_printf("unset: not enough arguments\n");
-        return;
-    }
+	int		i;
+	char	*full_path;
 
-    int i = 1;
-    while (args[i]) 
-    {
-        if (unsetenv(args[i]) != 0) 
-        {
-            perror("unsetenv"); 
-        }
-        i++;
-    }
-}
-
-// int open_file(char *filename, int append)
-// {
-//     int fd = open(filename, O_WRONLY | O_CREAT | (append * O_APPEND), 0644); // Multiplicação por 0 ou 1
-//     if (fd == -1) 
-//         ft_putstr_fd("ft_echo: error opening file\n", STDERR_FILENO);
-//     return fd;
-// }
-
-// void print_args(char **args, int i, int fd)
-// {
-//     while (args[i])
-//     {
-//         ft_putstr_fd(args[i], fd);
-//         if (args[i + 1])
-//             ft_putchar_fd(' ', fd);
-//         i++;
-//     }
-// }
-
-// void ft_echo(char **args)
-// {
-//     int i = 1, newline = 1, fd = STDOUT_FILENO, append = 0;
-//     char *filename = NULL;
-
-//     while (args[i] && (args[i][0] == ' ' || args[i][0] == '\t' || !ft_strcmp(args[i], "-n"))) 
-//         newline = ft_strcmp(args[i++], "-n") != 0; // Inverte a condição
-
-//     while (args[i] && !filename) 
-//     {
-//         if (is_operator_or_end(args[i]))
-//         {
-//             append = ft_strncmp(args[i], ">>", 2) == 0;
-//             i++;
-//         }
-//         else
-//             filename = is_inside_quotes(args[i]) ? skip_quotes(args[i] + 1) - 1 : args[i++];
-//     }
-
-//     if (filename)
-//         fd = open_file(filename, append);
-
-//     print_args(args, i, fd);
-
-//     if (newline)
-//         ft_putchar_fd('\n', fd);
-
-//     if (fd != STDOUT_FILENO)
-//         close(fd);
-// }
-
-void ft_echo(char **args) {
-    int i = 1;
-    int newline = 1; // Flag para controlar a impressão da nova linha no final
-
-    if (ft_strcmp(args[1], "-n") == 0) {
-        newline = 0;
-        i++;
-    }
-	
-    while (args[i] != NULL) {
-        ft_printf("%s", args[i]);
-        i++;
-        if (args[i] != NULL) {
-            ft_printf(" ");
-        }
-    }
-
-    if (newline) {
-        ft_printf("\n");
-    }
-}
-
-void	clear_screen(void)
-{
-	ft_printf("\e[2J\e[H");
-}
-
-void	ft_cd(char *path)
-{
-	char	*home;
-
-	if (!path)
+	i = 0;
+	while (paths[i] != NULL)
 	{
-		home = getenv("HOME");
-		if (home == NULL)
-		{
-			ft_printf("cd: HOME not set\n");
-			return ;
-		}
-		path = home;
+		full_path = ft_strjoin(paths[i], "/");
+		full_path = ft_strjoin_free(full_path, command);
+		if (access(full_path, X_OK) == 0)
+			return (full_path);
+		free(full_path);
+		i++;
 	}
-	if (chdir(path) != 0)
-	{
-		perror("cd");
-	}
+	return (NULL);
 }
 
-void	export_variable(char **args)
+int	execute_found_command(char *full_path, char **args)
 {
-	char	*name;
-	char	*value;
+	pid_t	pid;
+	int		status;
 
-	if (args[1] != NULL)
+	pid = fork();
+	if (pid == 0)
 	{
-		name = ft_strtok(args[1], "=");
-		value = ft_strtok(NULL, "=");
-		if (name != NULL)
-		{
-			if (value != NULL)
-			{
-				setenv(name, value, 1);
-			}
-			else
-			{
-				setenv(name, "", 1);
-			}
-		}
+		execve(full_path, args, NULL);
+		perror("execve");
+		exit(EXIT_FAILURE);
+	}
+	else if (pid > 0)
+	{
+		waitpid(pid, &status, 0);
+		return (WIFEXITED(status) && WEXITSTATUS(status) == 0);
 	}
 	else
 	{
+		perror("fork");
+		exit(EXIT_FAILURE);
+	}
+	return (0);
+}
+
+int	execute_external_command(char **args)
+{
+	char	*path_env;
+	char	**paths;
+	char	*full_path;
+	int		result;
+
+	path_env = getenv("PATH");
+	if (!path_env)
+	{
+		ft_printf("command not found: %s\n", args[0]);
+		return (0);
+	}
+	paths = ft_split(path_env, ':');
+	full_path = find_command_path(paths, args[0]);
+	if (full_path)
+	{
+		result = execute_found_command(full_path, args);
+		free(full_path);
+	}
+	else
+	{
+		ft_printf("command not found: %s\n", args[0]);
+		result = 0;
+	}
+	ft_free_string_array(paths);
+	return (result);
+}
+
+void	handle_internal_command(char **args)
+{
+	if (ft_strcmp(args[0], "pwd") == 0)
+		ft_pwd(0, args);
+	else if (ft_strcmp(args[0], "clear") == 0)
+		clear_screen();
+	else if (ft_strcmp(args[0], "exit") == 0)
+		exit(EXIT_SUCCESS);
+	else if (ft_strcmp(args[0], "cd") == 0)
+		ft_cd(args[1]);
+	else if (ft_strcmp(args[0], "export") == 0)
+		export_variable(args);
+	else if (ft_strcmp(args[0], "unset") == 0)
+		ft_unset(args);
+	else if (ft_strcmp(args[0], "env") == 0)
 		print_environment();
+	else if (ft_strcmp(args[0], "echo") == 0)
+		ft_echo(args);
+}
+
+void	execute_command(char **args)
+{
+	char	***commands;
+
+	if (args[0] == NULL)
+		return ;
+	commands = parse_commands_with_pipes(args);
+	if (commands[1] != NULL)
+		execute_pipeline(commands);
+	else
+	{
+		handle_internal_command(args);
+		if (ft_strcmp(args[0], "pwd") != 0 && ft_strcmp(args[0], "clear") != 0 \
+		&& ft_strcmp(args[0], "exit") != 0 && ft_strcmp(args[0], "cd") != 0 \
+		&& ft_strcmp(args[0], "export") != 0 && \
+		ft_strcmp(args[0], "unset") != 0 \
+		&& ft_strcmp(args[0], "env") != 0 && ft_strcmp(args[0], "echo") != 0)
+		{
+			if (!execute_external_command(args))
+				;
+		}
 	}
 }

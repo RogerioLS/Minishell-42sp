@@ -6,25 +6,25 @@
 #    By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/31 16:34:27 by roglopes          #+#    #+#              #
-#    Updated: 2024/06/01 17:40:31 by roglopes         ###   ########.fr        #
+#    Updated: 2024/06/16 16:18:46 by roglopes         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME			= minishell
+NAME				= minishell
 
 SOURCES_DIR			= sources/
 OBJECTS_DIR			= objects/
 
 HEADERS				= -I ./includes/mandatory/ -I ./libft/include/
 
-MAIN_DIR		= $(SOURCES_DIR)mandatory/main/
-UTILS_DIR		= $(SOURCES_DIR)mandatory/utils/
-VARIABLES_DIR	= $(SOURCES_DIR)mandatory/variables/
-TOKEN_DIR		= $(SOURCES_DIR)mandatory/tokenizer/
-FREE_DIR		= $(SOURCES_DIR)mandatory/free/
-PROMPT_DIR		= $(SOURCES_DIR)mandatory/prompt/
-COMMAND_DIR		= $(SOURCES_DIR)mandatory/command/
-EXPANSION_DIR	= $(SOURCES_DIR)mandatory/expansion/
+MAIN_DIR			= $(SOURCES_DIR)mandatory/main/
+PROMPT_DIR			= $(SOURCES_DIR)mandatory/prompt/
+TOKEN_DIR			= $(SOURCES_DIR)mandatory/tokenizer/
+EXPANSION_DIR		= $(SOURCES_DIR)mandatory/expansion/
+COMMAND_DIR			= $(SOURCES_DIR)mandatory/command/
+BUILTINS_DIR		= $(SOURCES_DIR)mandatory/builtins/
+UTILS_DIR			= $(SOURCES_DIR)mandatory/utils/
+FREE_DIR			= $(SOURCES_DIR)mandatory/free/
 
 LIBFT				= ./libft/libft.a
 
@@ -33,32 +33,36 @@ CC					= cc
 
 VALGRIND_LOG		= valgrind.log
 
-MAIN_SOURCES	= $(MAIN_DIR)main.c
+MAIN_SOURCES		= $(MAIN_DIR)main.c
 
-UTILS_SOURCES	= $(UTILS_DIR)utils.c \
-				$(UTILS_DIR)utils2.c \
-				$(UTILS_DIR)utils_execute_command.c
-
-TOKEN_SOURCES	= $(TOKEN_DIR)tokenizer.c \
-				$(TOKEN_DIR)create_token.c \
-
-FREE_SOURCES	= $(FREE_DIR)free_type.c
-
-VARIABLES_SOURCES	= $(VARIABLES_DIR)exit_type.c \
-					$(VARIABLES_DIR)line_var.c \
-					$(VARIABLES_DIR)validates.c \
-
-PROMPT_SOURCES		= $(PROMPT_DIR)prompt.c \
+PROMPT_SOURCES		= $(PROMPT_DIR)prompt.c                \
+					$(PROMPT_DIR)prompt2.c                 \
 					$(PROMPT_DIR)signal.c
 
-COMMAND_SOURCES		= $(COMMAND_DIR)execute_command.c \
-					$(COMMAND_DIR)execute_command2.c
+TOKEN_SOURCES		= $(TOKEN_DIR)tokenizer.c              \
+					$(TOKEN_DIR)create_token.c             \
 
-EXPANSION_SOURCES	= $(EXPANSION_DIR)variable_expansion.c
+EXPANSION_SOURCES	= $(EXPANSION_DIR)variable_expansion.c \
+					$(EXPANSION_DIR)variable_expansion2.c
 
-SOURCES				= $(MAIN_SOURCES) $(UTILS_SOURCES) $(VARIABLES_SOURCES) \
-					$(TOKEN_SOURCES) $(FREE_SOURCES) $(PROMPT_SOURCES) \
-					$(COMMAND_SOURCES) $(EXPANSION_SOURCES)
+COMMAND_SOURCES		= $(COMMAND_DIR)execute_command.c      \
+					$(COMMAND_DIR)execute_command2.c       \
+					$(COMMAND_DIR)execute_command3.c       \
+					$(COMMAND_DIR)execute_command4.c       \
+
+BUILTINS_SOURCES	= $(BUILTINS_DIR)builtins.c            \
+					$(BUILTINS_DIR)builtins2.c             \
+
+UTILS_SOURCES		= $(UTILS_DIR)utils.c                  \
+					$(UTILS_DIR)utils2.c                   \
+
+
+FREE_SOURCES		= $(FREE_DIR)free_type.c
+
+SOURCES				= $(MAIN_SOURCES) $(UTILS_SOURCES)     \
+					$(TOKEN_SOURCES) $(FREE_SOURCES)       \
+					$(PROMPT_SOURCES) $(COMMAND_SOURCES)   \
+					$(EXPANSION_SOURCES) $(BUILTINS_SOURCES)
 
 OBJS				= $(patsubst $(SOURCES_DIR)%.c,$(OBJECTS_DIR)%.o, $(SOURCES))
 
@@ -77,7 +81,7 @@ $(OBJECTS_DIR)%.o: $(SOURCES_DIR)%.c
 	@mkdir -p $(@D)
 	@$(eval COUNT=$(shell expr $(COUNT) + 1))
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
-	@printf "$(GREEN)Compiling Push Swap %d%%\r$(RESET)" $$(echo $$(($(COUNT) * 100 / $(words $(SOURCES_DIR)))))
+	@printf "$(GREEN)Compiling Mini Shell %d%%\r$(RESET)" $$(echo $$(($(COUNT) * 100 / $(words $(SOURCES_DIR)))))
 
 $(NAME): $(OBJS) 
 	@$(CC) $(CFLAGS) $(OBJS) $(HEADERS) $(LIBFT) -o $(NAME) -lreadline

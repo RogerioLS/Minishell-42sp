@@ -70,5 +70,8 @@ void	handle_double_quotes(char **input, char *result, size_t *res_len)
 	}
 	if (**input == '"')
 		(*input)++;
+	else
+		ft_printf("Error: missing closing double quote.\n");
 	result[*res_len] = '\0';
 }
+

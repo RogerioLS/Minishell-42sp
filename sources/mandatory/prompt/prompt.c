@@ -19,6 +19,8 @@ void	handle_single_quotes(char **input, char *result, size_t *res_len)
 		result[(*res_len)++] = *(*input)++;
 	if (**input == '\'')
 		(*input)++;
+	else
+		ft_printf("Error: missing closing single quote.\n");
 	result[*res_len] = '\0';
 }
 
@@ -29,10 +31,15 @@ void	parse_input(char *input, char *result)
 	res_len = 0;
 	while (*input)
 	{
-		if (*input == '\"')
+		if (*input == '\'')
 			handle_single_quotes(&input, result, &res_len);
 		else if (*input == '"')
 			handle_double_quotes(&input, result, &res_len);
+		else if (*input == '$')
+		{
+			input++;
+			append_var_value(&input, result, &res_len);
+		}
 		else
 			result[res_len++] = *input++;
 	}

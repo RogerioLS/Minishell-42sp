@@ -6,7 +6,7 @@
 #    By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/31 16:34:27 by roglopes          #+#    #+#              #
-#    Updated: 2024/06/16 16:18:46 by roglopes         ###   ########.fr        #
+#    Updated: 2024/06/29 15:41:18 by roglopes         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -115,6 +115,7 @@ valgrind: all
 	--show-reachable=yes \
 	--show-leak-kinds=all -s \
 	--track-origins=yes \
+	--suppressions=readline.supp \
 	--log-file=$(VALGRIND_LOG) \
 	./$(NAME)
 	@cat $(VALGRIND_LOG)

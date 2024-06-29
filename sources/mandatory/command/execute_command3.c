@@ -6,7 +6,7 @@
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 13:53:37 by roglopes          #+#    #+#             */
-/*   Updated: 2024/06/16 16:10:55 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/06/29 16:52:56 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ char	***parse_commands_with_pipes(char **args)
 	char	***commands;
 
 	num_pipes = count_pipes(args);
+	printf("num_pipes %i \n", num_pipes);
 	commands = allocate_commands(num_pipes);
 	split_commands(args, commands);
 	return (commands);

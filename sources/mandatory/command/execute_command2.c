@@ -6,7 +6,7 @@
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:14:40 by roglopes          #+#    #+#             */
-/*   Updated: 2024/06/16 14:29:22 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/06/29 16:58:33 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,28 +104,30 @@ void	handle_internal_command(char **args)
 		ft_echo(args);
 }
 
-void execute_command(char **args)
+void	execute_command(char **args)
 {
-    char ***commands;
+	char	***commands;
 
-    if (args[0] == NULL)
-        return;
-    commands = parse_commands_with_pipes(args);
-    if (commands[1] != NULL)
-        execute_pipeline(commands);
-    else
-    {
-        if (ft_strcmp(args[0], "pwd") == 0 || ft_strcmp(args[0], "clear") == 0 ||
-            ft_strcmp(args[0], "exit") == 0 || ft_strcmp(args[0], "cd") == 0 ||
-            ft_strcmp(args[0], "export") == 0 || ft_strcmp(args[0], "unset") == 0 ||
-            ft_strcmp(args[0], "env") == 0 || ft_strcmp(args[0], "echo") == 0)
-        {
-            handle_internal_command(args);
-        }
-        else
-        {
-            if (!execute_external_command(args)) 
-            {
-            }
-        }
-    
+	if (args[0] == NULL)
+		return ;
+	commands = parse_commands_with_pipes(args);
+	if (commands[1] != NULL)
+		execute_pipeline(commands);
+	else
+	{
+		if (ft_strcmp(args[0], "pwd") == 0 || ft_strcmp(args[0], "clear") == 0
+			|| ft_strcmp(args[0], "exit") == 0 || ft_strcmp(args[0], "cd") == 0
+			|| ft_strcmp(args[0], "export") == 0 || ft_strcmp(args[0],
+				"unset") == 0 || ft_strcmp(args[0], "env") == 0
+			|| ft_strcmp(args[0], "echo") == 0)
+		{
+			handle_internal_command(args);
+		}
+		else
+		{
+			if (!execute_external_command(args))
+			{
+			}
+		}
+	}
+}

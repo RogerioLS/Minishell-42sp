@@ -6,7 +6,7 @@
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 16:52:11 by roglopes          #+#    #+#             */
-/*   Updated: 2024/06/16 16:10:43 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/06/29 16:00:38 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,5 +180,6 @@ void					ft_free_commands(t_command *head);
 void					ft_free_tokens(t_token *head);
 void					ft_free_string_array(char **array);
 char					*ft_strjoin_free(char *s1, char *s2);
+void					free_commands(char ***commands);
 
 #endif

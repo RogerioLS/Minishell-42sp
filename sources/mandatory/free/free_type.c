@@ -6,7 +6,7 @@
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 00:34:57 by lluiz-de          #+#    #+#             */
-/*   Updated: 2024/06/16 16:07:39 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/06/29 16:00:13 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,17 @@ char	*ft_strjoin_free(char *s1, char *s2)
 	strcat(result, s2);
 	free(s1);
 	return (result);
+}
+
+void	free_commands(char ***commands)
+{
+	int	i;
+
+	i = 0;
+	while (commands[i] != NULL)
+	{
+		free(commands[i]);
+		i++;
+	}
+	free(commands);
 }

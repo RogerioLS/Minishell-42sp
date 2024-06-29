@@ -1,0 +1,151 @@
+==1363259== Memcheck, a memory error detector
+==1363259== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==1363259== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==1363259== Command: ./minishell
+==1363259== Parent PID: 1362988
+==1363259== 
+==1363259== Invalid read of size 8
+==1363259==    at 0x401F00: ft_free_string_array (free_type.c:48)
+==1363259==    by 0x40147A: process_command_line (main.c:36)
+==1363259==    by 0x4014EB: main_loop (main.c:54)
+==1363259==    by 0x40151C: main (main.c:64)
+==1363259==  Address 0x4b15760 is 0 bytes inside a block of size 16 free'd
+==1363259==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1363259==    by 0x402036: free_commands (free_type.c:83)
+==1363259==    by 0x403088: execute_command (execute_command2.c:133)
+==1363259==    by 0x402B29: handle_redirection_and_execution (execute_command.c:100)
+==1363259==    by 0x401468: process_command_line (main.c:33)
+==1363259==    by 0x4014EB: main_loop (main.c:54)
+==1363259==    by 0x40151C: main (main.c:64)
+==1363259==  Block was alloc'd at
+==1363259==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1363259==    by 0x401CF9: tokens_to_argv (create_token.c:69)
+==1363259==    by 0x401451: process_command_line (main.c:32)
+==1363259==    by 0x4014EB: main_loop (main.c:54)
+==1363259==    by 0x40151C: main (main.c:64)
+==1363259== 
+==1363259== Invalid read of size 8
+==1363259==    at 0x401F13: ft_free_string_array (free_type.c:50)
+==1363259==    by 0x40147A: process_command_line (main.c:36)
+==1363259==    by 0x4014EB: main_loop (main.c:54)
+==1363259==    by 0x40151C: main (main.c:64)
+==1363259==  Address 0x4b15760 is 0 bytes inside a block of size 16 free'd
+==1363259==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1363259==    by 0x402036: free_commands (free_type.c:83)
+==1363259==    by 0x403088: execute_command (execute_command2.c:133)
+==1363259==    by 0x402B29: handle_redirection_and_execution (execute_command.c:100)
+==1363259==    by 0x401468: process_command_line (main.c:33)
+==1363259==    by 0x4014EB: main_loop (main.c:54)
+==1363259==    by 0x40151C: main (main.c:64)
+==1363259==  Block was alloc'd at
+==1363259==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1363259==    by 0x401CF9: tokens_to_argv (create_token.c:69)
+==1363259==    by 0x401451: process_command_line (main.c:32)
+==1363259==    by 0x4014EB: main_loop (main.c:54)
+==1363259==    by 0x40151C: main (main.c:64)
+==1363259== 
+==1363259== Invalid free() / delete / delete[] / realloc()
+==1363259==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1363259==    by 0x401F32: ft_free_string_array (free_type.c:53)
+==1363259==    by 0x40147A: process_command_line (main.c:36)
+==1363259==    by 0x4014EB: main_loop (main.c:54)
+==1363259==    by 0x40151C: main (main.c:64)
+==1363259==  Address 0x4b15760 is 0 bytes inside a block of size 16 free'd
+==1363259==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1363259==    by 0x402036: free_commands (free_type.c:83)
+==1363259==    by 0x403088: execute_command (execute_command2.c:133)
+==1363259==    by 0x402B29: handle_redirection_and_execution (execute_command.c:100)
+==1363259==    by 0x401468: process_command_line (main.c:33)
+==1363259==    by 0x4014EB: main_loop (main.c:54)
+==1363259==    by 0x40151C: main (main.c:64)
+==1363259==  Block was alloc'd at
+==1363259==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1363259==    by 0x401CF9: tokens_to_argv (create_token.c:69)
+==1363259==    by 0x401451: process_command_line (main.c:32)
+==1363259==    by 0x4014EB: main_loop (main.c:54)
+==1363259==    by 0x40151C: main (main.c:64)
+==1363259== 
+==1363259== 
+==1363259== HEAP SUMMARY:
+==1363259==     in use at exit: 204,671 bytes in 218 blocks
+==1363259==   total heap usage: 460 allocs, 243 frees, 226,882 bytes allocated
+==1363259== 
+==1363259== LEAK SUMMARY:
+==1363259==    definitely lost: 0 bytes in 0 blocks
+==1363259==    indirectly lost: 0 bytes in 0 blocks
+==1363259==      possibly lost: 0 bytes in 0 blocks
+==1363259==    still reachable: 0 bytes in 0 blocks
+==1363259==         suppressed: 204,671 bytes in 218 blocks
+==1363259== 
+==1363259== ERROR SUMMARY: 4 errors from 3 contexts (suppressed: 0 from 0)
+==1363259== 
+==1363259== 1 errors in context 1 of 3:
+==1363259== Invalid free() / delete / delete[] / realloc()
+==1363259==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1363259==    by 0x401F32: ft_free_string_array (free_type.c:53)
+==1363259==    by 0x40147A: process_command_line (main.c:36)
+==1363259==    by 0x4014EB: main_loop (main.c:54)
+==1363259==    by 0x40151C: main (main.c:64)
+==1363259==  Address 0x4b15760 is 0 bytes inside a block of size 16 free'd
+==1363259==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1363259==    by 0x402036: free_commands (free_type.c:83)
+==1363259==    by 0x403088: execute_command (execute_command2.c:133)
+==1363259==    by 0x402B29: handle_redirection_and_execution (execute_command.c:100)
+==1363259==    by 0x401468: process_command_line (main.c:33)
+==1363259==    by 0x4014EB: main_loop (main.c:54)
+==1363259==    by 0x40151C: main (main.c:64)
+==1363259==  Block was alloc'd at
+==1363259==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1363259==    by 0x401CF9: tokens_to_argv (create_token.c:69)
+==1363259==    by 0x401451: process_command_line (main.c:32)
+==1363259==    by 0x4014EB: main_loop (main.c:54)
+==1363259==    by 0x40151C: main (main.c:64)
+==1363259== 
+==1363259== 
+==1363259== 1 errors in context 2 of 3:
+==1363259== Invalid read of size 8
+==1363259==    at 0x401F13: ft_free_string_array (free_type.c:50)
+==1363259==    by 0x40147A: process_command_line (main.c:36)
+==1363259==    by 0x4014EB: main_loop (main.c:54)
+==1363259==    by 0x40151C: main (main.c:64)
+==1363259==  Address 0x4b15760 is 0 bytes inside a block of size 16 free'd
+==1363259==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1363259==    by 0x402036: free_commands (free_type.c:83)
+==1363259==    by 0x403088: execute_command (execute_command2.c:133)
+==1363259==    by 0x402B29: handle_redirection_and_execution (execute_command.c:100)
+==1363259==    by 0x401468: process_command_line (main.c:33)
+==1363259==    by 0x4014EB: main_loop (main.c:54)
+==1363259==    by 0x40151C: main (main.c:64)
+==1363259==  Block was alloc'd at
+==1363259==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1363259==    by 0x401CF9: tokens_to_argv (create_token.c:69)
+==1363259==    by 0x401451: process_command_line (main.c:32)
+==1363259==    by 0x4014EB: main_loop (main.c:54)
+==1363259==    by 0x40151C: main (main.c:64)
+==1363259== 
+==1363259== 
+==1363259== 2 errors in context 3 of 3:
+==1363259== Invalid read of size 8
+==1363259==    at 0x401F00: ft_free_string_array (free_type.c:48)
+==1363259==    by 0x40147A: process_command_line (main.c:36)
+==1363259==    by 0x4014EB: main_loop (main.c:54)
+==1363259==    by 0x40151C: main (main.c:64)
+==1363259==  Address 0x4b15760 is 0 bytes inside a block of size 16 free'd
+==1363259==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1363259==    by 0x402036: free_commands (free_type.c:83)
+==1363259==    by 0x403088: execute_command (execute_command2.c:133)
+==1363259==    by 0x402B29: handle_redirection_and_execution (execute_command.c:100)
+==1363259==    by 0x401468: process_command_line (main.c:33)
+==1363259==    by 0x4014EB: main_loop (main.c:54)
+==1363259==    by 0x40151C: main (main.c:64)
+==1363259==  Block was alloc'd at
+==1363259==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1363259==    by 0x401CF9: tokens_to_argv (create_token.c:69)
+==1363259==    by 0x401451: process_command_line (main.c:32)
+==1363259==    by 0x4014EB: main_loop (main.c:54)
+==1363259==    by 0x40151C: main (main.c:64)
+==1363259== 
+--1363259-- 
+--1363259-- used_suppression:     61 ignore_libreadline_memory_errors readline.supp:2 suppressed: 204,671 bytes in 218 blocks
+==1363259== 
+==1363259== ERROR SUMMARY: 4 errors from 3 contexts (suppressed: 0 from 0)

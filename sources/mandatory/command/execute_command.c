@@ -76,8 +76,13 @@ int	handle_heredoc(char **tokens, int i)
 	return (0);
 }
 
-void	handle_redirection_and_execution(char **tokens, \
-										int input_fd, int output_fd)
+void handle_redirection_and_execution(t_token *tokens)
+{
+	execute_command(tokens);
+}
+
+
+/*void	handle_redirection_and_execution(char **tokens, int input_fd, int output_fd)
 {
 	int	i;
 
@@ -98,4 +103,4 @@ void	handle_redirection_and_execution(char **tokens, \
 		i++;
 	}
 	execute_command(tokens);
-}
+}*/

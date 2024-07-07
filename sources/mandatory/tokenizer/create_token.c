@@ -59,30 +59,6 @@ t_token	*create_token(const char *text, enum e_token_type type)
 	return (token);
 }
 
-char	**tokens_to_argv(t_token *tokens)
-{
-	int		count;
-	char	**args;
-	int		i;
-
-	count = ft_lstsize_token(tokens);
-	args = malloc((count + 1) * sizeof(char *));
-	if (!args)
-	{
-		perror("malloc() error");
-		exit(EXIT_FAILURE);
-	}
-	i = 0;
-	while (tokens)
-	{
-		args[i] = ft_strdup(tokens->text);
-		tokens = tokens->next;
-		i++;
-	}
-	args[i] = NULL;
-	return (args);
-}
-
 t_token	*input_tokenizer(char *input)
 {
 	t_token	*head;

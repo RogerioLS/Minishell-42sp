@@ -31,7 +31,7 @@ char	*ft_realpath(const char *path, char *resolved_path)
 	}
 }
 
-void	ft_pwd(int argc, char **argv)
+void	ft_pwd(int argc, t_token *tokens)
 {
 	char	wd[PATH_MAX];
 	char	resolved_path[PATH_MAX];
@@ -40,9 +40,9 @@ void	ft_pwd(int argc, char **argv)
 	use_logical_path = 0;
 	if (argc > 1)
 	{
-		if (ft_strcmp(argv[1], "-L") != 0)
+		if (ft_strcmp(tokens->next->text, "-L") != 0)
 		{
-			ft_printf("pwd: bad option: %s\n", argv[1]);
+			ft_printf("pwd: bad option: %s\n", tokens->next->text);
 			return ;
 		}
 		use_logical_path = 1;
@@ -58,26 +58,26 @@ void	ft_pwd(int argc, char **argv)
 		ft_putendl_fd(wd, 1);
 }
 
-void	ft_echo(char **args)
+void	ft_echo(t_token *tokens)
 {
-	int	i;
+	t_token *current;
 	int	newline;
 
-	i = 1;
+	current = tokens->next;
 	newline = 1;
-	if (ft_strcmp(args[1], "-n") == 0)
+	if (current != NULL && ft_strcmp(current->text, "-n") == 0)
 	{
 		newline = 0;
-		i++;
+		current = current->next;
 	}
-	while (args[i] != NULL)
+	while (current != NULL)
 	{
-		ft_printf("%s", args[i]);
-		i++;
-		if (args[i] != NULL)
+		ft_printf("%s", current->text);
+		if (current->next != NULL)
 		{
 			ft_printf(" ");
 		}
+		current = current->next;
 	}
 	if (newline)
 	{
@@ -90,10 +90,15 @@ void	clear_screen(void)
 	ft_printf("\e[2J\e[H");
 }
 
-void	ft_cd(char *path)
+void	ft_cd(t_token *tokens)
 {
+	char	*path;
 	char	*home;
 
+	path = NULL;
+	home = NULL;
+	if (tokens != NULL)
+		path = tokens->text;
 	if (!path)
 	{
 		home = getenv("HOME");

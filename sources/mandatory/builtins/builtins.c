@@ -12,14 +12,19 @@
 
 #include "../../../includes/mandatory/mini_shell.h"
 
-void	export_variable(char **args)
+void	export_variable(t_token *tokens)
 {
 	char	*name;
 	char	*value;
+	t_token *current;
 
-	if (args[1] != NULL)
+	name = NULL;
+	value = NULL;
+	current = tokens->next;
+
+	if (current != NULL)
 	{
-		name = ft_strtok(args[1], "=");
+		name = ft_strtok(current->text, "=");
 		value = ft_strtok(NULL, "=");
 		if (name != NULL)
 		{

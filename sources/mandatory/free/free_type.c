@@ -12,16 +12,17 @@
 
 #include "../../../includes/mandatory/mini_shell.h"
 
-void	ft_free_tokens(t_token *head)
+void	ft_free_tokens(t_token *tokens)
 {
-	t_token	*temp;
+    t_token *current;
+    t_token *next;
 
-	while (head != NULL)
-	{
-		temp = head;
-		head = head->next;
-		free(temp->text);
-		free(temp);
+	current = tokens;
+    while (current != NULL) {
+		next = current->next;
+		free(current->text);
+        free(current);
+		current = next;
 	}
 }
 

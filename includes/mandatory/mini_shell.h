@@ -109,7 +109,6 @@ int						afterprompt(int is_after);
 // Tokenizer
 t_token					*input_tokenizer(char *input);
 t_token					*create_token(const char *text, enum e_token_type type);
-char					**tokens_to_argv(t_token *tokens);
 bool					is_operator_char(char c);
 bool					is_inside_quotes(char *cursor);
 char					*skip_quotes(char *cursor);
@@ -132,15 +131,16 @@ void					print_environment(void);
 int						handle_redirection(char **tokens, int *input_fd,
 							int *output_fd, int i);
 int						handle_heredoc(char **tokens, int i);
-void					handle_redirection_and_execution(char **tokens,
-							int input_fd, int output_fd);
+//void					handle_redirection_and_execution(t_token *tokens,
+//							int input_fd, int output_fd);
+void					handle_redirection_and_execution(t_token *tokens);
 
 // Command 2
 char					*find_command_path(char **paths, char *command);
 int						execute_found_command(char *full_path, char **args);
 int						execute_external_command(char **args);
-void					handle_internal_command(char **args);
-void					execute_command(char **args);
+void					handle_internal_command(t_token *tokens);
+void					execute_command(t_token *tokens);
 
 // Command 3
 char					***parse_commands_with_pipes(char **args);
@@ -158,13 +158,13 @@ void					execute_command_in_pipeline(char **command, \
 						int *pipefds, int num_pipes, int i);
 
 // Builtins
-void					export_variable(char **args);
+void					export_variable(t_token *tokens);
 char					*ft_realpath(const char *path,
 							char *resolved_path);
-void					ft_pwd(int argc, char **argv);
-void					ft_echo(char **args);
+void					ft_pwd(int argc, t_token *tokens);
+void					ft_echo(t_token *tokens);
 void					clear_screen(void);
-void					ft_cd(char *path);
+void					ft_cd(t_token *tokens);
 
 // Utils
 char					*ft_strtok(char *str, const char *delim);
@@ -172,12 +172,12 @@ char					*ft_strspn_end(char *str, const char *delim);
 size_t					ft_strcspn(const char *s, const char *reject);
 size_t					ft_strspn(const char *s, const char *accept);
 int						ft_lstsize_token(t_token *head);
-void					ft_unset(char **args);
+void					ft_unset(t_token *tokens);
 void					ft_valid_malloc(int *pipefds);
 
 // Free
 void					ft_free_commands(t_command *head);
-void					ft_free_tokens(t_token *head);
+void					ft_free_tokens(t_token *tokens);
 void					ft_free_string_array(char **array);
 char					*ft_strjoin_free(char *s1, char *s2);
 void					free_commands(char ***commands);

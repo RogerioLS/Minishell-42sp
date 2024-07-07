@@ -59,23 +59,25 @@ int	ft_lstsize_token(t_token *head)
 	return (count);
 }
 
-void	ft_unset(char **args)
+void	ft_unset(t_token *tokens)
 {
-	int	i;
+	t_token *current;
 
-	if (!args[1])
+	current = tokens->next;
+
+	if (current == NULL)
 	{
 		ft_printf("unset: not enough arguments\n");
 		return ;
 	}
-	i = 1;
-	while (args[i])
+
+	while (current != NULL)
 	{
-		if (unsetenv(args[i]) != 0)
+		if (unsetenv(current->text) != 0)
 		{
 			perror("unsetenv");
 		}
-		i++;
+		current = current->next;
 	}
 }
 

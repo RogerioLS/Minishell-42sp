@@ -130,9 +130,8 @@ char					*get_variable_name(const char **cursor);
 void					print_environment(void);
 int						handle_redirection(char **tokens, int *input_fd,
 							int *output_fd, int i);
-int						handle_heredoc(char **tokens, int i);
-//void					handle_redirection_and_execution(t_token *tokens,
-//							int input_fd, int output_fd);
+void					handle_heredoc(t_token *tokens, int *input_fd, int i);
+//void					handle_redirection_and_execution(t_token *tokens, int input_fd, int output_fd);
 void					handle_redirection_and_execution(t_token *tokens);
 
 // Command 2

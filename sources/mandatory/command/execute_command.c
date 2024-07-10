@@ -25,8 +25,7 @@ void	print_environment(void)
 	}
 }
 
-int	handle_redirection(char **tokens, int *input_fd, \
-						int *output_fd, int i)
+int	handle_redirection(char **tokens, int *input_fd, int *output_fd, int i)
 {
 	if (tokens[i + 1] == NULL)
 	{
@@ -49,58 +48,105 @@ int	handle_redirection(char **tokens, int *input_fd, \
 	return (0);
 }
 
-int	handle_heredoc(char **tokens, int i)
+void	handle_heredoc(t_token *tokens, int *input_fd, int i)
 {
+	t_token	*current;
+	t_token	*delimiter_token;
 	char	*delimiter;
 	char	*line;
-	size_t	bufsize;
-	ssize_t	chars_read;
+	int		file_fd;
+	int		j;
 
-	delimiter = tokens[i + 1];
-	if (delimiter == NULL)
-	{
-		printf("syntax error near unexpected token 'newline'\n");
-		return (-1);
-	}
-	tokens[i] = NULL;
-	tokens[i + 1] = NULL;
+	current = tokens;
+	delimiter_token = NULL;
+	delimiter = NULL;
 	line = NULL;
-	bufsize = 0;
-	chars_read = getline(&line, &bufsize, stdin);
-	while (chars_read != -1)
+	j = 0;
+	while (current != NULL && j <= i + 1)
+	{
+		if (j == i + 1)
+			delimiter_token = current;
+		current = current->next;
+		j++;
+	}
+	if (delimiter_token == NULL || delimiter_token->text == NULL)
+	{
+		fprintf(stderr, "syntax error near unexpected token 'newline'\n");
+		return ;
+	}
+	delimiter = delimiter_token->text;
+	file_fd = open("/tmp/heredoc.tmp", O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	if (file_fd < 0)
+	{
+		perror("open");
+		return ;
+	}
+	printf("> ");
+	while ((line = readline(NULL)) != NULL)
 	{
 		if (strcmp(line, delimiter) == 0)
+		{
+			free(line);
 			break ;
+		}
+		write(file_fd, line, strlen(line));
+		write(file_fd, "\n", 1);
+		free(line);
+		printf("> ");
 	}
-	free(line);
-	return (0);
+	close(file_fd);
+	*input_fd = open("/tmp/heredoc.tmp", O_RDONLY);
+	if (*input_fd < 0)
+	{
+		perror("open");
+		return ;
+	}
 }
 
-void handle_redirection_and_execution(t_token *tokens)
+
+void	handle_redirection_and_execution(t_token *tokens)
 {
 	execute_command(tokens);
 }
 
 
-/*void	handle_redirection_and_execution(char **tokens, int input_fd, int output_fd)
+/*
+void	handle_redirection_and_execution(t_token *tokens, int input_fd, int output_fd)
 {
-	int	i;
+	t_token	*current;
+	int		i;
 
+	current = tokens;
 	i = 0;
-	while (tokens[i] != NULL)
+	while (current != NULL)
 	{
-		if (strcmp(tokens[i], ">") == 0 || \
-		strcmp(tokens[i], ">>") == 0 || strcmp(tokens[i], "<") == 0)
+		if (strcmp(current->text, "<<") == 0)
 		{
-			if (handle_redirection(tokens, &input_fd, &output_fd, i) == -1)
+			handle_heredoc(current, &input_fd, i);
+			if (input_fd == -1)
 				return ;
 		}
-		else if (strcmp(tokens[i], "<<") == 0)
-		{
-			if (handle_heredoc(tokens, i) == -1)
-				return ;
-		}
+		current = current->next;
 		i++;
 	}
-	execute_command(tokens);
-}*/
+	if (input_fd != STDIN_FILENO)
+	{
+		if (dup2(input_fd, STDIN_FILENO) == -1)
+		{
+			perror("dup2 input_fd");
+			exit(EXIT_FAILURE);
+		}
+		close(input_fd);
+	}
+	if (output_fd != STDOUT_FILENO)
+	{
+		if (dup2(output_fd, STDOUT_FILENO) == -1)
+		{
+			perror("dup2 output_fd");
+			exit(EXIT_FAILURE);
+		}
+		close(output_fd);
+	}
+	execute_command(current);
+}
+*/

@@ -32,8 +32,8 @@ void	initialize(void)
 void	process_command_line(t_mini *mini)
 {
 	t_token	*tokens;
-	//int		input_fd = STDIN_FILENO;
-	//int		output_fd = STDIN_FILENO;
+	int		input_fd = STDIN_FILENO;
+	int		output_fd = STDIN_FILENO;
 
 	if (mini->cmd_line && *mini->cmd_line)
 	{

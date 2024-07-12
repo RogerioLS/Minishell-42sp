@@ -135,9 +135,9 @@ void					handle_heredoc(t_token *tokens, int *input_fd, int i);
 void					handle_redirection_and_execution(t_token *tokens);
 
 // Command 2
-char					*find_command_path(char **paths, char *command);
-int						execute_found_command(char *full_path, char **args);
-int						execute_external_command(char **args);
+char					*find_command_path(char **paths, t_token *command_token);
+int						execute_found_command(char *full_path, t_token *tokens);
+int						execute_external_command(t_token *tokens);
 void					handle_internal_command(t_token *tokens);
 void					execute_command(t_token *tokens);
 
@@ -152,7 +152,7 @@ void					execute_pipeline(char ***commands);
 int						count_commands(char ***commands);
 void					create_pipes(int *pipefds, int num_pipes);
 void					close_pipes(int *pipefds, int num_pipes);
-void					setup_redirection(int *pipefds, int num_pipes, int i);
+int						setup_redirection(t_token *tokens, int *input_fd, int *output_fd);
 void					execute_command_in_pipeline(char **command, \
 						int *pipefds, int num_pipes, int i);
 

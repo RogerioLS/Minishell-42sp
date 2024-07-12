@@ -12,29 +12,71 @@
 
 #include "../../../includes/mandatory/mini_shell.h"
 
-/*char	*find_command_path(char **paths, char *command)
+int		last_exit_status = 0;
+
+char	*find_command_path(char **paths, t_token *command_token)
 {
 	int		i;
 	char	*full_path;
 
+	if (access(command_token->text, X_OK) == 0)
+	{
+		return (strdup(command_token->text));
+	}
 	i = 0;
 	while (paths[i] != NULL)
 	{
-		full_path = ft_strjoin(paths[i], "/");
-		full_path = ft_strjoin_free(full_path, command);
+		full_path = malloc(strlen(paths[i]) + strlen(command_token->text) + 2);
+		if (!full_path)
+		{
+			perror("malloc");
+			exit(EXIT_FAILURE);
+		}
+		strcpy(full_path, paths[i]);
+		strcat(full_path, "/");
+		strcat(full_path, command_token->text);
 		if (access(full_path, X_OK) == 0)
+		{
 			return (full_path);
+		}
 		free(full_path);
 		i++;
 	}
 	return (NULL);
 }
 
-int	execute_found_command(char *full_path, char **args)
+int	execute_found_command(char *full_path, t_token *tokens)
 {
 	pid_t	pid;
 	int		status;
+	t_token	*current;
+	char	**args;
+	int		i;
 
+	current = tokens;
+	i = 0;
+	// Contar tokens
+	while (current != NULL)
+	{
+		i++;
+		current = current->next;
+	}
+	// Alocar array de argumentos
+	args = malloc((i + 1) * sizeof(char *));
+	if (!args)
+	{
+		perror("malloc");
+		exit(EXIT_FAILURE);
+	}
+	// Preencher array de argumentos
+	current = tokens;
+	i = 0;
+	while (current != NULL)
+	{
+		args[i++] = current->text;
+		current = current->next;
+	}
+	args[i] = NULL;
 	pid = fork();
 	if (pid == 0)
 	{
@@ -45,6 +87,8 @@ int	execute_found_command(char *full_path, char **args)
 	else if (pid > 0)
 	{
 		waitpid(pid, &status, 0);
+		last_exit_status = WIFEXITED(status) ? WEXITSTATUS(status) : -1;
+		free(args);
 		return (WIFEXITED(status) && WEXITSTATUS(status) == 0);
 	}
 	else
@@ -55,7 +99,7 @@ int	execute_found_command(char *full_path, char **args)
 	return (0);
 }
 
-int	execute_external_command(char **args)
+int	execute_external_command(t_token *tokens)
 {
 	char	*path_env;
 	char	**paths;
@@ -65,24 +109,24 @@ int	execute_external_command(char **args)
 	path_env = getenv("PATH");
 	if (!path_env)
 	{
-		ft_printf("command not found: %s\n", args[0]);
+		ft_printf("command not found: %s\n", tokens->text);
 		return (0);
 	}
 	paths = ft_split(path_env, ':');
-	full_path = find_command_path(paths, args[0]);
+	full_path = find_command_path(paths, tokens);
 	if (full_path)
 	{
-		result = execute_found_command(full_path, args);
+		result = execute_found_command(full_path, tokens);
 		free(full_path);
 	}
 	else
 	{
-		ft_printf("command not found: %s\n", args[0]);
+		ft_printf("command not found: %s\n", tokens->text);
 		result = 0;
 	}
 	ft_free_string_array(paths);
 	return (result);
-}*/
+}
 
 void	handle_internal_command(t_token *tokens)
 {
@@ -109,14 +153,25 @@ void	handle_internal_command(t_token *tokens)
 
 void	execute_command(t_token *tokens)
 {
-	if (tokens == NULL || tokens->text == NULL)
-		return ;
+	t_token	*current;
 
-	if (ft_strcmp(tokens->text, "pwd") == 0 || ft_strcmp(tokens->text, "clear") == 0
-        || ft_strcmp(tokens->text, "exit") == 0 || ft_strcmp(tokens->text, "cd") == 0
-        || ft_strcmp(tokens->text, "export") == 0 || ft_strcmp(tokens->text, "unset") == 0
-        || ft_strcmp(tokens->text, "env") == 0 || ft_strcmp(tokens->text, "echo") == 0)
+	current = tokens;
+	if (current == NULL || current->text == NULL)
+		return ;
+	if (ft_strcmp(current->text, "pwd") == 0 || ft_strcmp(current->text,
+			"clear") == 0 || ft_strcmp(current->text, "exit") == 0
+		|| ft_strcmp(current->text, "cd") == 0 || ft_strcmp(current->text,
+			"export") == 0 || ft_strcmp(current->text, "unset") == 0
+		|| ft_strcmp(current->text, "env") == 0 || ft_strcmp(current->text,
+			"echo") == 0)
+	{
+		handle_internal_command(current);
+	}
+	else
+	{
+		if (!execute_external_command(current))
 		{
-			handle_internal_command(tokens);
+			/* code */
 		}
+	}
 }

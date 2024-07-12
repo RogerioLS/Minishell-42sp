@@ -46,7 +46,8 @@ EXPANSION_SOURCES	= $(EXPANSION_DIR)variable_expansion.c \
 					$(EXPANSION_DIR)variable_expansion2.c
 
 COMMAND_SOURCES		= $(COMMAND_DIR)execute_command.c      \
-					$(COMMAND_DIR)execute_command2.c
+					$(COMMAND_DIR)execute_command2.c       \
+					$(COMMAND_DIR)execute_command4.c
 
 BUILTINS_SOURCES	= $(BUILTINS_DIR)builtins.c            \
 					$(BUILTINS_DIR)builtins2.c             \

@@ -39,6 +39,11 @@ void	process_command_line(t_mini *mini)
 	{
 		tokens = input_tokenizer(mini->cmd_line);
 		expand_variables_tokens(tokens);
+		if (setup_redirection(tokens, &input_fd, &output_fd) == -1)
+		{
+			ft_free_tokens(tokens);
+			return ;
+		}
 		//handle_redirection_and_execution(tokens, input_fd, output_fd);
 		handle_redirection_and_execution(tokens);
 		print_tokens(tokens);

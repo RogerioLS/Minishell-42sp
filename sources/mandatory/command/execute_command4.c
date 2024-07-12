@@ -50,26 +50,44 @@ void	close_pipes(int *pipefds, int num_pipes)
 	}
 }
 
-void	setup_redirection(int *pipefds, int num_pipes, int i)
+int	setup_redirection(t_token *tokens, int *input_fd, int *output_fd)
 {
-	if (i > 0)
+	t_token	*current;
+
+	current = tokens;
+	while (current != NULL)
 	{
-		if (dup2(pipefds[(i - 1) * 2], 0) == -1)
+		if (strcmp(current->text, ">") == 0 || strcmp(current->text, ">>") == 0
+			|| strcmp(current->text, "<") == 0)
 		{
-			perror("dup2");
-			exit(EXIT_FAILURE);
+			if (current->next == NULL)
+			{
+				fprintf(stderr,
+					"syntax error near unexpected token 'newline'\n");
+				return (-1);
+			}
+			if (strcmp(current->text, ">") == 0)
+				*output_fd = open(current->next->text,
+						O_CREAT | O_WRONLY | O_TRUNC, 0644);
+			else if (strcmp(current->text, ">>") == 0)
+				*output_fd = open(current->next->text,
+						O_CREAT | O_WRONLY | O_APPEND, 0644);
+			else if (strcmp(current->text, "<") == 0)
+				*input_fd = open(current->next->text, O_RDONLY);
+			if (*output_fd < 0 || *input_fd < 0)
+			{
+				perror("open failed");
+				return (-1);
+			}
+			current->text = NULL;
+			current->next->text = NULL;
 		}
+		current = current->next;
 	}
-	if (i < num_pipes)
-	{
-		if (dup2(pipefds[i * 2 + 1], 1) == -1)
-		{
-			perror("dup2");
-			exit(EXIT_FAILURE);
-		}
-	}
+	return (0);
 }
 
+/*
 void	execute_command_in_pipeline(char **command, int *pipefds, int num_pipes,
 		int i)
 {
@@ -79,3 +97,4 @@ void	execute_command_in_pipeline(char **command, int *pipefds, int num_pipes,
 	perror("execvp");
 	exit(EXIT_FAILURE);
 }
+*/

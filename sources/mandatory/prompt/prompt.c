@@ -6,7 +6,7 @@
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 18:05:13 by roglopes          #+#    #+#             */
-/*   Updated: 2024/07/13 16:59:44 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/07/13 18:19:33 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	prompt(void)
 		if (initialize_buildtoken(input, &tokens) == ERROR)
 			return (0);
 		//eotokens(&tokens, &in_tree);
+		expand_variables_tokens(tokens);
 		builtins(tokens);
 		//initialize_execution(&in_tree, &tokens);
 		print_tokens(tokens);

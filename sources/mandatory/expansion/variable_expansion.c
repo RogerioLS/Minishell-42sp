@@ -6,7 +6,7 @@
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 17:28:58 by roglopes          #+#    #+#             */
-/*   Updated: 2024/06/15 15:43:57 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/07/13 18:20:24 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ void	expand_token(t_token *token)
 	const char	*cursor;
 	char		*expanded;
 
-	cursor = token->text;
-	expanded = malloc(ft_strlen(token->text) + 1);
+	cursor = token->content;
+	expanded = malloc(ft_strlen(token->content) + 1);
 	if (!expanded)
 	{
 		perror("malloc failed");
@@ -71,8 +71,8 @@ void	expand_token(t_token *token)
 			append_char_expanded(&expanded, &cursor);
 		}
 	}
-	free(token->text);
-	token->text = expanded;
+	free(token->content);
+	token->content = expanded;
 }
 
 void	expand_variables_tokens(t_token *head)

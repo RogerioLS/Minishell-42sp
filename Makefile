@@ -6,7 +6,7 @@
 #    By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/31 16:34:27 by roglopes          #+#    #+#              #
-#    Updated: 2024/07/13 16:20:12 by roglopes         ###   ########.fr        #
+#    Updated: 2024/07/13 18:22:56 by roglopes         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,9 @@ INITIALIZE_SOURCES	= $(INITIALIZE_DIR)init_check.c \
 TOKEN_SOURCES		= $(TOKEN_DIR)tokenizer.c              \
 					$(TOKEN_DIR)create_token.c             \
 
+EXPANSION_SOURCES	= $(EXPANSION_DIR)variable_expansion.c \
+					$(EXPANSION_DIR)variable_expansion2.c
+
 COMMAND_SOURCES		= $(COMMAND_DIR)execute_command.c      \
 					$(COMMAND_DIR)execute_command2.c       \
 
@@ -60,7 +63,8 @@ FREE_SOURCES		= $(FREE_DIR)free_type.c
 SOURCES				= $(MAIN_SOURCES) $(PROMPT_SOURCES) \
 					$(FREE_SOURCES) $(INITIALIZE_SOURCES) \
 					$(TOKEN_SOURCES) $(UTILS_SOURCES) \
-					$(BUILTINS_SOURCES) $(COMMAND_SOURCES)
+					$(BUILTINS_SOURCES) $(COMMAND_SOURCES) \
+					$(EXPANSION_SOURCES)
 
 OBJS				= $(patsubst $(SOURCES_DIR)%.c,$(OBJECTS_DIR)%.o, $(SOURCES))
 

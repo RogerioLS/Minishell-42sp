@@ -6,7 +6,7 @@
 #    By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/31 16:34:27 by roglopes          #+#    #+#              #
-#    Updated: 2024/06/29 15:41:18 by roglopes         ###   ########.fr        #
+#    Updated: 2024/07/13 16:20:12 by roglopes         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ HEADERS				= -I ./includes/mandatory/ -I ./libft/include/
 
 MAIN_DIR			= $(SOURCES_DIR)mandatory/main/
 PROMPT_DIR			= $(SOURCES_DIR)mandatory/prompt/
+INITIALIZE_DIR		= $(SOURCES_DIR)mandatory/initialize/
 TOKEN_DIR			= $(SOURCES_DIR)mandatory/tokenizer/
 EXPANSION_DIR		= $(SOURCES_DIR)mandatory/expansion/
 COMMAND_DIR			= $(SOURCES_DIR)mandatory/command/
@@ -36,32 +37,30 @@ VALGRIND_LOG		= valgrind.log
 MAIN_SOURCES		= $(MAIN_DIR)main.c
 
 PROMPT_SOURCES		= $(PROMPT_DIR)prompt.c                \
-					$(PROMPT_DIR)prompt2.c                 \
 					$(PROMPT_DIR)signal.c
+
+INITIALIZE_SOURCES	= $(INITIALIZE_DIR)init_check.c \
+					$(INITIALIZE_DIR)redirect.c
 
 TOKEN_SOURCES		= $(TOKEN_DIR)tokenizer.c              \
 					$(TOKEN_DIR)create_token.c             \
 
-EXPANSION_SOURCES	= $(EXPANSION_DIR)variable_expansion.c \
-					$(EXPANSION_DIR)variable_expansion2.c
-
 COMMAND_SOURCES		= $(COMMAND_DIR)execute_command.c      \
 					$(COMMAND_DIR)execute_command2.c       \
-					$(COMMAND_DIR)execute_command4.c
 
 BUILTINS_SOURCES	= $(BUILTINS_DIR)builtins.c            \
 					$(BUILTINS_DIR)builtins2.c             \
 
 UTILS_SOURCES		= $(UTILS_DIR)utils.c                  \
 					$(UTILS_DIR)utils2.c                   \
-
+					$(UTILS_DIR)utils3.c
 
 FREE_SOURCES		= $(FREE_DIR)free_type.c
 
-SOURCES				= $(MAIN_SOURCES) $(UTILS_SOURCES)     \
-					$(TOKEN_SOURCES) $(FREE_SOURCES)       \
-					$(PROMPT_SOURCES) $(COMMAND_SOURCES)   \
-					$(EXPANSION_SOURCES) $(BUILTINS_SOURCES)
+SOURCES				= $(MAIN_SOURCES) $(PROMPT_SOURCES) \
+					$(FREE_SOURCES) $(INITIALIZE_SOURCES) \
+					$(TOKEN_SOURCES) $(UTILS_SOURCES) \
+					$(BUILTINS_SOURCES) $(COMMAND_SOURCES)
 
 OBJS				= $(patsubst $(SOURCES_DIR)%.c,$(OBJECTS_DIR)%.o, $(SOURCES))
 

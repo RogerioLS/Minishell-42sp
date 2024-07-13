@@ -1,23 +1,60 @@
-==16883== Memcheck, a memory error detector
-==16883== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==16883== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
-==16883== Command: ./minishell
-==16883== Parent PID: 16880
-==16883== 
-==16883== 
-==16883== HEAP SUMMARY:
-==16883==     in use at exit: 204,742 bytes in 224 blocks
-==16883==   total heap usage: 604 allocs, 380 frees, 240,552 bytes allocated
-==16883== 
-==16883== LEAK SUMMARY:
-==16883==    definitely lost: 0 bytes in 0 blocks
-==16883==    indirectly lost: 0 bytes in 0 blocks
-==16883==      possibly lost: 0 bytes in 0 blocks
-==16883==    still reachable: 0 bytes in 0 blocks
-==16883==         suppressed: 204,742 bytes in 224 blocks
-==16883== 
-==16883== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
---16883-- 
---16883-- used_suppression:     61 ignore_libreadline_memory_errors readline.supp:2 suppressed: 204,742 bytes in 224 blocks
-==16883== 
-==16883== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==217110== Memcheck, a memory error detector
+==217110== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==217110== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==217110== Command: ./minishell
+==217110== Parent PID: 217070
+==217110== 
+==217110== Invalid read of size 1
+==217110==    at 0x4038F8: ft_strncmp (in /nfs/homes/roglopes/projetos_all/github_42/Minishell-42sp/minishell)
+==217110==    by 0x40145F: prompt (prompt.c:44)
+==217110==    by 0x401313: main (main.c:19)
+==217110==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
+==217110== 
+==217110== 
+==217110== Process terminating with default action of signal 11 (SIGSEGV)
+==217110==  Access not within mapped region at address 0x0
+==217110==    at 0x4038F8: ft_strncmp (in /nfs/homes/roglopes/projetos_all/github_42/Minishell-42sp/minishell)
+==217110==    by 0x40145F: prompt (prompt.c:44)
+==217110==    by 0x401313: main (main.c:19)
+==217110==  If you believe this happened as a result of a stack
+==217110==  overflow in your program's main thread (unlikely but
+==217110==  possible), you can try to increase the size of the
+==217110==  main thread stack using the --main-stacksize= flag.
+==217110==  The main thread stack size used in this run was 8388608.
+==217110== 
+==217110== HEAP SUMMARY:
+==217110==     in use at exit: 204,765 bytes in 227 blocks
+==217110==   total heap usage: 448 allocs, 221 frees, 225,471 bytes allocated
+==217110== 
+==217110== 27 bytes in 3 blocks are definitely lost in loss record 13 of 63
+==217110==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==217110==    by 0x4013E1: initialize_lists (prompt.c:30)
+==217110==    by 0x401434: prompt (prompt.c:42)
+==217110==    by 0x401313: main (main.c:19)
+==217110== 
+==217110== 27 bytes in 3 blocks are definitely lost in loss record 14 of 63
+==217110==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==217110==    by 0x4013F5: initialize_lists (prompt.c:31)
+==217110==    by 0x401434: prompt (prompt.c:42)
+==217110==    by 0x401313: main (main.c:19)
+==217110== 
+==217110== LEAK SUMMARY:
+==217110==    definitely lost: 54 bytes in 6 blocks
+==217110==    indirectly lost: 0 bytes in 0 blocks
+==217110==      possibly lost: 0 bytes in 0 blocks
+==217110==    still reachable: 0 bytes in 0 blocks
+==217110==         suppressed: 204,711 bytes in 221 blocks
+==217110== 
+==217110== ERROR SUMMARY: 3 errors from 3 contexts (suppressed: 0 from 0)
+==217110== 
+==217110== 1 errors in context 1 of 3:
+==217110== Invalid read of size 1
+==217110==    at 0x4038F8: ft_strncmp (in /nfs/homes/roglopes/projetos_all/github_42/Minishell-42sp/minishell)
+==217110==    by 0x40145F: prompt (prompt.c:44)
+==217110==    by 0x401313: main (main.c:19)
+==217110==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
+==217110== 
+--217110-- 
+--217110-- used_suppression:     61 ignore_libreadline_memory_errors readline.supp:2 suppressed: 204,711 bytes in 221 blocks
+==217110== 
+==217110== ERROR SUMMARY: 3 errors from 3 contexts (suppressed: 0 from 0)

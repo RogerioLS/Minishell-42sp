@@ -6,7 +6,7 @@
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 06:34:32 by lluiz-de          #+#    #+#             */
-/*   Updated: 2024/06/16 16:10:07 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/07/13 15:15:36 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,9 @@ int	ft_lstsize_token(t_token *head)
 
 void	ft_unset(t_token *tokens)
 {
-	t_token *current;
+	t_token	*current;
 
 	current = tokens->next;
-
 	if (current == NULL)
 	{
 		ft_printf("unset: not enough arguments\n");
@@ -73,7 +72,7 @@ void	ft_unset(t_token *tokens)
 
 	while (current != NULL)
 	{
-		if (unsetenv(current->text) != 0)
+		if (unsetenv(current->content) != 0)
 		{
 			perror("unsetenv");
 		}

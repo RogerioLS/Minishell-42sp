@@ -6,7 +6,7 @@
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 13:29:34 by roglopes          #+#    #+#             */
-/*   Updated: 2024/06/16 13:41:30 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/07/13 15:50:36 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ void	ft_pwd(int argc, t_token *tokens)
 	use_logical_path = 0;
 	if (argc > 1)
 	{
-		if (ft_strcmp(tokens->next->text, "-L") != 0)
+		if (ft_strcmp(tokens->next->content, "-L") != 0)
 		{
-			ft_printf("pwd: bad option: %s\n", tokens->next->text);
+			ft_printf("pwd: bad option: %s\n", tokens->next->content);
 			return ;
 		}
 		use_logical_path = 1;
@@ -60,19 +60,19 @@ void	ft_pwd(int argc, t_token *tokens)
 
 void	ft_echo(t_token *tokens)
 {
-	t_token *current;
-	int	newline;
+	t_token	*current;
+	int		newline;
 
 	current = tokens->next;
 	newline = 1;
-	if (current != NULL && ft_strcmp(current->text, "-n") == 0)
+	if (current != NULL && ft_strcmp(current->content, "-n") == 0)
 	{
 		newline = 0;
 		current = current->next;
 	}
 	while (current != NULL)
 	{
-		ft_printf("%s", current->text);
+		ft_printf("%s", current->content);
 		if (current->next != NULL)
 		{
 			ft_printf(" ");
@@ -98,7 +98,7 @@ void	ft_cd(t_token *tokens)
 	path = NULL;
 	home = NULL;
 	if (tokens != NULL)
-		path = tokens->text;
+		path = tokens->content;
 	if (!path)
 	{
 		home = getenv("HOME");

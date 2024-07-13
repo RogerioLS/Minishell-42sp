@@ -6,70 +6,54 @@
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 18:05:13 by roglopes          #+#    #+#             */
-/*   Updated: 2024/06/15 16:52:45 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/07/13 16:59:44 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/mandatory/mini_shell.h"
 
-void	handle_single_quotes(char **input, char *result, size_t *res_len)
+void	print_tokens(t_token *head)
 {
-	(*input)++;
-	while (**input && **input != '\'')
-		result[(*res_len)++] = *(*input)++;
-	if (**input == '\'')
-		(*input)++;
-	else
-		ft_printf("Error: missing closing single quote.\n");
-	result[*res_len] = '\0';
+	while (head != NULL)
+	{
+		ft_printf("Recebido: %s \n", head->content);
+		head = head->next;
+	}
 }
 
-void	parse_input(char *input, char *result)
+void	initialize_lists(t_token **token_list, t_tree **tree_list)
 {
-	size_t	res_len;
-
-	res_len = 0;
-	while (*input)
-	{
-		if (*input == '\'')
-			handle_single_quotes(&input, result, &res_len);
-		else if (*input == '"')
-			handle_double_quotes(&input, result, &res_len);
-		else if (*input == '$')
-		{
-			input++;
-			append_var_value(&input, result, &res_len);
-		}
-		else
-			result[res_len++] = *input++;
-	}
-	result[res_len] = '\0';
+	ft_printf("\033[1;33mMINIHELL started!\033[0m\n");
+	signal(SIGINT, handle_signal);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGTERM, handle_signal);
+	*token_list = malloc(sizeof(t_token *) + 1);
+	*tree_list = malloc(sizeof(t_tree *) + 1);
+	*token_list = NULL;
+	*tree_list = NULL;
 }
 
-char	*prompt(void)
+int	prompt(void)
 {
-	char	*cmd_line;
-	char	*cmd_parser;
+	char		*input;
+	t_token		*tokens;
+	t_tree		*in_tree;
 
-	cmd_line = NULL;
-	cmd_parser = NULL;
-	afterprompt(0);
-	cmd_line = readline("\033[1;31mMINIHELL>$\033[0m ");
-	if (!cmd_line)
+	initialize_lists(&tokens, &in_tree);
+	input = readline("\033[1;31mMINIHELL>$\033[0m ");
+	if (!ft_strncmp(input, "", 1))
+		return (0);
+	add_history(input);
+	if (initialize_checker(input))
 	{
-		ft_printf("Error reading input.\n");
-		exit(EXIT_FAILURE);
+		if (initialize_buildtoken(input, &tokens) == ERROR)
+			return (0);
+		//eotokens(&tokens, &in_tree);
+		builtins(tokens);
+		//initialize_execution(&in_tree, &tokens);
+		print_tokens(tokens);
+		free(input);
 	}
-	afterprompt(1);
-	if (cmd_line[0] != '\0')
-		add_history(cmd_line);
-	cmd_parser = (char *)malloc(1024 * sizeof(char));
-	if (cmd_parser == NULL)
-	{
-		ft_printf("Memory allocation failed.\n");
-		exit(EXIT_FAILURE);
-	}
-	parse_input(cmd_line, cmd_parser);
-	free(cmd_line);
-	return (cmd_parser);
+	free_list(&in_tree, &tokens);
+	return (1);
 }

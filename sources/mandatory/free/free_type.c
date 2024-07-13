@@ -6,83 +6,77 @@
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 00:34:57 by lluiz-de          #+#    #+#             */
-/*   Updated: 2024/06/29 16:00:13 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/07/13 13:55:22 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/mandatory/mini_shell.h"
 
+void	treelst_clear(t_tree **lst)
+{
+	t_tree	*current;
+	t_tree	*right;
+
+	if (*lst == NULL)
+		return ;
+	current = *lst;
+	while (current != NULL)
+	{
+		right = current->right;
+		if (current->left != NULL)
+			treelst_clear(&(current->left));
+		free(current->content);
+		free(current);
+		current = right;
+	}
+	*lst = NULL;
+}
+
+void	clear_tokens(t_token **lst)
+{
+	t_token	*current;
+	t_token	*next;
+
+	if (*lst == NULL)
+		return ;
+	current = *lst;
+	while (current != NULL)
+	{
+		next = current->next;
+		free(current->content);
+		free(current);
+		current = next;
+	}
+	*lst = NULL;
+}
+
 void	ft_free_tokens(t_token *tokens)
 {
-    t_token *current;
-    t_token *next;
+	t_token	*current;
+	t_token	*next;
 
 	current = tokens;
-    while (current != NULL) {
+	while (current != NULL)
+	{
 		next = current->next;
-		free(current->text);
-        free(current);
+		free(current->content);
+		free(current);
 		current = next;
 	}
 }
 
-void	ft_free_commands(t_command *head)
+void	free_list(t_tree **tree_list, t_token **token_list)
 {
-	t_command	*temp;
-
-	while (head != NULL)
+	if (tree_list)
 	{
-		temp = head;
-		head = head->next;
-		free(temp->text);
-		free(temp);
+		treelst_clear(tree_list);
+		free (*tree_list);
+		*tree_list = NULL;
 	}
-}
-
-void	ft_free_string_array(char **array)
-{
-	int	i;
-
-	i = 0;
-	if (!array)
-		return ;
-	while (array[i])
+	if (token_list)
 	{
-		free(array[i]);
-		i++;
+		clear_tokens(token_list);
+		free(*token_list);
+		*token_list = NULL;
 	}
-	free(array);
-}
-
-char	*ft_strjoin_free(char *s1, char *s2)
-{
-	char	*result;
-
-	if (!s1 || !s2)
-	{
-		return (NULL);
-	}
-	result = malloc(strlen(s1) + strlen(s2) + 1);
-	if (!result)
-	{
-		perror("malloc");
-		exit(EXIT_FAILURE);
-	}
-	strcpy(result, s1);
-	strcat(result, s2);
-	free(s1);
-	return (result);
-}
-
-void	free_commands(char ***commands)
-{
-	int	i;
-
-	i = 0;
-	while (commands[i] != NULL)
-	{
-		free(commands[i]);
-		i++;
-	}
-	free(commands);
 }

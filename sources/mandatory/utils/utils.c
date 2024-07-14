@@ -6,7 +6,7 @@
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 06:34:32 by lluiz-de          #+#    #+#             */
-/*   Updated: 2024/07/13 15:15:36 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/07/14 16:41:44 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,12 @@ void	ft_unset(t_token *tokens)
 		ft_printf("unset: not enough arguments\n");
 		return ;
 	}
-
 	while (current != NULL)
 	{
-		if (unsetenv(current->content) != 0)
-		{
+		if (current->content == NULL || ft_strlen(current->content) == 0)
+			ft_printf("unset: %s: not a valid identifier\n", current->content);
+		else if (unsetenv(current->content) != 0)
 			perror("unsetenv");
-		}
 		current = current->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 13:29:34 by roglopes          #+#    #+#             */
-/*   Updated: 2024/07/13 16:07:38 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/07/14 16:31:57 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,30 +17,31 @@ void	export_variable(t_token *tokens)
 	char	*name;
 	char	*value;
 	t_token	*current;
+	char	*equal_sign;
 
 	name = NULL;
 	value = NULL;
 	current = tokens->next;
 	if (current != NULL)
 	{
-		name = ft_strtok(current->content, "=");
-		value = ft_strtok(NULL, "=");
-		if (name != NULL)
+		equal_sign = ft_strchr(current->content, '=');
+		if (equal_sign != NULL)
 		{
-			if (value != NULL)
-			{
-				setenv(name, value, 1);
-			}
-			else
-			{
-				setenv(name, "", 1);
-			}
+			*equal_sign = '\0';
+			name = current->content;
+			value = equal_sign +1;
+			if (setenv(name, value, 1) != 0)
+				perror("setenv");
+			*equal_sign = '=';
+		}
+		else
+		{
+			if (setenv(current->content, "", 1) != 0)
+				perror("setenv");
 		}
 	}
 	else
-	{
 		print_environment();
-	}
 }
 
 void	builtins(t_token *tokens)

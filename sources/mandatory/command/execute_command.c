@@ -6,7 +6,7 @@
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 16:48:42 by roglopes          #+#    #+#             */
-/*   Updated: 2024/07/13 15:43:43 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/07/14 16:10:08 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	print_environment(void)
 	env = environ;
 	while (*env != NULL)
 	{
-		ft_printf("%s\n", *env);
+		ft_printf("declare -x %s\n", *env);
 		env++;
 	}
 }

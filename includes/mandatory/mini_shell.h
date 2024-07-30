@@ -3,19 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 16:52:11 by roglopes          #+#    #+#             */
-/*   Updated: 2024/07/13 18:21:46 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/07/30 01:48:27 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINI_SHELL_H
 # define MINI_SHELL_H
 
-# include <sys/types.h>
 # include "../../libft/include/get_next_line.h"
 # include "../../libft/include/libft.h"
+# include <stdio.h>
+# include <stdlib.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <readline/readline.h>
+# include <signal.h>
+# include <sys/stat.h>
 
 typedef enum e_tokens		t_tokens;
 enum						e_tokens
@@ -33,7 +41,7 @@ enum						e_tokens
 	PIPE,
 };
 
-typedef enum e_tree_typed		t_types_tree;
+typedef enum e_tree_typed	t_types_tree;
 enum						e_tree_typed
 {
 	STRING = 10,
@@ -84,19 +92,19 @@ typedef struct s_tree		t_tree;
 struct						s_tree
 {
 	char					*content;
-	t_types_tree				tree_type;
+	t_types_tree			tree_type;
 	t_token					*left_token;
 	t_token					*right_token;
 	t_tree					*left;
 	t_tree					*right;
 };
 
-typedef struct s_venv	t_venv;
+typedef struct s_venv		t_venv;
 struct						s_venv
 {
 	char					*key;
 	char					*value;
-	t_venv				*next;
+	t_venv					*next;
 };
 
 typedef struct s_cmd		t_cmd;
@@ -111,7 +119,7 @@ struct						s_data
 {
 	t_token					*token_list;
 	t_tree					*tree_listed;
-	t_venv				*envp;
+	t_venv					*envp;
 	int						endsts;
 	int						attribute;
 	int						has_env;
@@ -168,7 +176,7 @@ t_tree						*tree_new(char *content, t_tokens type);
 void						treelst_clear(t_tree **lst);
 void						build_tnode(t_token *new_node,
 								t_tree **tree_listed, int direction);
-t_types_tree					type_check(t_tokens token);
+t_types_tree				type_check(t_tokens token);
 void						has_left_cmds(t_tree *node,
 								t_tree *current_tnode);
 void						has_right_cmds(t_tree *node,
@@ -202,10 +210,10 @@ int							execute_command(t_tree *node, t_data *data,
 								t_venv **envp, int direction);
 int							execution_error(char **cmd_args, t_venv **envp,
 								int status);
-t_venv					*env_lstnew(char *key, char *value);
-void	env_lstadd_back(t_venv **lst, t_venv *new);
+t_venv						*env_lstnew(char *key, char *value);
+void						env_lstadd_back(t_venv **lst, t_venv *new);
 void						env_lstclear(t_venv **lst);
-t_venv					*env_lstsearch(t_venv **lst, char *key);
+t_venv						*env_lstsearch(t_venv **lst, char *key);
 int							env_size(t_venv **env);
 void						get_envp(t_venv **envp, char **environ);
 int							all_checked(const char *input);
@@ -241,10 +249,12 @@ void						heredocwrite(char *line, int fd_heredoc, \
 								t_data *data, t_venv **envp);
 int							founded_hd(t_tree *stm, t_data *data,
 								t_venv **envp);
-int	ft_strncmp(const char *s1, const char *s2, size_t n);
-void	ft_putendl_fd(char *s, int fd);
-char	*ft_strjoin(char const *s1, char const *s2);
-int	execution_error(char **cmd_args, t_venv **envp, int status);
-void	initialize(void);
+int							ft_strncmp(const char *s1,
+								const char *s2, size_t n);
+void						ft_putendl_fd(char *s, int fd);
+char						*ft_strjoin(char const *s1, char const *s2);
+int							execution_error(char **cmd_args,
+								t_venv **envp, int status);
+void						initialize(void);
 
 #endif

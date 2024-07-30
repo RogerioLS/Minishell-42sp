@@ -1,10 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute_command4.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/30 01:19:15 by codespace         #+#    #+#             */
+/*   Updated: 2024/07/30 01:44:14 by codespace        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../includes/mandatory/mini_shell.h"
-#include <signal.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <stdio.h>
-#include <unistd.h>
 
 static int	child_process(t_tree *node, t_data *data, t_venv **envp)
 {

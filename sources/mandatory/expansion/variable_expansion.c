@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   variable_expansion.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 17:28:58 by roglopes          #+#    #+#             */
-/*   Updated: 2024/07/13 18:20:24 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/07/30 01:46:10 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/mandatory/mini_shell.h"
-#include <stdio.h>
-#include <unistd.h>
 
 static void	join_content(char *content, int i, int start, char **final_line)
 {

@@ -1,11 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_heredoc.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/30 01:23:43 by codespace         #+#    #+#             */
+/*   Updated: 2024/07/30 01:47:09 by codespace        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../includes/mandatory/mini_shell.h"
-#include <fcntl.h>
-#include <readline/readline.h>
-#include <signal.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <stdlib.h>
 
 char	*expand_env(char *content, t_venv **envp, t_data *data)
 {

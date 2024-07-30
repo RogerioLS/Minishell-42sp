@@ -1,8 +1,15 @@
-#include <readline/readline.h>
-#include <stdio.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <unistd.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute_command6.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/30 01:19:50 by codespace         #+#    #+#             */
+/*   Updated: 2024/07/30 01:44:53 by codespace        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../includes/mandatory/mini_shell.h"
 
 static void	for_errors_type(char **cmd_args, char **error_line, \

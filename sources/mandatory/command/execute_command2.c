@@ -3,27 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   execute_command2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:14:40 by roglopes          #+#    #+#             */
-/*   Updated: 2024/07/13 16:17:51 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/07/30 01:42:57 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/mandatory/mini_shell.h"
-#include <readline/readline.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <signal.h>
-#include <fcntl.h>
 
 static char	**builded_varg(t_venv **envp)
 {
 	t_venv	*temp;
-	char		**environ_var;
-	int			index;
-	int			size_envp;
-	char		*line;
+	char	**environ_var;
+	int		index;
+	int		size_envp;
+	char	*line;
 
 	size_envp = env_size(envp);
 	environ_var = ft_calloc(sizeof(char *), size_envp + 1);

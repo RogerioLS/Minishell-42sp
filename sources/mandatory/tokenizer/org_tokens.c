@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   org_tokens.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/30 01:27:26 by codespace         #+#    #+#             */
+/*   Updated: 2024/07/30 01:27:36 by codespace        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../includes/mandatory/mini_shell.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -20,7 +32,7 @@ static void	expand_status_env_var(char *env_key, char **final_line, \
 void	env_searched(char *env_key, char **final_line, t_venv **envp)
 {
 	t_venv	*env;
-	char		*temp;
+	char	*temp;
 
 	temp = NULL;
 	env = env_lstsearch(envp, env_key);

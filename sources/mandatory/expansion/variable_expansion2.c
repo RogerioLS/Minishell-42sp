@@ -3,17 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   variable_expansion2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 15:43:41 by roglopes          #+#    #+#             */
-/*   Updated: 2024/06/16 13:24:11 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/07/30 01:46:23 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/mandatory/mini_shell.h"
-#include <readline/readline.h>
-#include <stdio.h>
-#include <unistd.h>
 
 static void	rebuild_quote(char *content, char **full_line, char *remove_quotes,
 		int i)

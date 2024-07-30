@@ -3,17 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   free_type.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 00:34:57 by lluiz-de          #+#    #+#             */
-/*   Updated: 2024/07/13 13:55:22 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/07/30 01:46:55 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/mandatory/mini_shell.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
 
 void	free_envp(t_venv **envp)
 {

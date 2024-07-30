@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/30 01:24:12 by codespace         #+#    #+#             */
+/*   Updated: 2024/07/30 01:24:40 by codespace        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../includes/mandatory/mini_shell.h"
 #include <readline/history.h>
 #include <readline/readline.h>
@@ -39,7 +51,7 @@ static int	is_v_input(char *input)
 static char	*define_user(t_venv **envp, char *tag)
 {
 	t_venv	*tmp;
-	char		*user;
+	char	*user;
 
 	tmp = env_lstsearch(envp, tag);
 	user = NULL;
@@ -88,7 +100,7 @@ static int	sucess_input(t_venv **envp, int status)
 int	main(void)
 {
 	t_venv	*envp;
-	int			status;
+	int		status;
 
 	init_signals();
 	initialize();

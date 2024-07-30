@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils6.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/30 01:35:31 by codespace         #+#    #+#             */
+/*   Updated: 2024/07/30 01:35:57 by codespace        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../includes/mandatory/mini_shell.h"
 #include <stdlib.h>
 
@@ -50,7 +62,7 @@ void	env_lstclear(t_venv **lst)
 		free (current->value);
 		free (current->key);
 		free (current);
-			current = next;
+		current = next;
 	}
 	*lst = NULL;
 }
@@ -58,7 +70,7 @@ void	env_lstclear(t_venv **lst)
 t_venv	*env_lstsearch(t_venv **lst, char *key)
 {
 	t_venv	*current;
-	int			size;
+	int		size;
 
 	size = ft_strlen(key) + 1;
 	current = *lst;
@@ -74,7 +86,7 @@ t_venv	*env_lstsearch(t_venv **lst, char *key)
 int	env_size(t_venv **env)
 {
 	t_venv	*temp;
-	int			len;
+	int		len;
 
 	if (!env || !*env)
 		return (0);

@@ -1,10 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_pipe.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/30 01:23:07 by codespace         #+#    #+#             */
+/*   Updated: 2024/07/30 01:47:47 by codespace        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../../includes/mandatory/mini_shell.h"
-#include <stdlib.h>
-#include <sys/wait.h>
-#include <unistd.h>
-#include <readline/readline.h>
-#include <signal.h>
 
 static void	childprocess_t(t_data *data, t_tree *node)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 13:29:34 by roglopes          #+#    #+#             */
-/*   Updated: 2024/07/14 16:31:57 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/07/30 01:15:57 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ static void	sort_env(t_venv **envp)
 static t_venv	*copy_env(t_venv *origin)
 {
 	t_venv	*current;
-	char		*key;
-	char		*value;
+	char	*key;
+	char	*value;
 	t_venv	*envp;
 
 	current = origin;

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtins4.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/30 01:17:23 by codespace         #+#    #+#             */
+/*   Updated: 2024/07/30 01:17:50 by codespace        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../includes/mandatory/mini_shell.h"
 
 static char	*var_join(char *key, char *value, int status)
@@ -29,7 +41,7 @@ static char	*var_join(char *key, char *value, int status)
 int	ft_env(t_venv **envp, int status)
 {
 	char		*p_var;
-	t_venv	*temp;
+	t_venv		*temp;
 
 	if (!*envp)
 		return (1);
@@ -53,7 +65,7 @@ int	ft_env(t_venv **envp, int status)
 int	ft_unset(t_venv **head, char *key)
 {
 	t_venv	*del_node;
-	size_t		len;
+	size_t	len;
 
 	if (!*head || !head || !key)
 		return (0);

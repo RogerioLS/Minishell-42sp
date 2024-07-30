@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute_command5.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/30 01:20:06 by codespace         #+#    #+#             */
+/*   Updated: 2024/07/30 01:44:45 by codespace        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../includes/mandatory/mini_shell.h"
-#include <stdio.h>
 
 static void	cut_cmdargs(t_token **token_list, t_tree **tree_listed)
 {
@@ -22,7 +33,8 @@ static void	cut_cmdargs(t_token **token_list, t_tree **tree_listed)
 	}
 }
 
-static void	f_init_tree(t_token **token_list, t_tokens opr, t_tree **tree_listed)
+static void	f_init_tree(t_token **token_list, \
+						t_tokens opr, t_tree **tree_listed)
 {
 	t_token	*current;
 

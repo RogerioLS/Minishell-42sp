@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils5.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/30 01:33:01 by codespace         #+#    #+#             */
+/*   Updated: 2024/07/30 01:33:28 by codespace        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../includes/mandatory/mini_shell.h"
 
 static int	has_signal(char *str, char s, int status)
@@ -62,8 +74,8 @@ void	ft_exported_env(char *var, t_venv **envp)
 {
 	t_venv	*temp;
 	t_venv	*check;
-	char		**split_var;
-	int			has_equal;
+	char	**split_var;
+	int		has_equal;
 
 	check = NULL;
 	split_var = NULL;

@@ -1,19 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirect.c                                         :+:      :+:    :+:   */
+/*   init_redirect.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 16:04:52 by roglopes          #+#    #+#             */
-/*   Updated: 2024/07/13 16:19:07 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/07/30 01:48:15 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/mandatory/mini_shell.h"
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdlib.h>
 
 int	put_redirect_in(t_tree *opr)
 {

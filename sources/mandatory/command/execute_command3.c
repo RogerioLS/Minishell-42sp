@@ -1,9 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute_command3.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/30 01:21:50 by codespace         #+#    #+#             */
+/*   Updated: 2024/07/30 01:43:34 by codespace        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../includes/mandatory/mini_shell.h"
-#include <readline/readline.h>
-#include <stdio.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <unistd.h>
 
 static void	is_valid_cmd(char **cmd_args, int i, t_tree *current)
 {
@@ -82,7 +89,7 @@ char	**get_cmd_args(t_tree *node, int direction)
 char	**get_path(t_venv **envp, char *var, char *cmd)
 {
 	t_venv	*envp_temp;
-	char		**full_path;
+	char	**full_path;
 
 	if (!*envp)
 		return (NULL);

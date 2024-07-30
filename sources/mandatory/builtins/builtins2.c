@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtins2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 13:29:34 by roglopes          #+#    #+#             */
-/*   Updated: 2024/07/14 15:54:00 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/07/30 01:41:13 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/mandatory/mini_shell.h"
-#include <unistd.h>
-#include <stdio.h>
 
 int	call_pwd(char *input)
 {
@@ -49,7 +47,7 @@ static void	chand_env_pwd(t_venv **envp)
 static int	valid_cd(t_venv **envp, char *input)
 {
 	t_venv	*path;
-	int			status;
+	int		status;
 
 	path = env_lstsearch(envp, "HOME");
 	if (input)

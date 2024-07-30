@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokenizer.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/30 01:26:47 by codespace         #+#    #+#             */
+/*   Updated: 2024/07/30 01:27:14 by codespace        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../includes/mandatory/mini_shell.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -24,7 +36,7 @@ static t_token	*swap_tokens(t_token *current, t_token **token_list)
 	data->prev = opr;
 	data->next = next_last_cmd;
 	if (next_last_cmd && next_last_cmd->prev)
-			next_last_cmd->prev = data;
+		next_last_cmd->prev = data;
 	if (opr == *token_list)
 		return (first_cmd);
 	else

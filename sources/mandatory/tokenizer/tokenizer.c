@@ -6,13 +6,11 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 01:26:47 by codespace         #+#    #+#             */
-/*   Updated: 2024/07/30 01:27:14 by codespace        ###   ########.fr       */
+/*   Updated: 2024/07/30 23:25:26 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/mandatory/mini_shell.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 static t_token	*swap_tokens(t_token *current, t_token **token_list)
 {

@@ -6,12 +6,11 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 01:32:49 by codespace         #+#    #+#             */
-/*   Updated: 2024/07/30 01:32:50 by codespace        ###   ########.fr       */
+/*   Updated: 2024/07/30 23:27:08 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/mandatory/mini_shell.h"
-#include <stdlib.h>
 
 t_tree	*tree_new(char *content, t_tokens token_type)
 {

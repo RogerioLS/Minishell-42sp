@@ -6,17 +6,11 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 01:24:12 by codespace         #+#    #+#             */
-/*   Updated: 2024/07/30 01:24:40 by codespace        ###   ########.fr       */
+/*   Updated: 2024/07/30 23:22:46 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/mandatory/mini_shell.h"
-#include <readline/history.h>
-#include <readline/readline.h>
-#include <stdlib.h>
-#include <signal.h>
-#include <unistd.h>
-#include <termios.h>
 
 volatile int	g_vsig;
 

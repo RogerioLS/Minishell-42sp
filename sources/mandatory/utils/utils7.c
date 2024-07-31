@@ -6,12 +6,10 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 01:33:56 by codespace         #+#    #+#             */
-/*   Updated: 2024/07/30 01:34:10 by codespace        ###   ########.fr       */
+/*   Updated: 2024/07/30 23:26:51 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdio.h>
 #include "../../../includes/mandatory/mini_shell.h"
 
 static char	*get_key(char *envp, int *len_key)

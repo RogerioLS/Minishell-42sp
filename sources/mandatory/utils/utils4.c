@@ -6,13 +6,11 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 01:33:41 by codespace         #+#    #+#             */
-/*   Updated: 2024/07/30 01:33:42 by codespace        ###   ########.fr       */
+/*   Updated: 2024/07/30 23:26:24 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/mandatory/mini_shell.h"
-#include <stdio.h>
-#include <unistd.h>
 
 static int	validate_export_var(char *str)
 {

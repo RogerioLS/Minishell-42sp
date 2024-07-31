@@ -6,12 +6,11 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 01:26:33 by codespace         #+#    #+#             */
-/*   Updated: 2024/07/30 01:26:35 by codespace        ###   ########.fr       */
+/*   Updated: 2024/07/30 23:25:02 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/mandatory/mini_shell.h"
-#include <stdlib.h>
 
 t_token	*manage_tlists(t_data *data, t_venv **envp)
 {

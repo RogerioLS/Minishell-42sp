@@ -6,12 +6,11 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 01:25:56 by codespace         #+#    #+#             */
-/*   Updated: 2024/07/30 01:25:58 by codespace        ###   ########.fr       */
+/*   Updated: 2024/07/30 23:25:10 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/mandatory/mini_shell.h"
-#include <stdlib.h>
 
 static void	fix_references(t_token *current, t_token *first_input,
 		t_token *last_input)

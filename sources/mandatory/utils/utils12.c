@@ -6,13 +6,11 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 01:34:51 by codespace         #+#    #+#             */
-/*   Updated: 2024/07/30 01:34:53 by codespace        ###   ########.fr       */
+/*   Updated: 2024/07/30 23:27:27 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/mandatory/mini_shell.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 static int	upgrade_args_cmds(t_token *current, int direction)
 {

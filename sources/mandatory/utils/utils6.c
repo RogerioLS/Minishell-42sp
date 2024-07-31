@@ -6,12 +6,11 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 01:35:31 by codespace         #+#    #+#             */
-/*   Updated: 2024/07/30 01:35:57 by codespace        ###   ########.fr       */
+/*   Updated: 2024/07/30 23:26:37 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/mandatory/mini_shell.h"
-#include <stdlib.h>
 
 t_venv	*env_lstnew(char *key, char *value)
 {

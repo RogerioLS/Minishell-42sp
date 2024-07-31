@@ -6,12 +6,11 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 01:32:36 by codespace         #+#    #+#             */
-/*   Updated: 2024/07/30 01:32:38 by codespace        ###   ########.fr       */
+/*   Updated: 2024/07/30 23:27:45 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/mandatory/mini_shell.h"
-#include <unistd.h>
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {

@@ -3,19 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 18:15:28 by roglopes          #+#    #+#             */
-/*   Updated: 2024/06/15 16:08:06 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/07/30 23:24:09 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/mandatory/mini_shell.h"
-#include <readline/readline.h>
-#include <unistd.h>
-#include <signal.h>
-#include <fcntl.h>
-#include <stdio.h>
 
 int	inside_heredoc(int inside_heredoc)
 {

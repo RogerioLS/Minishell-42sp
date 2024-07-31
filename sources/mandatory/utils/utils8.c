@@ -6,12 +6,11 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 01:34:24 by codespace         #+#    #+#             */
-/*   Updated: 2024/07/30 01:34:26 by codespace        ###   ########.fr       */
+/*   Updated: 2024/07/30 23:26:58 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/mandatory/mini_shell.h"
-#include <fcntl.h>
 
 t_types_tree	type_check(t_tokens token)
 {

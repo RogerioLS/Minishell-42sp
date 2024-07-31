@@ -6,12 +6,11 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 01:35:06 by codespace         #+#    #+#             */
-/*   Updated: 2024/07/30 01:35:08 by codespace        ###   ########.fr       */
+/*   Updated: 2024/07/30 23:27:35 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/mandatory/mini_shell.h"
-#include <stdlib.h>
 
 t_token	*token_lstnew(char *content, t_tokens type)
 {

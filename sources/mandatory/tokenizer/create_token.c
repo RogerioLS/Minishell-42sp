@@ -6,12 +6,11 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 01:26:20 by codespace         #+#    #+#             */
-/*   Updated: 2024/07/30 01:26:22 by codespace        ###   ########.fr       */
+/*   Updated: 2024/07/30 23:24:57 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/mandatory/mini_shell.h"
-#include <stdio.h>
 
 static t_token	*build_word_token(int *i, char *cmd_line)
 {

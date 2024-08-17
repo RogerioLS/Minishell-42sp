@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 01:24:12 by codespace         #+#    #+#             */
-/*   Updated: 2024/07/30 23:22:46 by codespace        ###   ########.fr       */
+/*   Updated: 2024/08/16 23:04:30 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static int	sucess_input(t_venv **envp, int status)
 	add_history(input);
 	if (!all_checked(input))
 	{
-		free (input);
+		free(input);
 		ft_putendl_fd("Error in syntax.", 2);
 		return (2);
 	}

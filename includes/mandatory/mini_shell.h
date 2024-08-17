@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 16:52:11 by roglopes          #+#    #+#             */
-/*   Updated: 2024/07/30 23:24:49 by codespace        ###   ########.fr       */
+/*   Updated: 2024/07/31 00:23:03 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 # include <sys/stat.h>
 # include <readline/history.h>
 # include <termios.h>
-
 
 typedef enum e_tokens		t_tokens;
 enum						e_tokens

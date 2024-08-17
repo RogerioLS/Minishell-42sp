@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 18:05:13 by roglopes          #+#    #+#             */
-/*   Updated: 2024/07/30 23:23:44 by codespace        ###   ########.fr       */
+/*   Updated: 2024/08/16 23:59:20 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,22 @@ static t_data	*force_init_data(int status)
 	return (data);
 }
 
+void	print_tokens(t_token *head)
+{
+	while (head != NULL)
+	{
+		printf("Recebido: %s \nToken de tipo: %d\n\n",
+			head->content, head->token);
+		head = head->next;
+	}
+}
+
 static int	force_bdata(t_data *data, t_venv **envp, char *input)
 {
 	if (build_token(input, &data->token_list) == ERROR)
 		return (0);
 	data->token_list = manage_tlists(data, envp);
+	print_tokens(data->token_list);
 	if (data->token_list == NULL)
 	{
 		free_data(&data);

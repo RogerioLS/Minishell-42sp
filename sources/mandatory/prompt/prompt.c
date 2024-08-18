@@ -6,7 +6,11 @@
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 18:05:13 by roglopes          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/08/18 12:52:41 by roglopes         ###   ########.fr       */
+=======
+/*   Updated: 2024/08/16 23:59:20 by codespace        ###   ########.fr       */
+>>>>>>> a0574562d2f366ec7808fec85f06cdd2b74cf9c6
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +36,12 @@ void	print_tokens(t_token *head)
 {
 	while (head != NULL)
 	{
+<<<<<<< HEAD
 		ft_printf("Recebido: %s \nToken de tipo: %d\n\n", head->content, head->token);
+=======
+		printf("Recebido: %s \nToken de tipo: %d\n\n",
+			head->content, head->token);
+>>>>>>> a0574562d2f366ec7808fec85f06cdd2b74cf9c6
 		head = head->next;
 	}
 }

@@ -5,12 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/14 18:05:13 by roglopes          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/08/18 12:52:41 by roglopes         ###   ########.fr       */
-=======
-/*   Updated: 2024/08/16 23:59:20 by codespace        ###   ########.fr       */
->>>>>>> a0574562d2f366ec7808fec85f06cdd2b74cf9c6
+/*   Created: 2024/08/18 16:39:40 by roglopes          #+#    #+#             */
+/*   Updated: 2024/08/18 17:19:25 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,26 +28,11 @@ static t_data	*force_init_data(int status)
 	return (data);
 }
 
-void	print_tokens(t_token *head)
-{
-	while (head != NULL)
-	{
-<<<<<<< HEAD
-		ft_printf("Recebido: %s \nToken de tipo: %d\n\n", head->content, head->token);
-=======
-		printf("Recebido: %s \nToken de tipo: %d\n\n",
-			head->content, head->token);
->>>>>>> a0574562d2f366ec7808fec85f06cdd2b74cf9c6
-		head = head->next;
-	}
-}
-
 static int	force_bdata(t_data *data, t_venv **envp, char *input)
 {
 	if (build_token(input, &data->token_list) == ERROR)
 		return (0);
 	data->token_list = manage_tlists(data, envp);
-	print_tokens(data->token_list);
 	if (data->token_list == NULL)
 	{
 		free_data(&data);

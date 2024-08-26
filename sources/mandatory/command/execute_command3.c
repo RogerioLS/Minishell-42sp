@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 01:21:50 by codespace         #+#    #+#             */
-/*   Updated: 2024/07/30 01:43:34 by codespace        ###   ########.fr       */
+/*   Updated: 2024/08/25 22:56:05 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ static char	**arg_sided_left(char **cmd_args, int size, t_tree *node)
 	t_tree	*current;
 
 	current = node;
-	while (current->left)
+	// add validacao
+	while (current && current->left)
 	{
 		if (current->tree_type == COMMAND)
 			size++;
@@ -36,7 +37,8 @@ static char	**arg_sided_left(char **cmd_args, int size, t_tree *node)
 	cmd_args = ft_calloc(sizeof(char *), (size + 1));
 	current = node;
 	size--;
-	while (size >= 0)
+	// add validacao
+	while (current && size >= 0)
 	{
 		is_valid_cmd(cmd_args, size, current);
 		current = current->left;

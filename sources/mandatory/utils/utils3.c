@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 15:12:33 by roglopes          #+#    #+#             */
-/*   Updated: 2024/08/26 00:35:46 by codespace        ###   ########.fr       */
+/*   Updated: 2024/08/27 02:37:06 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,11 @@ char	**if_exited(t_tree *node, int direction)
 {
 	char	**cmd_args;
 
-	if (node->tree_type != COMMAND)
-		node = node->right;
+	//if (node->tree_type != COMMAND)
+	//	node = node->right;
 	cmd_args = get_cmd_args(node, direction);
 	//validacao de args
+	//printf("cmd_args[0]: %s\n", cmd_args[0]);
 	if (cmd_args[0] && ft_strncmp(cmd_args[0], "exit", 5))
 	{
 		free_trash(cmd_args);

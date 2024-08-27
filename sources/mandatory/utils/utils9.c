@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 01:35:17 by codespace         #+#    #+#             */
-/*   Updated: 2024/07/30 01:35:19 by codespace        ###   ########.fr       */
+/*   Updated: 2024/08/27 00:28:20 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,8 @@ void	cut_tleft(t_tokens opr, t_tree *current_node_in,
 		while (current_node_in && current_node_in->left != NULL)
 			current_node_in = current_node_in->left;
 	}
-	if (current_node_in->left != NULL || current_node_in->left_token == NULL)
+	if (current_node_in->left != NULL
+		|| current_node_in->left_token == NULL)
 		return ;
 	else if (current_node_in->left_token)
 	{

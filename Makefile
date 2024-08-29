@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+         #
+#    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/31 16:34:27 by roglopes          #+#    #+#              #
-#    Updated: 2024/07/13 18:22:56 by roglopes         ###   ########.fr        #
+#    Updated: 2024/08/29 20:52:48 by codespace        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,9 +18,11 @@ OBJECTS_DIR			= objects/
 HEADERS				= -I ./includes/mandatory/ -I ./libft/include/
 
 MAIN_DIR			= $(SOURCES_DIR)mandatory/main/
-PROMPT_DIR			= $(SOURCES_DIR)mandatory/prompt/
+SIGNALS_DIR			= $(SOURCES_DIR)mandatory/signals/
+LEXER_DIR			= $(SOURCES_DIR)mandatory/lexer/
 INITIALIZE_DIR		= $(SOURCES_DIR)mandatory/initialize/
 TOKEN_DIR			= $(SOURCES_DIR)mandatory/tokenizer/
+PARSER_DIR			= $(SOURCES_DIR)mandatory/parser/
 EXPANSION_DIR		= $(SOURCES_DIR)mandatory/expansion/
 COMMAND_DIR			= $(SOURCES_DIR)mandatory/command/
 BUILTINS_DIR		= $(SOURCES_DIR)mandatory/builtins/
@@ -29,64 +31,42 @@ FREE_DIR			= $(SOURCES_DIR)mandatory/free/
 
 LIBFT				= ./libft/libft.a
 
-CFLAGS				= -Wextra -Wall -Werror -g3
+CFLAGS				= -g3
 CC					= cc
 
 VALGRIND_LOG		= valgrind.log
 
-MAIN_SOURCES		= $(MAIN_DIR)main.c             
+MAIN_SOURCES		= $(MAIN_DIR)main.c
 
-PROMPT_SOURCES		= $(PROMPT_DIR)prompt.c                \
-					$(PROMPT_DIR)signal.c
+SIGNALS_SOURCES		= $(SIGNALS_DIR)signal.c
 
-INITIALIZE_SOURCES	= $(INITIALIZE_DIR)init_check.c \
-					$(INITIALIZE_DIR)init_heredoc.c \
-					$(INITIALIZE_DIR)init_redirect.c \
-					$(INITIALIZE_DIR)init_pipe.c \
+LEXER_SOURCES		= $(LEXER_DIR)lexer.c \
+					$(LEXER_DIR)check_syntax_input.c
 
-TOKEN_SOURCES		= $(TOKEN_DIR)tokenizer.c              \
-					$(TOKEN_DIR)justify_type_tokens.c      \
-					$(TOKEN_DIR)manage_tokens.c            \
-					$(TOKEN_DIR)org_tokens.c               \
-					$(TOKEN_DIR)create_token.c             \
+INITIALIZE_SOURCES	= $(INITIALIZE_DIR)
 
-EXPANSION_SOURCES	= $(EXPANSION_DIR)variable_expansion.c \
-					$(EXPANSION_DIR)variable_expansion2.c
+TOKEN_SOURCES		= $(TOKEN_DIR)token_list.c \
+					$(TOKEN_DIR)token_memory_list.c
 
-COMMAND_SOURCES		= $(COMMAND_DIR)execute_command.c      \
-					$(COMMAND_DIR)execute_command2.c       \
-					$(COMMAND_DIR)execute_command3.c       \
-					$(COMMAND_DIR)execute_command4.c       \
-					$(COMMAND_DIR)execute_command5.c       \
-					$(COMMAND_DIR)execute_command6.c       \
+PARSER_SOURCES		= $(PARSER_DIR)parser.c \
+					$(PARSER_DIR)bin_tree.c \
+					$(PARSER_DIR)bin_tree_aux.c
 
-BUILTINS_SOURCES	= $(BUILTINS_DIR)builtins.c            \
-					$(BUILTINS_DIR)builtins2.c             \
-					$(BUILTINS_DIR)builtins3.c             \
-					$(BUILTINS_DIR)builtins4.c             \
+EXPANSION_SOURCES	= $(EXPANSION_DIR)
 
-UTILS_SOURCES		= $(UTILS_DIR)utils1.c                 \
-					$(UTILS_DIR)utils2.c                   \
-					$(UTILS_DIR)utils3.c				   \
-					$(UTILS_DIR)utils4.c                   \
-					$(UTILS_DIR)utils5.c                   \
-					$(UTILS_DIR)utils6.c                   \
-					$(UTILS_DIR)utils7.c                   \
-					$(UTILS_DIR)utils8.c                   \
-					$(UTILS_DIR)utils9.c                   \
-					$(UTILS_DIR)utils10.c                  \
-					$(UTILS_DIR)utils11.c                  \
-					$(UTILS_DIR)utils12.c                  \
-					$(UTILS_DIR)utils13.c                  \
-					$(UTILS_DIR)utils14.c                  \
+COMMAND_SOURCES		= $(COMMAND_DIR)
 
-FREE_SOURCES		= $(FREE_DIR)free_type.c
+BUILTINS_SOURCES	= $(BUILTINS_DIR)
 
-SOURCES				= $(MAIN_SOURCES) $(PROMPT_SOURCES) \
-					$(FREE_SOURCES) $(INITIALIZE_SOURCES) \
-					$(TOKEN_SOURCES) $(UTILS_SOURCES) \
-					$(BUILTINS_SOURCES) $(COMMAND_SOURCES) \
-					$(EXPANSION_SOURCES) \
+UTILS_SOURCES		= $(UTILS_DIR)environ.c   \
+					$(UTILS_DIR)error.c       \
+					$(UTILS_DIR)ft_substr.c   \
+
+FREE_SOURCES		= $(FREE_DIR)free.c
+
+SOURCES				= $(MAIN_SOURCES) $(SIGNALS_SOURCES) $(FREE_SOURCES) \
+					$(UTILS_SOURCES) $(LEXER_SOURCES) $(TOKEN_SOURCES) \
+					$(PARSER_SOURCES)
 
 OBJS				= $(patsubst $(SOURCES_DIR)%.c,$(OBJECTS_DIR)%.o, $(SOURCES))
 

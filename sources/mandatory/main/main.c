@@ -6,58 +6,34 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 01:24:12 by codespace         #+#    #+#             */
-/*   Updated: 2024/08/25 23:56:49 by codespace        ###   ########.fr       */
+/*   Updated: 2024/08/29 22:21:48 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/mandatory/mini_shell.h"
 
-volatile int	g_vsig;
-
-static int	is_v_input(char *input)
+void	initialize(void)
 {
-	int	i;
-
-	if (!input)
-	{
-		printf("exit\n");
-		exit (0);
-	}
-	if (!ft_strncmp(input, "", 1))
-	{
-		free (input);
-		return (0);
-	}
-	i = -1;
-	while (input[++i])
-	{
-		if (ft_isspace(input[i]) == 0)
-			break ;
-	}
-	if (input[i] == '\0')
-	{
-		free (input);
-		return (0);
-	}
-	return (1);
+	printf("\033[1;33mALL DONE\033[0m\n");
+	printf("\033[1;33mMINIHELL started!\033[0m\n");
 }
 
-static char	*define_user(t_venv **envp, char *tag)
+char	*ft_init_and_wait_input(t_token **list)
 {
-	t_venv	*tmp;
-	char	*user;
+	char	*line;
 
-	tmp = env_lstsearch(envp, tag);
-	user = NULL;
-	if (!tag || !tmp)
-		user = ft_strjoin("", "\033[1;31m/MH> $\033[0m ");
-	else
-		user = ft_strjoin(tmp->value, "\033[1;31mMH> $\033[0m ");
-	tmp = NULL;
-	return (user);
+	if (ft_setup_signal_handler(ft_main_signal_handler) != SUCCESS)
+	{
+		ft_free_env(-1);
+		ft_free_memory();
+		exit(ft_signal_error());
+	}
+	*list = NULL;
+	line = readline("\033[1;31m/MiniHell> $\033[0m ");
+	return (line);
 }
 
-void	prop(int attribute)
+void	ft_terminal_properties(int attribute)
 {
 	static struct termios	term;
 
@@ -67,56 +43,45 @@ void	prop(int attribute)
 		tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }
 
-static int	sucess_input(t_venv **envp, int status)
+void	ft_print_tokens(t_token *tokens)
 {
-	char		*input;
-	char		*in_user;
-	int			valid;
+	t_token	*current;
 
-	g_vsig = 0;
-	in_user = define_user(envp, "");
-	prop(0);
-	input = readline(in_user);
-	free(in_user);
-	valid = is_v_input(input);
-	if (valid != TRUE)
-		return (valid);
-	add_history(input);
-	if (!all_checked(input))
+	current = tokens;
+	while (current)
 	{
-		free(input);
-		ft_putendl_fd("Error in syntax.", 2);
-		return (2);
+		printf("Token: %s, Type: %i\n", current->value, current->type);
+		current = current->next;
 	}
-	return (init_minihell(envp, input, status));
 }
 
 int	main(void)
 {
-	t_venv	*envp;
-	int		status;
+	char		*input;
+	t_token		*tokens;
+	t_tree_node	*tree;
 
-	init_signals();
+	ft_terminal_properties(0);
 	initialize();
-	envp = NULL;
-	status = 0;
-	get_envp(&envp, __environ);
-	while (1)
+	while (42)
 	{
-		status = sucess_input(&envp, status);
-		if (status == 131)
-			printf("Quit (core dumped)\n");
-		else if ((status == 2 || status == 0) && g_vsig == SIGINT)
+		input = ft_init_and_wait_input(&tokens);
+		if (!input)
+			break ;
+		else if (*input != '\0')
 		{
-			printf("\n");
-			status = 130;
+			add_history(input);
+			if (ft_lexer(input, &tokens) == SUCCESS)
+			{
+				printf("Lexer success\n");
+				ft_print_tokens(tokens);
+				if (ft_parser(tokens, &tree) == SUCCESS)
+				{
+					//ft_set_exit_status();
+					printf("Parser success\n");
+				}
+			}
 		}
-		if (status == 131 || (status == 2 && g_vsig == SIGINT))
-			prop(1);
 	}
-	close (STDIN_FILENO);
-	close (STDOUT_FILENO);
-	free_envp(&envp);
-	rl_clear_history();
-	return (status);
+	return (0);
 }

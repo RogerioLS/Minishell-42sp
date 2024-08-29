@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 04:28:30 by lluiz-de          #+#    #+#             */
-/*   Updated: 2024/05/05 17:03:22 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/08/29 01:07:42 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,9 @@ void				ft_putnbr_fd(int n, int fd);
 char				**ft_split(char const *s, char c);
 int					ft_lstsize(t_list *lst);
 int					ft_strcmp(const char *s1, const char *s2);
+void				ft_lstclear(t_list **lst, void (*del)(void *));
+void				ft_lstadd_back(t_list **lst, t_list *new);
+t_list				*ft_lstnew(void *content);
+t_list				*ft_lstlast(t_list *lst);
 
 #endif

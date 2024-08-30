@@ -6,7 +6,7 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:35:36 by roglopes          #+#    #+#             */
-/*   Updated: 2024/09/23 17:53:43 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:54:33 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # define FAILURE 1
 # define SYNTAX_ERROR 2
 
-# define INVALID_QUOTE "Invalid syntax, check input for open quotes or brackets.\n"
+# define INVALID_QUOTE "Invalid syntax,check input for open quotes or brackets.\n"
 
 typedef struct s_token		t_token;
 struct						s_token
@@ -105,7 +105,7 @@ t_list						**ft_get_memory_lst(void);
 void						ft_collect_mem(void *content);
 void						*ft_dalloc(size_t nmemb, size_t size);
 t_token						*ft_token_lst_new(char *value, int token_type);
-void						ft_token_lst_add_back(t_token **token_list,\
+void						ft_token_lst_add_back(t_token **token_list,
 								t_token *new);
 int							ft_token_lst_get_size(t_token *token_list);
 t_token						*ft_token_lst_get_last(t_token *token_list);
@@ -130,16 +130,22 @@ t_token						*ft_search_redirect(t_token *token_list);
 t_tree_node					*ft_get_redir_filename(t_token *redir);
 
 // builtins
+bool						is_builtin(t_token *tokens);
+int							execute_builtin(t_token *tokens);
 int							ft_cd(t_token *tokens);
 int							ft_echo(t_token *tokens);
 int							ft_env(t_token *cmd);
 int							ft_exit(t_token *tokens);
-// ----------- export -------------------- 
+// ----------- export --------------------
 int							ft_export(t_token *tokens);
 char						*get_key(char *arg);
 int							is_valid_identifier(char *str, char *cmd_name);
 int							is_env_key_present(char *key);
 int							is_key_without_value(char *key);
-int	ft_pwd(void);
+int							ft_pwd(void);
+int							ft_unset(t_token *tokens);
+
+void						heredoc_signal_handler(int signum);
+int							*get_exit_status(void);
 
 #endif

@@ -6,38 +6,11 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 16:55:26 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/08/30 16:59:22 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/08/30 18:04:52 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
-
-int	ft_export(t_token *tokens)
-{
-	int		i;
-	char	**args;
-	char	*equal_sign;
-	char	*key;
-	int		status;
-
-	i = 0;
-	status = 0;
-	args = get_cmd_and_args(tokens);
-	if (!args[1])
-		print_environ_sorted();
-	while (args[++i])
-	{
-		if (!is_valid_identifier(args[i], args[0]) && ++status)
-			continue ;
-		key = get_key(args[i]);
-		equal_sign = ft_strchr(args[i], '=');
-		if (equal_sign)
-			set_env(args[i], key, equal_sign + 1);
-		else
-			set_env(args[i], key, NULL);
-	}
-	return (set_exit_status(!!status));
-}
 
 char	*get_key(char *arg)
 {
@@ -99,4 +72,31 @@ int	is_key_without_value(char *key)
 		}
 	}
 	return (0);
+}
+
+int	ft_export(t_token *tokens)
+{
+	int		i;
+	char	**args;
+	char	*equal_sign;
+	char	*key;
+	int		status;
+
+	i = 0;
+	status = 0;
+	args = get_cmd_and_args(tokens);
+	if (!args[1])
+		print_environ_sorted();
+	while (args[++i])
+	{
+		if (!is_valid_identifier(args[i], args[0]) && ++status)
+			continue ;
+		key = get_key(args[i]);
+		equal_sign = ft_strchr(args[i], '=');
+		if (equal_sign)
+			set_env(args[i], key, equal_sign + 1);
+		else
+			set_env(args[i], key, NULL);
+	}
+	return (set_exit_status(!!status));
 }

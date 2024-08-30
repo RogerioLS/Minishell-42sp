@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 18:15:28 by roglopes          #+#    #+#             */
-/*   Updated: 2024/08/29 01:22:56 by codespace        ###   ########.fr       */
+/*   Updated: 2024/08/30 19:00:50 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,16 @@ void	ft_main_signal_handler(int signum)
 		rl_redisplay();
 		ft_free_memory();
 		ft_set_exit_status(SIGINT + 128);
+	}
+}
+
+void	heredoc_signal_handler(int signum)
+{
+	if (signum == SIGINT)
+	{
+		write(STDIN_FILENO, "\n", 1);
+		close(STDIN_FILENO);
+		ft_free_memory();
+		set_exit_status(SIGINT + 128);
 	}
 }

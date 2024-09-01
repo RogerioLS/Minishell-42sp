@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 01:24:12 by codespace         #+#    #+#             */
-/*   Updated: 2024/09/01 19:49:07 by codespace        ###   ########.fr       */
+/*   Updated: 2024/09/23 17:55:14 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*ft_init_and_wait_input(t_token **list)
 
 	if (ft_setup_signal_handler(ft_main_signal_handler) != SUCCESS)
 	{
-		ft_free_env(-1);
+		ft_free_env();
 		ft_free_memory();
 		exit(ft_signal_error());
 	}
@@ -73,12 +73,12 @@ int	main(void)
 			add_history(input);
 			if (ft_lexer(input, &tokens) == SUCCESS)
 			{
-				printf("Lexer success\n");
-				ft_print_tokens(tokens);
+				// printf("Lexer success\n");
+				// ft_print_tokens(tokens);
 				if (ft_parser(tokens, &tree) == SUCCESS)
 				{
-					//ft_set_exit_status();
-					printf("Parser success\n");
+					ft_set_exit_status(executor(tree));
+					// printf("Parser success\n");
 				}
 			}
 		}

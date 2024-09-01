@@ -6,11 +6,23 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 16:00:56 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/08/30 16:20:05 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/08/31 21:28:53 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
+
+int	check_limits(char *arg, char sign)
+{
+	if (*arg == '+' || *arg == '-')
+		arg++;
+	if (ft_strlen(arg) > 19)
+		return (FAILURE);
+	if ((ft_strcmp(arg, "9223372036854775807") > 0 && sign == '+')
+		|| (ft_strcmp(arg, "9223372036854775808") > 0 && sign == '-'))
+		return (FAILURE);
+	return (SUCCESS);
+}
 
 int	validate_argument(char *arg)
 {
@@ -35,22 +47,9 @@ int	validate_argument(char *arg)
 	return (SUCCESS);
 }
 
-int	check_limits(char *arg, char sign)
-{
-	if (*arg == '+' || *arg == '-')
-		arg++;
-	if (ft_strlen(arg) > 19)
-		return (FAILURE);
-	if ((ft_strcmp(arg, "9223372036854775807") > 0 && sign == '+')
-		|| (ft_strcmp(arg, "9223372036854775808") > 0 && sign == '-'))
-		return (FAILURE);
-	return (SUCCESS);
-}
-
-
 int	*get_exit_status(void)
 {
-	static int exit_status;
+	static int	exit_status;
 
 	return (&exit_status);
 }

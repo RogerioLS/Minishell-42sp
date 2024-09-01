@@ -6,7 +6,7 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 18:05:17 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/08/30 18:05:23 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/08/31 20:48:25 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,18 @@ bool	is_builtin(t_token *tokens)
 int	execute_builtin(t_token *tokens)
 {
 	if (!ft_strcmp(tokens->value, "cd"))
-		return (execute_cd(tokens));
+		return (ft_cd(tokens));
 	if (!ft_strcmp(tokens->value, "echo"))
-		return (execute_echo(tokens));
+		return (ft_echo(tokens));
 	if (!ft_strcmp(tokens->value, "env"))
-		return (execute_env(tokens));
+		return (ft_env(tokens));
 	if (!ft_strcmp(tokens->value, "exit"))
-		return (execute_exit(tokens));
+		return (ft_exit(tokens));
 	if (!ft_strcmp(tokens->value, "export"))
-		return (execute_export(tokens));
+		return (ft_export(tokens));
 	if (!ft_strcmp(tokens->value, "pwd"))
-		return (execute_pwd());
+		return (ft_pwd());
 	if (!ft_strcmp(tokens->value, "unset"))
-		return (execute_unset(tokens));
-	return (handle_error("error executing builtin"));
+		return (ft_unset(tokens));
+	return (ft_handle_error("error executing builtin"));
 }

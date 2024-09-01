@@ -6,38 +6,17 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 18:59:50 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/08/30 19:02:13 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/08/31 21:32:33 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-int	create_heredoc_file(t_token *token)
+int	*get_heredoc_counter(void)
 {
-	int		*heredoc_counter;
-	int		fd;
-	char	*file_name;
-	bool	is_expandable;
+	static int	counter;
 
-	if (setup_signal_handler(heredoc_signal_handler) != SUCCESS)
-		return (signal_error());
-	is_expandable = false;
-	heredoc_counter = get_heredoc_counter();
-	file_name = ft_strjoin("/tmp/.heredoc", ft_itoa((*heredoc_counter)++));
-	fd = open(file_name, O_CREAT | O_RDWR | O_TRUNC, 0644);
-	if (fd < 0)
-		return (set_exit_status(handle_error("failed to create heredoc")));
-	if (!ft_strchr(token->value, '\"') && !ft_strchr(token->value, '\''))
-		is_expandable = true;
-	token->value = remove_quotes(token->value);
-	while (42)
-		if (write_input_to_heredoc(fd, token->value, is_expandable) == SUCCESS)
-			break ;
-	if (*get_exit_status() == SIGINT + 128)
-		return (set_exit_status(SIGINT + 128));
-	close(fd);
-	token->value = file_name;
-	return (SUCCESS);
+	return (&counter);
 }
 
 int	write_input_to_heredoc(int fd, char *end_condition, int is_expandable)
@@ -48,8 +27,7 @@ int	write_input_to_heredoc(int fd, char *end_condition, int is_expandable)
 	if (!line)
 	{
 		if (*get_exit_status() != SIGINT + 128)
-			ft_fprintf(STDERR_FILENO,
-				"minishell: warning: here-document delimited by end-of-file (wanted '%s) \n",
+			printf("minishell: warning: here-document delimited by end-of-file (wanted '%s) \n",
 				end_condition);
 		return (SUCCESS);
 	}
@@ -61,6 +39,34 @@ int	write_input_to_heredoc(int fd, char *end_condition, int is_expandable)
 	write(fd, "\n", 1);
 	free(line);
 	return (FAILURE);
+}
+
+int	create_heredoc_file(t_token *token)
+{
+	int		*heredoc_counter;
+	int		fd;
+	char	*file_name;
+	bool	is_expandable;
+
+	if (ft_setup_signal_handler(heredoc_signal_handler) != SUCCESS)
+		return (ft_signal_error());
+	is_expandable = false;
+	heredoc_counter = get_heredoc_counter();
+	file_name = ft_strjoin("/tmp/.heredoc", ft_itoa((*heredoc_counter)++));
+	fd = open(file_name, O_CREAT | O_RDWR | O_TRUNC, 0644);
+	if (fd < 0)
+		return (set_exit_status(ft_handle_error("failed to create heredoc")));
+	if (!ft_strchr(token->value, '\"') && !ft_strchr(token->value, '\''))
+		is_expandable = true;
+	token->value = remove_quotes(token->value);
+	while (42)
+		if (write_input_to_heredoc(fd, token->value, is_expandable) == SUCCESS)
+			break ;
+	if (*get_exit_status() == SIGINT + 128)
+		return (set_exit_status(SIGINT + 128));
+	close(fd);
+	token->value = file_name;
+	return (SUCCESS);
 }
 
 int	delete_heredoc_files(void)
@@ -75,11 +81,4 @@ int	delete_heredoc_files(void)
 		unlink(file_name);
 	}
 	return (SUCCESS);
-}
-
-int	*get_heredoc_counter(void)
-{
-	static int counter;
-
-	return (&counter);
 }

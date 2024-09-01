@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
+#    By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/31 16:34:27 by roglopes          #+#    #+#              #
-#    Updated: 2024/09/01 18:59:33 by codespace        ###   ########.fr        #
+#    Updated: 2024/09/23 17:55:25 by ecoelho-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,10 +24,11 @@ INITIALIZE_DIR		= $(SOURCES_DIR)mandatory/initialize/
 TOKEN_DIR			= $(SOURCES_DIR)mandatory/tokenizer/
 PARSER_DIR			= $(SOURCES_DIR)mandatory/parser/
 EXPANSION_DIR		= $(SOURCES_DIR)mandatory/expansion/
-COMMAND_DIR			= $(SOURCES_DIR)mandatory/command/
+EXECUTOR_DIR		= $(SOURCES_DIR)mandatory/executor/
 BUILTINS_DIR		= $(SOURCES_DIR)mandatory/builtins/
 UTILS_DIR			= $(SOURCES_DIR)mandatory/utils/
 FREE_DIR			= $(SOURCES_DIR)mandatory/free/
+REDIRECT_DIR		= $(SOURCES_DIR)mandatory/redirect/
 
 LIBFT				= ./libft/libft.a
 
@@ -53,21 +54,37 @@ PARSER_SOURCES		= $(PARSER_DIR)parser.c \
 					$(PARSER_DIR)bin_tree.c \
 					$(PARSER_DIR)bin_tree_aux.c
 
-EXPANSION_SOURCES	= $(EXPANSION_DIR)
+EXPANSION_SOURCES	= $(EXPANSION_DIR)expand.c \
+					$(EXPANSION_DIR)expand_utils.c
 
-COMMAND_SOURCES		= $(COMMAND_DIR)
+EXECUTOR_SOURCES	= $(EXECUTOR_DIR)executor.c \
+					$(EXECUTOR_DIR)execute_redirect.c \
+					$(EXECUTOR_DIR)execute_pipe.c \
+					$(EXECUTOR_DIR)execute_command.c
 
-BUILTINS_SOURCES	= $(BUILTINS_DIR)
+BUILTINS_SOURCES	= $(BUILTINS_DIR)builtins.c \
+					$(BUILTINS_DIR)cd.c \
+					$(BUILTINS_DIR)echo.c \
+					$(BUILTINS_DIR)env.c \
+					$(BUILTINS_DIR)exit.c \
+					$(BUILTINS_DIR)pwd.c \
+					$(BUILTINS_DIR)unset.c \
+					$(BUILTINS_DIR)export.c \
+					$(BUILTINS_DIR)export_print.c
 
 UTILS_SOURCES		= $(UTILS_DIR)environ.c   \
 					$(UTILS_DIR)error.c       \
 					$(UTILS_DIR)ft_substr.c   \
+					$(UTILS_DIR)utils.c
 
 FREE_SOURCES		= $(FREE_DIR)free.c
 
+REDIRECT_SOURCES	= $(REDIRECT_DIR)heredoc.c
+
 SOURCES				= $(MAIN_SOURCES) $(SIGNALS_SOURCES) $(FREE_SOURCES) \
 					$(UTILS_SOURCES) $(LEXER_SOURCES) $(TOKEN_SOURCES) \
-					$(PARSER_SOURCES)
+					$(PARSER_SOURCES) $(BUILTINS_SOURCES) $(EXECUTOR_SOURCES) \
+					$(EXPANSION_SOURCES) $(REDIRECT_SOURCES)
 
 OBJS				= $(patsubst $(SOURCES_DIR)%.c,$(OBJECTS_DIR)%.o, $(SOURCES))
 

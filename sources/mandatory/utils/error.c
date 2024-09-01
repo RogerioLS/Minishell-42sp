@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 00:49:55 by codespace         #+#    #+#             */
-/*   Updated: 2024/08/29 19:48:03 by codespace        ###   ########.fr       */
+/*   Updated: 2024/08/31 21:26:29 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,28 @@ int	ft_signal_error(void)
 {
 	ft_printf("minishell: failed to install signal handler\n");
 	return (FAILURE);
+}
+
+int	throw_error(char *cmd_path)
+{
+	if (*cmd_path == '\0')
+		cmd_path = " ";
+	if (access(cmd_path, X_OK) == -1 && !access(cmd_path, F_OK))
+	{
+		printf("%s: Permission denied\n", cmd_path);
+		return (126);
+	}
+	else if ((*cmd_path == '.' || ft_strchr(cmd_path, '/')) && !access(cmd_path,
+			F_OK))
+	{
+		printf("%s: Is a directory\n", cmd_path);
+		return (126);
+	}
+	else if (errno == 2 || !getenv("PATH"))
+	{
+		printf("%s: No such file or directory\n", cmd_path);
+		return (127);
+	}
+	else
+		return (!!write(STDERR_FILENO, "minishell: unexpected error\n", 28));
 }

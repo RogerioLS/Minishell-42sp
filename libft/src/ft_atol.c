@@ -1,29 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/14 00:34:57 by lluiz-de          #+#    #+#             */
-/*   Updated: 2024/08/31 21:20:26 by ecoelho-         ###   ########.fr       */
+/*   Created: 2024/08/31 21:02:17 by ecoelho-          #+#    #+#             */
+/*   Updated: 2024/08/31 21:02:49 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/mandatory/mini_shell.h"
+#include "../include/libft.h"
 
-void	ft_free_env(void)
+long	ft_atol(char *str)
 {
+	char	*c;
 	int		i;
-	char	**env;
+	int		sign;
+	long	sum;
 
-	env = *ft_get_my_env();
-	while (env[i++])
-		free(env[i]);
-	free(env);
-}
-
-void	ft_free_memory(void)
-{
-	ft_lstclear(ft_get_memory_lst(), &free);
+	i = 0;
+	sign = 1;
+	c = str;
+	sum = 0;
+	while ((c[i] >= '\t' && c[i] <= '\r') || c[i] == ' ')
+		i++;
+	if (c[i] == '-')
+	{
+		sign *= -1;
+		i++;
+	}
+	else if (c[i] == '+')
+		i++;
+	while (ft_isdigit(c[i]))
+	{
+		sum = (sum * 10) + (c[i] - '0');
+		i++;
+	}
+	return (sum * sign);
 }

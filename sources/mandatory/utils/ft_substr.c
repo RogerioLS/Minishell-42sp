@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 18:11:32 by codespace         #+#    #+#             */
-/*   Updated: 2024/08/29 18:43:15 by codespace        ###   ########.fr       */
+/*   Updated: 2024/08/31 21:24:32 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,76 @@ char	*ft_substr(char const *input, unsigned int start, size_t length)
 	{
 		ft_strlcpy(substr, (&input[start]), (length + 1));
 		return (substr);
+	}
+	return (NULL);
+}
+
+char	*ft_strdup_calloc(const char *s)
+{
+	size_t	len;
+	size_t	i;
+	char	*p;
+
+	len = ft_strlen(s);
+	p = (char *)ft_calloc(len + 1, 1);
+	if (p == NULL)
+	{
+		return (NULL);
+	}
+	i = 0;
+	while (s[i])
+	{
+		p[i] = s[i];
+		i++;
+	}
+	p[i] = '\0';
+	return (p);
+}
+
+char	*ft_strndup(char *s, int n)
+{
+	char	*ptr;
+	int		i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	if (n < i)
+		i = n;
+	ptr = ft_dalloc(i + 1, sizeof(ptr));
+	if (!ptr)
+		return (NULL);
+	i = 0;
+	while (s && *s && i < n)
+		ptr[i++] = *s++;
+	ptr[i] = '\0';
+	return (ptr);
+}
+
+char	*ft_strchr_quote_aware(const char *s, int c)
+{
+	size_t	len;
+	size_t	i;
+
+	len = ft_strlen(s);
+	i = 0;
+	while (i <= len)
+	{
+		if (s[i] == '\'')
+		{
+			i++;
+			while (s[i] && s[i] != '\'')
+				i++;
+		}
+		if (s[i] == '\"')
+		{
+			i++;
+			while (s[i] && s[i] != '\"')
+				i++;
+		}
+		if (s[i] == (unsigned char)c)
+			return ((char *)s + i);
+		i++;
 	}
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 18:15:28 by roglopes          #+#    #+#             */
-/*   Updated: 2024/08/30 19:00:50 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/08/31 21:26:02 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,24 @@ void	heredoc_signal_handler(int signum)
 		write(STDIN_FILENO, "\n", 1);
 		close(STDIN_FILENO);
 		ft_free_memory();
-		set_exit_status(SIGINT + 128);
+		ft_set_exit_status(SIGINT + 128);
 	}
+}
+
+int	ft_setup_fork_signal_handlers(int pid)
+{
+	struct sigaction	action;
+
+	ft_bzero(&action, sizeof(struct sigaction));
+	action.sa_flags = SA_RESTART;
+	if (pid == 0)
+		action.sa_handler = SIG_DFL;
+	else
+		action.sa_handler = SIG_IGN;
+	sigaction(SIGQUIT, &action, NULL);
+	sigaction(SIGINT, &action, NULL);
+	if (sigaction(SIGINT, &action, NULL) == -1 || sigaction(SIGQUIT, &action,
+			NULL) == -1)
+		return (ft_handle_error("sigaction"));
+	return (SUCCESS);
 }

@@ -6,27 +6,33 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 17:38:20 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/08/30 17:57:32 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/08/31 21:11:40 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-void	print_environ_sorted(void)
+void	format_and_print(const char *env_var)
 {
-	char	*printed;
-	size_t	size;
-	char	**env;
+	char	*name;
+	char	*equal;
+	char	*value;
+	char	*copy;
 
-	env = *get_my_env();
-	size = 0;
-	while (env[size])
-		size++;
-	printed = ft_calloc(size + 1, sizeof(char));
-	while (print_smallest_unprinted(env, size, printed))
-		;
-	free(printed);
+	copy = ft_strdup_calloc(env_var);
+	equal = ft_strchr(copy, '=');
+	if (!equal)
+		printf("declare -x %s\n", copy);
+	else
+	{
+		*equal = '\0';
+		name = copy;
+		value = equal + 1;
+		printf("declare -x %s=\"%s\"\n", name, value);
+	}
+	free(copy);
 }
+
 
 int	print_smallest_unprinted(char **env, size_t env_size, char *printed)
 {
@@ -54,23 +60,18 @@ int	print_smallest_unprinted(char **env, size_t env_size, char *printed)
 	return (0);
 }
 
-void	format_and_print(const char *env_var)
+void	print_environ_sorted(void)
 {
-	char	*name;
-	char	*equal;
-	char	*value;
-	char	*copy;
+	char	*printed;
+	size_t	size;
+	char	**env;
 
-	copy = ft_strdup_calloc(env_var);
-	equal = ft_strchr(copy, '=');
-	if (!equal)
-		printf("declare -x %s\n", copy);
-	else
-	{
-		*equal = '\0';
-		name = copy;
-		value = equal + 1;
-		printf("declare -x %s=\"%s\"\n", name, value);
-	}
-	free(copy);
+	env = *get_my_env();
+	size = 0;
+	while (env[size])
+		size++;
+	printed = ft_calloc(size + 1, sizeof(char));
+	while (print_smallest_unprinted(env, size, printed))
+		;
+	free(printed);
 }

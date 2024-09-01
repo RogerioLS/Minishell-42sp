@@ -6,7 +6,7 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 16:55:26 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/08/30 18:04:52 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/08/31 21:13:01 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	is_valid_identifier(char *str, char *cmd_name)
 		if (*str == '=' || !*str)
 			return (1);
 	}
-	ft_fprintf(STDERR_FILENO, "%s: not a valid identifier\n", cmd_name);
+	printf("%s: not a valid identifier\n", cmd_name);
 	set_exit_status(FAILURE);
 	return (0);
 }
@@ -94,9 +94,9 @@ int	ft_export(t_token *tokens)
 		key = get_key(args[i]);
 		equal_sign = ft_strchr(args[i], '=');
 		if (equal_sign)
-			set_env(args[i], key, equal_sign + 1);
+			ft_set_env(args[i], key, equal_sign + 1);
 		else
-			set_env(args[i], key, NULL);
+			ft_set_env(args[i], key, NULL);
 	}
 	return (set_exit_status(!!status));
 }

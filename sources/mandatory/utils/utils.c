@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/14 00:34:57 by lluiz-de          #+#    #+#             */
-/*   Updated: 2024/08/31 21:20:26 by ecoelho-         ###   ########.fr       */
+/*   Created: 2024/08/31 21:06:46 by ecoelho-          #+#    #+#             */
+/*   Updated: 2024/08/31 21:17:54 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/mandatory/mini_shell.h"
+#include "mini_shell.h"
 
-void	ft_free_env(void)
+int	set_exit_status(int status)
 {
-	int		i;
-	char	**env;
+	int	*exit_status;
 
-	env = *ft_get_my_env();
-	while (env[i++])
-		free(env[i]);
-	free(env);
+	exit_status = get_exit_status();
+	*exit_status = status;
+	return (*exit_status);
 }
 
-void	ft_free_memory(void)
+void	ft_close_pipe(int *pipe_fd)
 {
-	ft_lstclear(ft_get_memory_lst(), &free);
+	if (pipe_fd[0] != -1)
+		close(pipe_fd[0]);
+	if (pipe_fd[1] != -1)
+		close(pipe_fd[1]);
 }

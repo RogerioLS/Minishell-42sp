@@ -1,0 +1,6 @@
+==64832== Memcheck, a memory error detector
+==64832== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==64832== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==64832== Command: ./minishell
+==64832== Parent PID: 64084
+==64832== 

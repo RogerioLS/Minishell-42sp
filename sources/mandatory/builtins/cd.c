@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 14:34:20 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/08/31 21:42:10 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/01 20:24:17 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	entry_dir(char *path)
 	ft_collect_mem(current_dir);
 	if (check_access(path) == FAILURE)
 		return (FAILURE);
-	handle_set_env(path, current_dir);
+	return (handle_set_env(path, current_dir));
 }
 
 int	back_to_home(void)
@@ -51,10 +51,9 @@ int	back_to_home(void)
 	current_dir = getcwd(NULL, 0);
 	ft_collect_mem(current_dir);
 	home = getenv("HOME");
-	if (home)
-		handle_set_env(home, current_dir);
-	else
+	if (!home)
 		return (!!write(STDERR_FILENO, "cd: HOME not set\n", 17));
+	return (handle_set_env(home, current_dir));
 }
 
 int	ft_cd(t_token *tokens)

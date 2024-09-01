@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/03/31 16:34:27 by roglopes          #+#    #+#              #
-#    Updated: 2024/09/23 17:55:25 by ecoelho-         ###   ########.fr        #
+#    Created: 2024/09/01 20:01:05 by codespace         #+#    #+#              #
+#    Updated: 2024/09/23 17:55:53 by ecoelho-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ REDIRECT_DIR		= $(SOURCES_DIR)mandatory/redirect/
 
 LIBFT				= ./libft/libft.a
 
-CFLAGS				= -g3
+CFLAGS				= -Wall -Wextra -Werror -g3
 CC					= cc
 
 VALGRIND_LOG		= valgrind.log
@@ -132,7 +132,7 @@ norm:
 	@norminette -R CheckForbiddenSource
 	@echo "$(CYAN)NORMINETTE SUCESS $(RESET)"
 
-valgrind: all
+valgrind: re
 	@valgrind --leak-check=full \
 	--show-reachable=yes \
 	--show-leak-kinds=all -s \

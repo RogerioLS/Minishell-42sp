@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/18 16:35:36 by roglopes          #+#    #+#             */
-/*   Updated: 2024/09/23 17:55:01 by ecoelho-         ###   ########.fr       */
+/*   Created: 2024/09/01 20:04:17 by codespace         #+#    #+#             */
+/*   Updated: 2024/09/23 17:56:23 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,12 @@ enum						e_tokens
 	WORD,
 };
 
+// main
+void						ft_print_welcome(void);
 void						ft_set_env(char *new_str, char *key, char *value);
 char						*ft_strdup_calloc(const char *s);
-void	ft_close_pipe(int *pipe_fd);
-char	*ft_strchr_quote_aware(const char *s, int c);
+void						ft_close_pipe(int *pipe_fd);
+char						*ft_strchr_quote_aware(const char *s, int c);
 
 // free
 void						ft_free_env(void);
@@ -83,7 +85,7 @@ void						ft_free_memory(void);
 char						***get_my_env(void);
 // utilis error
 int							ft_signal_error(void);
-int	throw_error(char *cmd_path);
+int							throw_error(char *cmd_path);
 int							ft_handle_error(char *message);
 int							ft_syntax_error(char *token);
 char						***ft_get_my_env(void);
@@ -95,7 +97,7 @@ char						*ft_substr(char const *s, unsigned int start,
 // signal
 int							ft_setup_signal_handler(void (*func)(int signum));
 void						ft_main_signal_handler(int signum);
-int	ft_setup_fork_signal_handlers(int pid);
+int							ft_setup_fork_signal_handlers(int pid);
 
 // lexer
 int							ft_lexer(char *input, t_token **tokens);
@@ -135,9 +137,9 @@ t_token						*ft_search_pipe(t_token *token_list);
 t_token						*ft_search_redirect(t_token *token_list);
 t_tree_node					*ft_get_redir_filename(t_token *redir);
 
-int	delete_heredoc_files(void);
-int	set_exit_status(int status);
-char	*ft_strndup(char *s, int n);
+int							delete_heredoc_files(void);
+int							set_exit_status(int status);
+char						*ft_strndup(char *s, int n);
 
 // builtins
 bool						is_builtin(t_token *tokens);
@@ -148,7 +150,7 @@ int							ft_env(t_token *cmd);
 int							ft_exit(t_token *tokens);
 // ----------- export --------------------
 int							ft_export(t_token *tokens);
-void	print_environ_sorted(void);
+void						print_environ_sorted(void);
 char						*get_key(char *arg);
 int							is_valid_identifier(char *str, char *cmd_name);
 int							is_env_key_present(char *key);

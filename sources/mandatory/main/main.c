@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/30 01:24:12 by codespace         #+#    #+#             */
-/*   Updated: 2024/09/23 17:55:14 by ecoelho-         ###   ########.fr       */
+/*   Created: 2024/09/01 20:02:15 by codespace         #+#    #+#             */
+/*   Updated: 2024/09/23 17:56:00 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*ft_init_and_wait_input(t_token **list)
 		exit(ft_signal_error());
 	}
 	*list = NULL;
-	line = readline("\033[1;34mMini-Sell> $ ➜ \033[0m");
+	line = readline("\033[1;34mMini-Shell> $ ➜ \033[0m");
 	return (line);
 }
 
@@ -73,12 +73,9 @@ int	main(void)
 			add_history(input);
 			if (ft_lexer(input, &tokens) == SUCCESS)
 			{
-				// printf("Lexer success\n");
-				// ft_print_tokens(tokens);
 				if (ft_parser(tokens, &tree) == SUCCESS)
 				{
 					ft_set_exit_status(executor(tree));
-					// printf("Parser success\n");
 				}
 			}
 		}

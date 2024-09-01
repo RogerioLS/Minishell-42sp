@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 01:24:12 by codespace         #+#    #+#             */
-/*   Updated: 2024/08/29 22:21:48 by codespace        ###   ########.fr       */
+/*   Updated: 2024/09/01 19:49:07 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	initialize(void)
 {
-	printf("\033[1;33mALL DONE\033[0m\n");
-	printf("\033[1;33mMINIHELL started!\033[0m\n");
+	ft_print_welcome( );
+	printf("\033[1;33m\nMINIHELL started!\033[0m\n");
 }
 
 char	*ft_init_and_wait_input(t_token **list)
@@ -29,7 +29,7 @@ char	*ft_init_and_wait_input(t_token **list)
 		exit(ft_signal_error());
 	}
 	*list = NULL;
-	line = readline("\033[1;31m/MiniHell> $\033[0m ");
+	line = readline("\033[1;34mMini-Sell> $ ➜ \033[0m");
 	return (line);
 }
 

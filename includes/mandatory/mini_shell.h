@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:35:36 by roglopes          #+#    #+#             */
-/*   Updated: 2024/08/29 20:49:22 by codespace        ###   ########.fr       */
+/*   Updated: 2024/09/01 19:53:53 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,9 @@ enum						e_tokens
 	END,
 	WORD,
 };
+
+// main
+void						ft_print_welcome(void);
 
 // free
 void						ft_free_env(int i);

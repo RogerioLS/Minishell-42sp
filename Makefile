@@ -6,7 +6,7 @@
 #    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/31 16:34:27 by roglopes          #+#    #+#              #
-#    Updated: 2024/08/29 20:52:48 by codespace        ###   ########.fr        #
+#    Updated: 2024/09/01 18:59:33 by codespace        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,8 @@ CC					= cc
 
 VALGRIND_LOG		= valgrind.log
 
-MAIN_SOURCES		= $(MAIN_DIR)main.c
+MAIN_SOURCES		= $(MAIN_DIR)main.c \
+					$(MAIN_DIR)welcome.c
 
 SIGNALS_SOURCES		= $(SIGNALS_DIR)signal.c
 

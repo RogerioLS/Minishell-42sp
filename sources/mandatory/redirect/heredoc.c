@@ -6,7 +6,7 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 18:59:50 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/08/31 21:32:33 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/04 19:14:07 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	write_input_to_heredoc(int fd, char *end_condition, int is_expandable)
 	if (!line)
 	{
 		if (*get_exit_status() != SIGINT + 128)
-			printf("minishell: warning: here-document delimited by end-of-file (wanted '%s) \n",
+			printf("warning: heredoc delimited by end-of-file(wanted '%s)\n",
 				end_condition);
 		return (SUCCESS);
 	}

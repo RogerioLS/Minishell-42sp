@@ -6,7 +6,7 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 20:02:15 by codespace         #+#    #+#             */
-/*   Updated: 2024/09/23 17:56:00 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:57:16 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int	main(void)
 	t_token		*tokens;
 	t_tree_node	*tree;
 
+	ft_init_environ();
 	ft_terminal_properties(0);
 	initialize();
 	while (42)

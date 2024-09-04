@@ -6,23 +6,11 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 20:28:23 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/08/31 21:21:08 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/04 18:54:29 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
-
-int	execute_child(int fd, int *pipe, t_tree_node *node)
-{
-	int	exit_status;
-
-	dup2(pipe[fd], fd);
-	ft_close_pipe(pipe);
-	exit_status = executor(node);
-	ft_free_memory();
-	ft_free_env();
-	exit(exit_status);
-}
 
 void	wait_child_status(pid_t pid, int *status)
 {
@@ -37,6 +25,18 @@ void	wait_child_status(pid_t pid, int *status)
 			write(STDIN_FILENO, "\n", 1);
 		*status = WTERMSIG(*status) + 128;
 	}
+}
+
+int	execute_child(int fd, int *pipe, t_tree_node *node)
+{
+	int	exit_status;
+
+	dup2(pipe[fd], fd);
+	ft_close_pipe(pipe);
+	exit_status = executor(node);
+	ft_free_memory();
+	ft_free_env();
+	exit(exit_status);
 }
 
 int	execute_pipe(t_tree_node *left, t_tree_node *right)
@@ -61,8 +61,3 @@ int	execute_pipe(t_tree_node *left, t_tree_node *right)
 		return (exit_status[0]);
 	return (exit_status[1]);
 }
-
-
-
-
-

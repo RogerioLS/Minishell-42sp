@@ -6,7 +6,7 @@
 #    By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/01 20:01:05 by codespace         #+#    #+#              #
-#    Updated: 2024/09/23 17:55:53 by ecoelho-         ###   ########.fr        #
+#    Updated: 2024/09/23 17:57:21 by ecoelho-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,12 +69,12 @@ BUILTINS_SOURCES	= $(BUILTINS_DIR)builtins.c \
 					$(BUILTINS_DIR)exit.c \
 					$(BUILTINS_DIR)pwd.c \
 					$(BUILTINS_DIR)unset.c \
-					$(BUILTINS_DIR)export.c \
-					$(BUILTINS_DIR)export_print.c
+					$(BUILTINS_DIR)export.c
 
 UTILS_SOURCES		= $(UTILS_DIR)environ.c   \
 					$(UTILS_DIR)error.c       \
-					$(UTILS_DIR)ft_substr.c   \
+					$(UTILS_DIR)builtins_utils.c   \
+					$(UTILS_DIR)fun_utils.c   \
 					$(UTILS_DIR)utils.c
 
 FREE_SOURCES		= $(FREE_DIR)free.c

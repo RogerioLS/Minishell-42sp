@@ -6,7 +6,7 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 20:04:17 by codespace         #+#    #+#             */
-/*   Updated: 2024/09/23 17:56:23 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:57:03 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,12 @@ void						ft_set_env(char *new_str, char *key, char *value);
 char						*ft_strdup_calloc(const char *s);
 void						ft_close_pipe(int *pipe_fd);
 char						*ft_strchr_quote_aware(const char *s, int c);
+void						ft_init_environ(void);
 
 // free
 void						ft_free_env(void);
 void						ft_free_memory(void);
 
-// env
-char						***get_my_env(void);
 // utilis error
 int							ft_signal_error(void);
 int							throw_error(char *cmd_path);
@@ -141,66 +140,55 @@ int							delete_heredoc_files(void);
 int							set_exit_status(int status);
 char						*ft_strndup(char *s, int n);
 
-// builtins
+//----------- builtins -----------//
 bool						is_builtin(t_token *tokens);
 int							execute_builtin(t_token *tokens);
+// cd.c
 int							ft_cd(t_token *tokens);
+// echo.c
 int							ft_echo(t_token *tokens);
+// env.c
 int							ft_env(t_token *cmd);
+// exit.c
 int							ft_exit(t_token *tokens);
-// ----------- export --------------------
+// export.c
 int							ft_export(t_token *tokens);
-void						print_environ_sorted(void);
-char						*get_key(char *arg);
-int							is_valid_identifier(char *str, char *cmd_name);
-int							is_env_key_present(char *key);
-int							is_key_without_value(char *key);
+// pwd.c
 int							ft_pwd(void);
+// unset.c
 int							ft_unset(t_token *tokens);
 
-void						heredoc_signal_handler(int signum);
-int							*get_exit_status(void);
-
-/************ execute_command.c ***********/
-
+//----------- Executor -----------//
+// execute_command.c
 int							execute_command(t_tree_node *token_node);
-void						run_command_in_child_process(t_token *token);
-char						*get_cmd_path(t_token *token);
-char						*search_in_path(t_token *token);
 char						**get_cmd_and_args(t_token *cmd);
 
-/************* execute_pipe.c *************/
-
+// execute_pipe.c
 int							execute_pipe(t_tree_node *left, t_tree_node *right);
-int							execute_child(int fd, int *pipe, t_tree_node *node);
 void						wait_child_status(pid_t pid, int *status);
 
-/*********** execute_redirect.c ***********/
-
+// execute_redirect.c
 int							execute_redirect(t_tree_node *left,
 								t_tree_node *right, int redir_type);
-int							open_redir_file(t_tree_node *right, int redir_type,
-								int *fd);
-int							dup2_redir_file(int redir_type, int *fd);
-
-/*************** executor.c ***************/
-
+// executor.c
 int							executor(t_tree_node *root);
-int							execute_and(t_tree_node *left, t_tree_node *right);
-int							execute_or(t_tree_node *left, t_tree_node *right);
-int							execute_block(t_tree_node *root);
 
+//----------- Expand -----------//
+// expand.c
 void						expand_tokens(t_tree_node *cmd_node);
 char						*expand_vars(char *str);
-char						*handle_dollar(char *start, char **str);
-char						*handle_special_cases(char *dollar, char **str,
-								char **after_var, char **expanded_var);
-
-/**************** expand_utils.c ***********/
-
+// expand_utils.c
 char						*remove_quotes(char *str);
 void						retokenize(t_token **token);
 void						handle_empty_value(t_token **current,
 								t_tree_node **cmd_node);
+
+char						*get_key(char *arg);
+int							is_valid_identifier(char *str, char *cmd_name);
+int							is_env_key_present(char *key);
+int							is_key_without_value(char *key);
+
+void						heredoc_signal_handler(int signum);
+int							*get_exit_status(void);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 14:34:20 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/01 20:24:17 by codespace        ###   ########.fr       */
+/*   Updated: 2024/09/04 18:30:28 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 int	handle_set_env(char *env, char *current_dir)
 {
 	if (chdir(env) == -1)
+	{
 		return (ft_handle_error(env));
+	}
 	ft_set_env(ft_strjoin("OLDPWD=", current_dir), "OLDPWD", current_dir);
 	ft_set_env(ft_strjoin("PWD=", getcwd(NULL, 0)), "PWD", getcwd(NULL, 0));
 	return (SUCCESS);
@@ -53,7 +55,8 @@ int	back_to_home(void)
 	home = getenv("HOME");
 	if (!home)
 		return (!!write(STDERR_FILENO, "cd: HOME not set\n", 17));
-	return (handle_set_env(home, current_dir));
+	else
+		return (handle_set_env(home, current_dir));
 }
 
 int	ft_cd(t_token *tokens)

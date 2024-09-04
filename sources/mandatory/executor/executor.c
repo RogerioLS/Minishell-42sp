@@ -6,30 +6,11 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 19:39:38 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/08/31 21:14:21 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/04 18:52:30 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
-
-int	executor(t_tree_node *root)
-{
-	if (!root->token)
-		return (SUCCESS);
-	if (root->token->type == AND)
-		return (execute_and(root->left, root->right));
-	else if (root->token->type == OR)
-		return (execute_or(root->left, root->right));
-	else if (root->token->type == PIPE)
-		return (execute_pipe(root->left, root->right));
-	else if (root->token->type >= REDIR_APPEND
-		&& root->token->type <= REDIR_OUT)
-		return (execute_redirect(root->left, root->right, root->token->type));
-	else if (root->token->type == OPEN_PAREN)
-		return (execute_block(root));
-	else
-		return (execute_command(root));
-}
 
 int	execute_and(t_tree_node *left, t_tree_node *right)
 {
@@ -73,4 +54,23 @@ int	execute_block(t_tree_node *root)
 	}
 	wait_child_status(pid, &exit_status);
 	return (exit_status);
+}
+
+int	executor(t_tree_node *root)
+{
+	if (!root->token)
+		return (SUCCESS);
+	if (root->token->type == AND)
+		return (execute_and(root->left, root->right));
+	else if (root->token->type == OR)
+		return (execute_or(root->left, root->right));
+	else if (root->token->type == PIPE)
+		return (execute_pipe(root->left, root->right));
+	else if (root->token->type >= REDIR_APPEND
+		&& root->token->type <= REDIR_OUT)
+		return (execute_redirect(root->left, root->right, root->token->type));
+	else if (root->token->type == OPEN_PAREN)
+		return (execute_block(root));
+	else
+		return (execute_command(root));
 }

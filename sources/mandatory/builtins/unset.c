@@ -6,7 +6,7 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 18:01:19 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/08/30 18:15:39 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/04 18:42:45 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	delete_env_key(char *key_to_delete)
 	char	**new_env;
 	char	**current_env;
 
-	current_env = *get_my_env();
+	current_env = *ft_get_my_env();
 	i = 0;
 	while (current_env[i])
 		i++;
@@ -37,7 +37,7 @@ void	delete_env_key(char *key_to_delete)
 	}
 	free(current_env);
 	new_env[++j] = NULL;
-	*get_my_env() = new_env;
+	*ft_get_my_env() = new_env;
 	__environ = new_env;
 }
 

@@ -6,7 +6,7 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 16:00:56 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/08/31 21:28:53 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/04 18:34:00 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,6 @@ int	validate_argument(char *arg)
 	if (check_limits(arg, sign) == FAILURE)
 		return (FAILURE);
 	return (SUCCESS);
-}
-
-int	*get_exit_status(void)
-{
-	static int	exit_status;
-
-	return (&exit_status);
 }
 
 int	ft_exit(t_token *tokens)

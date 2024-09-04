@@ -6,7 +6,7 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 15:13:17 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/08/31 21:00:06 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/04 18:30:35 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,17 @@
 
 void	ft_print_args(char **args, bool has_n)
 {
-	while (*args)
+	if (has_n)
 	{
-		ft_putstr_fd(*args, STDOUT_FILENO);
-		if (*(args + 1))
-			ft_putchar_fd(' ', STDOUT_FILENO);
-		args++;
-	}
-	if (!has_n)
+		while (*args)
+		{
+			ft_putstr_fd(*args, STDOUT_FILENO);
+			if (*(args + 1))
+				ft_putchar_fd(' ', STDOUT_FILENO);
+			args++;
+		}
 		ft_putchar_fd('\n', STDOUT_FILENO);
+	}
 }
 
 int	ft_echo(t_token *tokens)

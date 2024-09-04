@@ -6,7 +6,7 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 00:15:53 by codespace         #+#    #+#             */
-/*   Updated: 2024/08/31 20:54:28 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/04 18:46:33 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,21 @@ char	***ft_get_my_env(void)
 	return (&env);
 }
 
-int	*ft_get_exit_status(void)
+void	ft_init_environ(void)
 {
-	static int	exit_status;
+	char	**env_copy;
+	int		i;
 
-	return (&exit_status);
-}
-
-int	ft_set_exit_status(int status)
-{
-	int	*exit_status;
-
-	exit_status = ft_get_exit_status();
-	*exit_status = status;
-	return (*exit_status);
+	i = 0;
+	while (__environ[i])
+		i++;
+	*ft_get_my_env() = malloc(sizeof(char *) * (i + 1));
+	env_copy = *ft_get_my_env();
+	i = -1;
+	while (__environ[++i])
+		env_copy[i] = ft_strdup_calloc(__environ[i]);
+	env_copy[i] = NULL;
+	__environ = env_copy;
 }
 
 void	ft_add_to_env(char *str)
@@ -41,7 +42,7 @@ void	ft_add_to_env(char *str)
 	int		i;
 	char	**env;
 
-	env = *get_my_env();
+	env = *ft_get_my_env();
 	i = 0;
 	while (env[i])
 		i++;
@@ -52,7 +53,7 @@ void	ft_add_to_env(char *str)
 	new_env[i++] = ft_strdup_calloc(str);
 	new_env[i] = NULL;
 	free(env);
-	*get_my_env() = new_env;
+	*ft_get_my_env() = new_env;
 	__environ = new_env;
 }
 
@@ -63,7 +64,7 @@ void	ft_update_env(char *new_str, char *key)
 	char	*aux;
 	char	**env;
 
-	env = *get_my_env();
+	env = *ft_get_my_env();
 	i = -1;
 	while (env[++i])
 	{
@@ -76,7 +77,7 @@ void	ft_update_env(char *new_str, char *key)
 			break ;
 		}
 	}
-	*get_my_env() = env;
+	*ft_get_my_env() = env;
 	__environ = env;
 }
 

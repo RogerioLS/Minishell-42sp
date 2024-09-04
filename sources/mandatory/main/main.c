@@ -6,17 +6,11 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 20:02:15 by codespace         #+#    #+#             */
-/*   Updated: 2024/09/23 17:57:16 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:57:57 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/mandatory/mini_shell.h"
-
-void	initialize(void)
-{
-	ft_print_welcome( );
-	printf("\033[1;33m\nMINIHELL started!\033[0m\n");
-}
 
 char	*ft_init_and_wait_input(t_token **list)
 {
@@ -43,16 +37,22 @@ void	ft_terminal_properties(int attribute)
 		tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }
 
-void	ft_print_tokens(t_token *tokens)
+void	ft_reset_mini(char *line)
 {
-	t_token	*current;
+	ft_terminal_properties(0);
+	free(line);
+	delete_heredoc_files();
+	ft_free_memory();
+}
 
-	current = tokens;
-	while (current)
-	{
-		printf("Token: %s, Type: %i\n", current->value, current->type);
-		current = current->next;
-	}
+int	ft_finish_program(int status)
+{
+	ft_free_env();
+	ft_free_memory();
+	if (isatty(STDIN_FILENO) && isatty(STDOUT_FILENO))
+		write(STDOUT_FILENO, "bye bye\n", 5);
+	rl_clear_history();
+	return (status);
 }
 
 int	main(void)
@@ -75,11 +75,10 @@ int	main(void)
 			if (ft_lexer(input, &tokens) == SUCCESS)
 			{
 				if (ft_parser(tokens, &tree) == SUCCESS)
-				{
 					ft_set_exit_status(executor(tree));
-				}
 			}
 		}
+		ft_reset_mini(input);
 	}
-	return (0);
+	return (ft_finish_program(SUCCESS));
 }

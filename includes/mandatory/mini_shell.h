@@ -6,7 +6,7 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 20:04:17 by codespace         #+#    #+#             */
-/*   Updated: 2024/09/23 17:57:03 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:58:07 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ char						*ft_strdup_calloc(const char *s);
 void						ft_close_pipe(int *pipe_fd);
 char						*ft_strchr_quote_aware(const char *s, int c);
 void						ft_init_environ(void);
+void						initialize(void);
 
 // free
 void						ft_free_env(void);

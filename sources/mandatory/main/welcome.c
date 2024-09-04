@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   welcome.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 18:53:56 by codespace         #+#    #+#             */
-/*   Updated: 2024/09/01 19:46:58 by codespace        ###   ########.fr       */
+/*   Updated: 2024/09/04 19:27:49 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/mandatory/mini_shell.h"
+
+void	initialize(void)
+{
+	ft_print_welcome();
+	printf("\033[1;33m\nMINIHELL started!\033[0m\n");
+}
 
 void	ft_print_welcome(void)
 {

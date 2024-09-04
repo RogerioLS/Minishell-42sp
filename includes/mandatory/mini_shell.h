@@ -6,7 +6,7 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 20:04:17 by codespace         #+#    #+#             */
-/*   Updated: 2024/09/23 17:58:07 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:58:36 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ enum						e_tokens
 	END,
 	WORD,
 };
+
+char 	*ft_strjoin_mini(char const *s1, char const *s2);
 
 // main
 void						ft_print_welcome(void);

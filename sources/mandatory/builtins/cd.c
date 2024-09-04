@@ -6,7 +6,7 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 14:34:20 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/04 18:30:28 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/04 19:45:06 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	handle_set_env(char *env, char *current_dir)
 	{
 		return (ft_handle_error(env));
 	}
-	ft_set_env(ft_strjoin("OLDPWD=", current_dir), "OLDPWD", current_dir);
-	ft_set_env(ft_strjoin("PWD=", getcwd(NULL, 0)), "PWD", getcwd(NULL, 0));
+	ft_set_env(ft_strjoin_mini("OLDPWD=", current_dir), "OLDPWD", current_dir);
+	ft_set_env(ft_strjoin_mini("PWD=", getcwd(NULL, 0)), "PWD", getcwd(NULL, 0));
 	return (SUCCESS);
 }
 

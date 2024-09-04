@@ -6,7 +6,7 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 20:16:52 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/04 19:17:02 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/04 19:43:34 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ char	*search_in_path(t_token *token)
 	i = 0;
 	while (paths[i])
 	{
-		token_path = ft_strjoin(paths[i], "/");
-		token_path = ft_strjoin(token_path, token->value);
+		token_path = ft_strjoin_mini(paths[i], "/");
+		token_path = ft_strjoin_mini(token_path, token->value);
 		if (access(token_path, F_OK) == 0 && access(token_path, X_OK) == 0)
 			return (token_path);
 		i++;

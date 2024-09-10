@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_collect.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/01 04:34:57 by lluiz-de          #+#    #+#             */
-/*   Updated: 2024/09/04 20:54:10 by ecoelho-         ###   ########.fr       */
+/*   Created: 2024/09/04 20:01:24 by ecoelho-          #+#    #+#             */
+/*   Updated: 2024/09/04 20:01:58 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 
-char	*ft_strdup(const char *s)
+void	ft_collect_mem(void *content)
 {
-	char	*str;
-	int		len;
+	ft_lstadd_back(ft_get_memory_lst(), ft_lstnew(content));
+}
 
-	len = ft_strlen(s) + 1;
-	str = (char *) ft_dalloc(len + 1, 1);
-	if (str == NULL)
-		return (NULL);
-	ft_strlcpy(str, s, len);
-	return (str);
+void	*ft_dalloc(size_t nmemb, size_t size)
+{
+	void	*p;
+
+	p = ft_calloc(nmemb, size);
+	ft_collect_mem(p);
+	return (p);
 }

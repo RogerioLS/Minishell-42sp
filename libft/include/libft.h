@@ -6,7 +6,7 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 04:28:30 by lluiz-de          #+#    #+#             */
-/*   Updated: 2024/08/31 21:03:13 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/04 20:01:56 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,7 @@ void				ft_lstclear(t_list **lst, void (*del)(void *));
 void				ft_lstadd_back(t_list **lst, t_list *new);
 t_list				*ft_lstnew(void *content);
 t_list				*ft_lstlast(t_list *lst);
+void				ft_collect_mem(void *content);
+void				*ft_dalloc(size_t nmemb, size_t size);
 
 #endif

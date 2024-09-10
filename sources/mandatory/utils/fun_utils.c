@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   fun_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 18:11:32 by codespace         #+#    #+#             */
-/*   Updated: 2024/08/31 21:24:32 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/04 21:30:22 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*ft_strdup_calloc(const char *s)
 	char	*p;
 
 	len = ft_strlen(s);
-	p = (char *)ft_calloc(len + 1, 1);
+	p = (char *)malloc(len + 1 * sizeof(char));
 	if (p == NULL)
 	{
 		return (NULL);

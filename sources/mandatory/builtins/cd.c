@@ -15,9 +15,7 @@
 int	handle_set_env(char *env, char *current_dir)
 {
 	if (chdir(env) == -1)
-	{
 		return (ft_handle_error(env));
-	}
 	ft_set_env(ft_strjoin_mini("OLDPWD=", current_dir), "OLDPWD", current_dir);
 	ft_set_env(ft_strjoin_mini("PWD=", getcwd(NULL, 0)), "PWD", getcwd(NULL, 0));
 	return (SUCCESS);

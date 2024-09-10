@@ -74,8 +74,10 @@ int	main(void)
 			add_history(input);
 			if (ft_lexer(input, &tokens) == SUCCESS)
 			{
-				if (ft_parser(tokens, &tree) == SUCCESS)
+				if (ft_parser(tokens, &tree) == SUCCESS && !ft_strncmp(input, "exit", 5) == 0)
 					ft_set_exit_status(executor(tree));
+				else
+					return (ft_finish_program(SUCCESS));
 			}
 		}
 		ft_reset_mini(input);

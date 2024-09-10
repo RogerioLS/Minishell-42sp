@@ -31,7 +31,7 @@ void	ft_init_environ(void)
 	env_copy = *ft_get_my_env();
 	i = -1;
 	while (__environ[++i])
-		env_copy[i] = ft_strdup_calloc(__environ[i]);
+		env_copy[i] = ft_strdup(__environ[i]);
 	env_copy[i] = NULL;
 	__environ = env_copy;
 }

@@ -1,55 +1,25 @@
-==141998== Memcheck, a memory error detector
-==141998== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
-==141998== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
-==141998== Command: ./minishell
-==141998== Parent PID: 141542
-==141998== 
-==141998== 
-==141998== HEAP SUMMARY:
-==141998==     in use at exit: 208,754 bytes in 226 blocks
-==141998==   total heap usage: 654 allocs, 428 frees, 251,830 bytes allocated
-==141998== 
-==141998== 2 bytes in 1 blocks are definitely lost in loss record 1 of 67
-==141998==    at 0x48487EF: malloc (vg_replace_malloc.c:442)
-==141998==    by 0x10DD41: ft_calloc (in /home/eduardocoelho/Develop/42projects/duo_roger/Minishell-42sp/minishell)
-==141998==    by 0x10E016: allocate (in /home/eduardocoelho/Develop/42projects/duo_roger/Minishell-42sp/minishell)
-==141998==    by 0x10E0C1: ft_itoa (in /home/eduardocoelho/Develop/42projects/duo_roger/Minishell-42sp/minishell)
-==141998==    by 0x10D9DF: delete_heredoc_files (heredoc.c:80)
-==141998==    by 0x109627: ft_reset_mini (main.c:44)
-==141998==    by 0x109731: main (main.c:81)
-==141998== 
-==141998== 20 bytes in 1 blocks are definitely lost in loss record 10 of 67
-==141998==    at 0x4850164: realloc (vg_replace_malloc.c:1690)
-==141998==    by 0x49DB7BC: getcwd (getcwd.c:86)
-==141998==    by 0x10B7F9: handle_set_env (cd.c:22)
-==141998==    by 0x10B9BB: back_to_home (cd.c:59)
-==141998==    by 0x10BA4C: ft_cd (cd.c:72)
-==141998==    by 0x10B661: execute_builtin (builtins.c:28)
-==141998==    by 0x10CF95: execute_command (execute_command.c:110)
-==141998==    by 0x10C740: executor (executor.c:75)
-==141998==    by 0x10971E: main (main.c:78)
-==141998== 
-==141998== 20 bytes in 1 blocks are definitely lost in loss record 11 of 67
-==141998==    at 0x4850164: realloc (vg_replace_malloc.c:1690)
-==141998==    by 0x49DB7BC: getcwd (getcwd.c:86)
-==141998==    by 0x10B80B: handle_set_env (cd.c:22)
-==141998==    by 0x10B9BB: back_to_home (cd.c:59)
-==141998==    by 0x10BA4C: ft_cd (cd.c:72)
-==141998==    by 0x10B661: execute_builtin (builtins.c:28)
-==141998==    by 0x10CF95: execute_command (execute_command.c:110)
-==141998==    by 0x10C740: executor (executor.c:75)
-==141998==    by 0x10971E: main (main.c:78)
-==141998== 
-==141998== LEAK SUMMARY:
-==141998==    definitely lost: 42 bytes in 3 blocks
-==141998==    indirectly lost: 0 bytes in 0 blocks
-==141998==      possibly lost: 0 bytes in 0 blocks
-==141998==    still reachable: 0 bytes in 0 blocks
-==141998==         suppressed: 208,712 bytes in 223 blocks
-==141998== 
-==141998== ERROR SUMMARY: 3 errors from 3 contexts (suppressed: 0 from 0)
---141998-- 
---141998-- used_suppression:     63 <Readline> readline.supp:2 suppressed: 204,696 bytes in 222 blocks
---141998-- used_suppression:      1 <AddHistory> readline.supp:25 suppressed: 4,016 bytes in 1 blocks
-==141998== 
-==141998== ERROR SUMMARY: 3 errors from 3 contexts (suppressed: 0 from 0)
+==45093== Memcheck, a memory error detector
+==45093== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==45093== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==45093== Command: ./minishell
+==45093== Parent PID: 44637
+==45093== 
+==45093== 
+==45093== HEAP SUMMARY:
+==45093==     in use at exit: 204,639 bytes in 216 blocks
+==45093==   total heap usage: 550 allocs, 334 frees, 240,253 bytes allocated
+==45093== 
+==45093== LEAK SUMMARY:
+==45093==    definitely lost: 0 bytes in 0 blocks
+==45093==    indirectly lost: 0 bytes in 0 blocks
+==45093==      possibly lost: 0 bytes in 0 blocks
+==45093==    still reachable: 0 bytes in 0 blocks
+==45093==         suppressed: 204,639 bytes in 216 blocks
+==45093== 
+==45093== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+--45093-- 
+--45093-- used_suppression:     57 <Readline> readline.supp:2 suppressed: 200,618 bytes in 214 blocks
+--45093-- used_suppression:      1 <AddHistory> readline.supp:25 suppressed: 4,016 bytes in 1 blocks
+--45093-- used_suppression:      1 <ReadlineInternalTeardown> readline.supp:54 suppressed: 5 bytes in 1 blocks
+==45093== 
+==45093== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)

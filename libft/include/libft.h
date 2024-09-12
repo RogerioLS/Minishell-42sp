@@ -6,7 +6,7 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 04:28:30 by lluiz-de          #+#    #+#             */
-/*   Updated: 2024/09/04 20:01:56 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/12 18:14:15 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,6 @@ t_list				*ft_lstnew(void *content);
 t_list				*ft_lstlast(t_list *lst);
 void				ft_collect_mem(void *content);
 void				*ft_dalloc(size_t nmemb, size_t size);
-
+char				*ft_strdup_malloc(const char *s);
+char				*ft_strdup_calloc(const char *s);
 #endif

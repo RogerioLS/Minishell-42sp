@@ -6,7 +6,7 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 00:15:53 by codespace         #+#    #+#             */
-/*   Updated: 2024/09/10 19:31:45 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/12 18:14:52 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_init_environ(void)
 	env_copy = *ft_get_my_env();
 	i = -1;
 	while (__environ[++i])
-		env_copy[i] = ft_strdup(__environ[i]);
+		env_copy[i] = ft_strdup_malloc(__environ[i]);
 	env_copy[i] = NULL;
 	__environ = env_copy;
 }

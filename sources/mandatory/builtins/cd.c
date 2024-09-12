@@ -6,11 +6,21 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 14:34:20 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/10 19:31:23 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/12 18:44:44 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
+
+int	ft_get_into_home(char *path)
+{
+	if (path == NULL)
+	{
+		printf("cd: HOME not set");
+		return (1);
+	}
+	return (0);
+}
 
 int	ft_cd(t_token *tokens)
 {
@@ -25,11 +35,7 @@ int	ft_cd(t_token *tokens)
 	if (args[1] == NULL)
 	{
 		path = getenv("HOME");
-		if (path == NULL)
-		{
-			printf("cd: HOME not set");
-			return (1);
-		}
+		ft_get_into_home(path);
 	}
 	else
 		path = ft_strdup(args[1]);

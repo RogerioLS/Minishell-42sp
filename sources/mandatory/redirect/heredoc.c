@@ -6,7 +6,7 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 18:59:50 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/04 19:43:57 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/12 18:20:36 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ int	delete_heredoc_files(void)
 	heredoc_counter = get_heredoc_counter();
 	while ((*heredoc_counter) >= 0)
 	{
-		file_name = ft_strjoin_mini("/tmp/.heredoc", ft_itoa((*heredoc_counter)--));
+		file_name = ft_strjoin_mini("/tmp/.heredoc", \
+			ft_itoa((*heredoc_counter)--));
 		unlink(file_name);
 	}
 	return (SUCCESS);

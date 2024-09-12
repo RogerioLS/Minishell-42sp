@@ -6,7 +6,7 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 20:04:17 by codespace         #+#    #+#             */
-/*   Updated: 2024/09/23 17:58:36 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:59:33 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # define FAILURE 1
 # define SYNTAX_ERROR 2
 
-# define INVALID_QUOTE "Invalid syntax,check input for open quotes or brackets.\n"
+# define INVALID_QUOTE "Invalid syntax,check for open quotes or brackets.\n"
 
 typedef struct s_token		t_token;
 struct						s_token
@@ -70,7 +70,7 @@ enum						e_tokens
 	WORD,
 };
 
-char 	*ft_strjoin_mini(char const *s1, char const *s2);
+char						*ft_strjoin_mini(char const *s1, char const *s2);
 
 // main
 void						ft_print_welcome(void);
@@ -80,6 +80,12 @@ void						ft_close_pipe(int *pipe_fd);
 char						*ft_strchr_quote_aware(const char *s, int c);
 void						ft_init_environ(void);
 void						initialize(void);
+
+// run_minishell
+int							ft_finish_program(int status);
+void						ft_reset_mini(char *line);
+void						ft_terminal_properties(int attribute);
+char						*ft_init_and_wait_input(t_token **list);
 
 // free
 void						ft_free_env(void);

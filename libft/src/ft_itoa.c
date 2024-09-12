@@ -6,7 +6,7 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 04:32:52 by lluiz-de          #+#    #+#             */
-/*   Updated: 2024/09/04 20:02:23 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/12 18:37:30 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,3 @@ char	*ft_itoa(int n)
 	ft_reverse(buf, len);
 	return (buf);
 }
-

@@ -6,7 +6,7 @@
 #    By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/01 20:01:05 by codespace         #+#    #+#              #
-#    Updated: 2024/09/23 17:57:21 by ecoelho-         ###   ########.fr        #
+#    Updated: 2024/09/23 17:59:54 by ecoelho-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ CC					= cc
 VALGRIND_LOG		= valgrind.log
 
 MAIN_SOURCES		= $(MAIN_DIR)main.c \
+					$(MAIN_DIR)run_minishell.c \
 					$(MAIN_DIR)welcome.c
 
 SIGNALS_SOURCES		= $(SIGNALS_DIR)signal.c

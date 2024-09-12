@@ -6,7 +6,7 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 18:43:52 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/04 18:44:38 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/12 18:19:12 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ int	is_env_key_present(char *key)
 
 int	is_key_without_value(char *key)
 {
-	int i;
-	char *env_key;
-	char **env;
+	int		i;
+	char	*env_key;
+	char	**env;
 
 	env = *ft_get_my_env();
 	i = -1;

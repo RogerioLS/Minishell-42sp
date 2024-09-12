@@ -6,7 +6,7 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 13:39:59 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/04 19:43:43 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/12 18:18:00 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	*expand_vars(char *str)
 
 void	expand_tokens(t_tree_node *cmd_node)
 {
-	t_token *current;
+	t_token	*current;
 
 	current = cmd_node->token;
 	while (current)
@@ -92,8 +92,6 @@ void	expand_tokens(t_tree_node *cmd_node)
 		current->value = expand_vars(current->value);
 		if (*(current->value) == '\0')
 			handle_empty_value(&current, &cmd_node);
-		// if (ft_strchr_quote_aware(current->value, '*'))
-		// 	expand_wildcards(&current, &cmd_node);
 		if (ft_strchr_quote_aware(current->value, ' '))
 			retokenize(&current);
 		current->value = remove_quotes(current->value);

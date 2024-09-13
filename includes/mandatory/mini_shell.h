@@ -6,16 +6,16 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 20:04:17 by codespace         #+#    #+#             */
-/*   Updated: 2024/09/23 17:59:33 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/23 18:00:47 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINI_SHELL_H
 # define MINI_SHELL_H
 
-# include "../../libft/include/ft_printf.h"
-# include "../../libft/include/get_next_line.h"
-# include "../../libft/include/libft.h"
+// # include "../../libft/include/ft_printf.h"
+// # include "../../libft/include/get_next_line.h"
+# include "libft.h"
 # include <errno.h>
 # include <fcntl.h>
 # include <readline/history.h>

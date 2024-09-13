@@ -6,7 +6,7 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 14:34:20 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/12 18:44:44 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/12 21:19:11 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_cd(t_token *tokens)
 
 	token_list_size = ft_token_lst_get_size(tokens);
 	if (token_list_size > 2)
-		return (printf("cd: too many arguments\n"));
+		return (!!write(STDERR_FILENO, "cd: too many arguments\n", 23));
 	args = get_cmd_and_args(tokens);
 	if (args[1] == NULL)
 	{

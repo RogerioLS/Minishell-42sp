@@ -6,7 +6,7 @@
 #    By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/01 20:01:05 by codespace         #+#    #+#              #
-#    Updated: 2024/09/23 17:59:54 by ecoelho-         ###   ########.fr        #
+#    Updated: 2024/09/23 18:00:33 by ecoelho-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME				= minishell
 SOURCES_DIR			= sources/
 OBJECTS_DIR			= objects/
 
-HEADERS				= -I ./includes/mandatory/ -I ./libft/include/
+HEADERS				= -I ./includes/mandatory/ -I ./libft
 
 MAIN_DIR			= $(SOURCES_DIR)mandatory/main/
 SIGNALS_DIR			= $(SOURCES_DIR)mandatory/signals/

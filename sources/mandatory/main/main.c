@@ -6,7 +6,7 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 20:02:15 by codespace         #+#    #+#             */
-/*   Updated: 2024/09/23 17:59:39 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/23 18:00:40 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int	ft_run_minishell(void)
 			add_history(input);
 			if (ft_lexer(input, &tokens) == SUCCESS)
 			{
-				if (ft_parser(tokens, &tree) == SUCCESS && !ft_strncmp(input,
-						"exit", 5) == 0)
+				if (ft_parser(tokens, &tree) == SUCCESS && ft_strncmp(input,
+						"exit", 5))
 					ft_set_exit_status(executor(tree));
 				else
 					return (ft_finish_program(SUCCESS));

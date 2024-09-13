@@ -6,7 +6,7 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 19:18:15 by codespace         #+#    #+#             */
-/*   Updated: 2024/09/12 18:32:25 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/12 21:54:58 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ int	ft_parser(t_token *tokens, t_tree_node **root)
 	{
 		if (ft_check_syntax(current) != SUCCESS)
 			return (ft_set_exit_status(SYNTAX_ERROR));
+		if (current->type == REDIR_HEREDOC && current->next->type == WORD
+			&& create_heredoc_file(current->next) != SUCCESS)
+			return (*ft_get_exit_status());
 		current = current->next;
 	}
 	*root = ft_build_execution_tree(tokens);

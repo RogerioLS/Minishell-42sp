@@ -6,7 +6,7 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 20:29:35 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/04 18:53:28 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/12 21:51:49 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ int	execute_redirect(t_tree_node *left, t_tree_node *right, int redir_type)
 	before_expansion = right->token->value;
 	expand_tokens(right);
 	if ((*before_expansion != '\0' && !right->token) || right->token->next)
-		return (!!printf("%s: ambiguous redirect\n", before_expansion));
+		return (!!ft_fprintf(STDERR_FILENO, "%s: ambiguous redirect\n",
+				before_expansion));
 	if (open_redir_file(right, redir_type, &fd) != SUCCESS)
 		return (FAILURE);
 	if (dup2_redir_file(redir_type, &fd) != SUCCESS)

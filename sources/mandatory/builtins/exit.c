@@ -6,7 +6,7 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 16:00:56 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/04 21:42:06 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/12 21:41:40 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,15 @@ int	ft_exit(t_token *tokens)
 		if (validate_argument(tokens->next->value)
 			|| *(tokens->next->value) == '\0')
 		{
-			printf("exit: %s: numeric argument required\n",
-				tokens->next->value);
+			ft_fprintf(STDERR_FILENO, "exit: %s: numeric argument required\n",
+					tokens->next->value);
 			exit(SYNTAX_ERROR);
 		}
 		if (tokens->next->next)
-			return (!!write(STDERR_FILENO, "exit: too many arguments\n", 25));
+		{
+			write(STDERR_FILENO, "exit: too many arguments\n", 25);
+			exit(FAILURE);
+		}
 	}
 	delete_heredoc_files();
 	ft_free_memory();

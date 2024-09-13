@@ -6,7 +6,7 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 20:16:52 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/04 19:43:34 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/12 21:51:07 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*search_in_path(t_token *token)
 			return (token_path);
 		i++;
 	}
-	printf("%s: command not found\n", token->value);
+	ft_fprintf(STDERR_FILENO, "%s: command not found\n", token->value);
 	ft_free_env();
 	ft_free_memory();
 	exit(127);

@@ -6,7 +6,7 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 18:01:19 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/04 18:42:45 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/13 18:34:29 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,12 @@ int	ft_unset(t_token *tokens)
 	status = 0;
 	args = get_cmd_and_args(tokens);
 	if (!args[1])
-		return (set_exit_status(status));
+		return (ft_set_exit_status(status));
 	while (args[++i])
 	{
 		if (!is_valid_identifier(args[i], args[0]) && ++status)
 			continue ;
 		delete_env_key(get_key(args[i]));
 	}
-	return (set_exit_status(!!status));
+	return (ft_set_exit_status(!!status));
 }

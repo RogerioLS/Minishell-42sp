@@ -6,7 +6,7 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 20:02:15 by codespace         #+#    #+#             */
-/*   Updated: 2024/09/23 18:01:30 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/23 18:02:01 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ft_run_minishell(void)
 int	main(void)
 {
 	ft_init_environ();
-	ft_terminal_properties(0);
+	ft_terminal_properties();
 	// initialize();
 	ft_run_minishell();
 }

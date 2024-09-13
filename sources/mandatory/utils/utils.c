@@ -6,20 +6,11 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 21:06:46 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/04 18:46:00 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/13 19:06:26 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
-
-int	set_exit_status(int status)
-{
-	int	*exit_status;
-
-	exit_status = get_exit_status();
-	*exit_status = status;
-	return (*exit_status);
-}
 
 void	ft_close_pipe(int *pipe_fd)
 {

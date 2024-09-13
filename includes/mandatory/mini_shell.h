@@ -6,7 +6,11 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 20:04:17 by codespace         #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/09/23 18:01:31 by ecoelho-         ###   ########.fr       */
+=======
+/*   Updated: 2024/09/13 19:13:46 by ecoelho-         ###   ########.fr       */
+>>>>>>> i dont know
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +60,7 @@ struct						s_tree_node
 typedef enum e_tokens		t_tokens;
 enum						e_tokens
 {
-	AND = 1,
-	OR,
-	PIPE,
+	PIPE = 1,
 	OPEN_PAREN,
 	CLOSE_PAREN,
 	REDIR_APPEND,
@@ -84,7 +86,7 @@ void						initialize(void);
 // run_minishell
 int							ft_finish_program(int status);
 void						ft_reset_mini(char *line);
-void						ft_terminal_properties(int attribute);
+void						ft_terminal_properties(void);
 char						*ft_init_and_wait_input(t_token **list);
 
 // free
@@ -121,8 +123,8 @@ t_list						**ft_get_memory_lst(void);
 void						ft_collect_mem(void *content);
 void						*ft_dalloc(size_t nmemb, size_t size);
 t_token						*ft_token_lst_new(char *value, int token_type);
-void	ft_token_lst_add_back(t_token **token_list,
-							t_token *new);
+void						ft_token_lst_add_back(t_token **token_list,
+								t_token *new);
 int							ft_token_lst_get_size(t_token *token_list);
 t_token						*ft_token_lst_get_last(t_token *token_list);
 void						ft_sort_token_lst(t_token **head);
@@ -133,22 +135,19 @@ int							ft_check_syntax(t_token *current);
 int							ft_check_control_operator_rule(t_token *token);
 int							ft_check_redirect_rule(t_token *token);
 t_tree_node					*ft_build_execution_tree(t_token *token_list);
-void	ft_split_tokens_into_tree(t_tree_node *tree_node,
+void						ft_split_tokens_into_tree(t_tree_node *tree_node,
 								t_token *token_list);
-void	ft_split_list(t_tree_node *tree_node,
-					t_token *token_list,
-					t_token *token_to_cut);
-t_token	*ft_cut_token_list(t_token *token_list,
-							t_token *token_to_cut);
-void	ft_split_redirect(t_tree_node *tree_node,
-						t_token *token_list,
-						t_token *token_to_cut);
+void						ft_split_list(t_tree_node *tree_node,
+								t_token *token_list, t_token *token_to_cut);
+t_token						*ft_cut_token_list(t_token *token_list,
+								t_token *token_to_cut);
+void						ft_split_redirect(t_tree_node *tree_node,
+								t_token *token_list, t_token *token_to_cut);
 t_token						*ft_search_pipe(t_token *token_list);
 t_token						*ft_search_redirect(t_token *token_list);
 t_tree_node					*ft_get_redir_filename(t_token *redir);
 
 int							delete_heredoc_files(void);
-int							set_exit_status(int status);
 char						*ft_strndup(char *s, int n);
 
 //----------- builtins -----------//
@@ -179,9 +178,8 @@ int							execute_pipe(t_tree_node *left, t_tree_node *right);
 void						wait_child_status(pid_t pid, int *status);
 
 // execute_redirect.c
-int	execute_redirect(t_tree_node *left,
-						t_tree_node *right,
-						int redir_type);
+int							execute_redirect(t_tree_node *left,
+								t_tree_node *right, int redir_type);
 // executor.c
 int							executor(t_tree_node *root);
 
@@ -192,8 +190,8 @@ char						*expand_vars(char *str);
 // expand_utils.c
 char						*remove_quotes(char *str);
 void						retokenize(t_token **token);
-void	handle_empty_value(t_token **current,
-						t_tree_node **cmd_node);
+void						handle_empty_value(t_token **current,
+								t_tree_node **cmd_node);
 
 char						*get_key(char *arg);
 int							is_valid_identifier(char *str, char *cmd_name);

@@ -6,7 +6,7 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 16:55:26 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/04 18:40:46 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/13 18:47:57 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	print_smallest_unprinted(char **env, size_t env_size, char *printed)
 		printed[small_pos]++;
 		return (1);
 	}
-	return (0);
+	return (SUCCESS);
 }
 
 void	ft_print_env_sort(void)
@@ -99,5 +99,5 @@ int	ft_export(t_token *tokens)
 		else
 			ft_set_env(args[i], key, NULL);
 	}
-	return (set_exit_status(!!status));
+	return (ft_set_exit_status(!!status));
 }

@@ -6,31 +6,11 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 19:39:38 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/04 18:52:30 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/13 19:10:15 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
-
-int	execute_and(t_tree_node *left, t_tree_node *right)
-{
-	int	exit_status;
-
-	exit_status = set_exit_status(executor(left));
-	if (exit_status == SUCCESS)
-		return (set_exit_status(executor(right)));
-	return (exit_status);
-}
-
-int	execute_or(t_tree_node *left, t_tree_node *right)
-{
-	int	exit_status;
-
-	exit_status = set_exit_status(executor(left));
-	if (exit_status != SUCCESS && *get_exit_status() < 128)
-		return (set_exit_status(executor(right)));
-	return (exit_status);
-}
 
 int	execute_block(t_tree_node *root)
 {
@@ -60,10 +40,6 @@ int	executor(t_tree_node *root)
 {
 	if (!root->token)
 		return (SUCCESS);
-	if (root->token->type == AND)
-		return (execute_and(root->left, root->right));
-	else if (root->token->type == OR)
-		return (execute_or(root->left, root->right));
 	else if (root->token->type == PIPE)
 		return (execute_pipe(root->left, root->right));
 	else if (root->token->type >= REDIR_APPEND

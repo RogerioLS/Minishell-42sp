@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_syntax_input.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:53:19 by codespace         #+#    #+#             */
-/*   Updated: 2024/08/29 13:41:46 by codespace        ###   ########.fr       */
+/*   Updated: 2024/09/13 18:17:51 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_check_syntax_input(char *input)
 	}
 	if (single_quote != 0 || double_quote != 0)
 	{
-		write(STDERR_FILENO, INVALID_QUOTE, 57);
+		write(STDERR_FILENO, INVALID_QUOTE, 51);
 		return (SYNTAX_ERROR);
 	}
 	return (SUCCESS);

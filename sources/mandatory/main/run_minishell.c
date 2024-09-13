@@ -6,7 +6,7 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 18:28:02 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/12 18:41:42 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/13 18:51:47 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,24 @@ char	*ft_init_and_wait_input(t_token **list)
 	return (line);
 }
 
-void	ft_terminal_properties(int attribute)
+void	ft_terminal_properties(void)
 {
 	static struct termios	term;
+	static int				attribute;
 
+	attribute = 0;
 	if (!attribute)
 		tcgetattr(STDIN_FILENO, &term);
 	else
+	{
 		tcsetattr(STDIN_FILENO, TCSANOW, &term);
+		attribute = 1;
+	}
 }
 
 void	ft_reset_mini(char *line)
 {
-	ft_terminal_properties(0);
+	ft_terminal_properties();
 	free(line);
 	delete_heredoc_files();
 	ft_free_memory();

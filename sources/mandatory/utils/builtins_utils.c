@@ -6,7 +6,7 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 18:43:52 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/12 21:18:35 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/13 18:34:22 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	is_valid_identifier(char *str, char *cmd_name)
 			return (1);
 	}
 	ft_fprintf(STDERR_FILENO, "%s: not a valid identifier\n", cmd_name);
-	set_exit_status(FAILURE);
+	ft_set_exit_status(FAILURE);
 	return (0);
 }
 

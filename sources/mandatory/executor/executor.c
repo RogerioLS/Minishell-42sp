@@ -38,9 +38,7 @@ int	execute_block(t_tree_node *root)
 
 int	executor(t_tree_node *root)
 {
-	if (!root->token)
-		return (SUCCESS);
-	else if (root->token->type == PIPE)
+	if (root->token->type == PIPE)
 		return (execute_pipe(root->left, root->right));
 	else if (root->token->type >= REDIR_APPEND
 		&& root->token->type <= REDIR_OUT)

@@ -26,7 +26,7 @@ int	write_input_to_heredoc(int fd, char *end_condition, int is_expandable)
 	line = readline("> ");
 	if (!line)
 	{
-		if (*get_exit_status() != SIGINT + 128)
+		if (*ft_get_exit_status() != SIGINT + 128)
 			printf("warning: heredoc delimited by end-of-file(wanted '%s)\n",
 				end_condition);
 		return (SUCCESS);
@@ -62,7 +62,7 @@ int	create_heredoc_file(t_token *token)
 	while (42)
 		if (write_input_to_heredoc(fd, token->value, is_expandable) == SUCCESS)
 			break ;
-	if (*get_exit_status() == SIGINT + 128)
+	if (*ft_get_exit_status() == SIGINT + 128)
 		return (ft_set_exit_status(SIGINT + 128));
 	close(fd);
 	token->value = file_name;

@@ -199,7 +199,6 @@ int							is_env_key_present(char *key);
 int							is_key_without_value(char *key);
 
 void						heredoc_signal_handler(int signum);
-int							*get_exit_status(void);
 int							create_heredoc_file(t_token *token);
 int							delete_heredoc_files(void);
 

@@ -74,5 +74,5 @@ int	ft_exit(t_token *tokens)
 	ft_free_memory();
 	if (status)
 		exit(status % 256);
-	exit(*get_exit_status());
+	exit(*ft_get_exit_status());
 }

@@ -17,7 +17,7 @@ char	*handle_special_cases(char *dollar, char **str, char **after_var,
 {
 	if (*(dollar + 1) == '?')
 	{
-		*expanded_var = ft_itoa(*get_exit_status());
+		*expanded_var = ft_itoa(*ft_get_exit_status());
 		*after_var = ++(*str);
 	}
 	else if (*(dollar + 1) == '\'' || *(dollar + 1) == '\"')

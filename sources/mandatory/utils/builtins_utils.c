@@ -12,13 +12,6 @@
 
 #include "mini_shell.h"
 
-int	*get_exit_status(void)
-{
-	static int	exit_status;
-
-	return (&exit_status);
-}
-
 char	*get_key(char *arg)
 {
 	char	*equal_sign;

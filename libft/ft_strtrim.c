@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/27 19:02:18 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/12 21:06:06 by ecoelho-         ###   ########.fr       */
+/*   Created: 2023/07/23 16:01:23 by ecoelho-          #+#    #+#             */
+/*   Updated: 2024/08/13 16:28:05 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,22 @@
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	size_t	end;
-	size_t	start;
-	size_t	len;
+	size_t		s1_len;
+	const char	*s1_last;
+	char		*str;
 
-	if (s1 == NULL || set == NULL)
+	if (!s1 || !set)
 		return (NULL);
-	start = 0;
-	while (ft_strchr(set, s1[start]) && s1[start])
-		start++;
-	end = ft_strlen((char *)s1);
-	while (ft_strchr(set, s1[end - 1]) && end)
-		end--;
-	len = end - start;
-	return (ft_substr(s1, start, len));
+	s1_len = ft_strlen(s1);
+	s1_last = &s1[s1_len - 1];
+	while (ft_strchr(set, *s1) && *s1)
+	{
+		s1++;
+	}
+	while (ft_strchr(set, *s1_last) && *s1_last)
+	{
+		s1_last--;
+	}
+	str = ft_substr(s1, 0, ft_strlen(s1) - ft_strlen(s1_last) + 1);
+	return (str);
 }

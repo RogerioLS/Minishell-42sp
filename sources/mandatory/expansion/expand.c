@@ -6,7 +6,7 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 13:39:59 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/12 18:18:00 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/20 16:09:46 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ char	*handle_dollar(char *start, char **str)
 		expanded_var = getenv(ft_substr(dollar, 1, after_var - dollar - 1));
 	}
 	before_var = ft_substr(start, 0, dollar - start);
-	result = ft_strjoin_mini(before_var, expanded_var);
-	result = ft_strjoin_mini(result, after_var);
+	result = ft_strjoin(before_var, expanded_var);
+	result = ft_strjoin(result, after_var);
 	*str = result + ft_strlen(before_var) + ft_strlen(expanded_var) - 1;
 	return (result);
 }

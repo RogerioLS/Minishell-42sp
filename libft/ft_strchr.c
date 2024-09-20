@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/18 15:38:58 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/12 21:06:06 by ecoelho-         ###   ########.fr       */
+/*   Created: 2023/07/19 13:22:48 by ecoelho-          #+#    #+#             */
+/*   Updated: 2024/08/13 16:28:05 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,18 @@
 
 char	*ft_strchr(const char *s, int c)
 {
-	int	i;
+	size_t	len;
+	size_t	i;
 
+	if (s == NULL)
+		return (NULL);
+	len = ft_strlen(s);
 	i = 0;
-	while (s[i])
+	while (i <= len)
 	{
 		if (s[i] == (unsigned char)c)
 			return ((char *)s + i);
 		i++;
 	}
-	if ((s[i] == (unsigned char)c))
-		return ((char *)s + i);
 	return (NULL);
 }

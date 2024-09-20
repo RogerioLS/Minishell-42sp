@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/17 20:07:37 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/12 21:06:06 by ecoelho-         ###   ########.fr       */
+/*   Created: 2023/07/19 11:27:53 by ecoelho-          #+#    #+#             */
+/*   Updated: 2024/08/13 16:28:05 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,18 @@
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	size_t	src_len;
 	size_t	len;
+	size_t	i;
 
-	src_len = ft_strlen((char *)src);
-	len = 0;
-	if (size > 0)
+	len = ft_strlen((char *)src);
+	i = 0;
+	if (size == 0)
+		return (len);
+	while (i < (size - 1) && src[i])
 	{
-		while (src[len] && len < size - 1)
-		{
-			dst[len] = src[len];
-			len++;
-		}
-		dst[len] = '\0';
+		dst[i] = src[i];
+		i++;
 	}
-	return (src_len);
+	dst[i] = '\0';
+	return (len);
 }

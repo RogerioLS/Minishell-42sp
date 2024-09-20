@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/07 10:22:15 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/12 21:06:06 by ecoelho-         ###   ########.fr       */
+/*   Created: 2023/08/02 18:21:05 by ecoelho-          #+#    #+#             */
+/*   Updated: 2024/08/13 16:28:05 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,22 @@
 
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_list	*new_lst;
-	t_list	*new_elem;
+	t_list	*new_node;
+	t_list	*first;
 
-	if (lst == NULL)
-		return (NULL);
-	new_elem = ft_lstnew(f(lst->content));
-	if (new_elem == NULL)
-		return (NULL);
-	new_lst = new_elem;
-	lst = lst->next;
-	while (lst != NULL)
+	first = NULL;
+	while (lst)
 	{
-		new_elem->next = ft_lstnew(f(lst->content));
-		if (new_elem == NULL)
+		new_node = ft_lstnew(f(lst->content));
+		if (new_node == NULL)
 		{
-			ft_lstclear(&new_lst, del);
+			if (first == NULL)
+				return (NULL);
+			ft_lstclear(&first, del);
 			return (NULL);
 		}
-		new_elem = new_elem->next;
+		ft_lstadd_back(&first, new_node);
 		lst = lst->next;
 	}
-	return (new_lst);
+	return (first);
 }

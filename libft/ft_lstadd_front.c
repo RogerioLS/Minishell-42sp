@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/02 18:24:52 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/12 21:06:06 by ecoelho-         ###   ########.fr       */
+/*   Created: 2023/07/27 15:35:42 by ecoelho-          #+#    #+#             */
+/*   Updated: 2024/08/13 16:28:05 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,6 @@
 
 void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	if (*lst == NULL)
-		*lst = new;
-	else
-	{
-		new->next = *(lst);
-		*lst = new;
-	}
+	new->next = *lst;
+	*lst = new;
 }

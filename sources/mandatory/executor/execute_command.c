@@ -6,13 +6,13 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 20:16:52 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/12 21:51:07 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/20 16:09:46 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-char	**get_cmd_and_args(t_token *cmd)
+char	**ft_get_cmd_and_args(t_token *cmd)
 {
 	t_token	*current;
 	char	**cmd_and_args;
@@ -49,8 +49,8 @@ char	*search_in_path(t_token *token)
 	i = 0;
 	while (paths[i])
 	{
-		token_path = ft_strjoin_mini(paths[i], "/");
-		token_path = ft_strjoin_mini(token_path, token->value);
+		token_path = ft_strjoin(paths[i], "/");
+		token_path = ft_strjoin(token_path, token->value);
 		if (access(token_path, F_OK) == 0 && access(token_path, X_OK) == 0)
 			return (token_path);
 		i++;
@@ -86,7 +86,7 @@ void	run_command_in_child_process(t_token *token)
 	int		exit_status;
 
 	cmd_path = get_cmd_path(token);
-	cmd_and_args = get_cmd_and_args(token);
+	cmd_and_args = ft_get_cmd_and_args(token);
 	if (execve(cmd_path, cmd_and_args, __environ) == -1)
 	{
 		exit_status = throw_error(cmd_path);
@@ -96,7 +96,7 @@ void	run_command_in_child_process(t_token *token)
 	}
 }
 
-int	execute_command(t_tree_node *token_node)
+int	ft_execute_command(t_tree_node *token_node)
 {
 	int	pid;
 	int	exit_status;
@@ -116,7 +116,7 @@ int	execute_command(t_tree_node *token_node)
 		ft_setup_fork_signal_handlers(pid);
 		if (pid == 0)
 			run_command_in_child_process(token_node->token);
-		wait_child_status(pid, &exit_status);
+		ft_wait_child_status(pid, &exit_status);
 		return (exit_status);
 	}
 }

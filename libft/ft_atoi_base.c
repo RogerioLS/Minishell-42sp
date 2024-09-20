@@ -5,90 +5,64 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/25 13:39:56 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/12 21:06:06 by ecoelho-         ###   ########.fr       */
+/*   Created: 2023/10/25 16:44:08 by ecoelho-          #+#    #+#             */
+/*   Updated: 2024/08/13 16:28:05 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	check_base_and_get_length(char *base)
+int	is_blank(char str)
 {
-	int	base_len;
-	int	i;
-
-	base_len = 0;
-	while (base[base_len] != '\0')
-	{
-		if (ft_issign(base[base_len]))
-			return (0);
-		i = base_len + 1;
-		while (base[i] != '\0')
-		{
-			if (base[base_len] == base[i])
-				return (0);
-			i++;
-		}
-		base_len++;
-	}
-	if (base_len < 2)
-		return (0);
-	return (base_len);
+	if (str <= 32)
+		return (1);
+	return (0);
 }
 
-static int	is_number_in_base(char c, char *base)
+int	is_valid_char(char c, int base)
 {
-	int	i;
+	char	*hexa;
+	char	*hexa1;
 
-	i = 0;
-	while (base[i])
+	hexa = "0123456789abcdef";
+	hexa1 = "0123456789ABCDEF";
+	while (base--)
 	{
-		if (c == base[i])
+		if (hexa[base] == c || hexa1[base] == c)
 			return (1);
-		i++;
 	}
 	return (0);
 }
 
-static int	get_sign(char c)
+int	value_in_decimal(char c)
 {
-	if (c == '-')
-		return (-1);
-	return (1);
+	if (c >= '0' && c <= '9')
+		return (c - '0');
+	else if (c >= 'a' && c <= 'f')
+		return (c - 'a' + 10);
+	else if (c >= 'A' && c <= 'F')
+		return (c - 'A' + 10);
+	return (0);
 }
 
-static int	get_decimal_value(char c, char *base)
+unsigned int	ft_atoi_base(char *str, int base)
 {
-	int	i;
-
-	i = 0;
-	while (base[i] && base[i] != c)
-		i++;
-	return (i);
-}
-
-int	ft_atoi_base(char *str, char *base)
-{
-	int	start;
-	int	i;
-	int	result;
-	int	sign;
-	int	base_length;
+	unsigned int	num;
+	int				sign;
+	int				i;
 
 	sign = 1;
-	base_length = check_base_and_get_length(base);
-	if (base_length == 0)
-		return (0);
-	start = 0;
-	while (str[start] != '\0' && ft_isspace(str[start]))
-		start++;
-	sign = get_sign(str[start]);
-	i = start;
-	result = 0;
-	while (str[i] && is_number_in_base(str[i], base))
+	num = 0;
+	i = 0;
+	while (is_blank(str[i]))
+		i++;
+	if (str[i] == '-' || str[i] == '+')
 	{
-		result = (result * base_length) + (get_decimal_value(str[i], base));
+		if (str[i] == '-')
+			sign *= -1;
 		i++;
 	}
-	return (result * sign);
+	while (is_valid_char(str[i], base))
+		num = (num * base) + (value_in_decimal(str[i++]));
+	return (num * sign);
 }

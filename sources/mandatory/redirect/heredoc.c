@@ -6,7 +6,7 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 18:59:50 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/13 18:34:25 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/20 16:09:46 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	create_heredoc_file(t_token *token)
 		return (ft_signal_error());
 	is_expandable = false;
 	heredoc_counter = get_heredoc_counter();
-	file_name = ft_strjoin_mini("/tmp/.heredoc", ft_itoa((*heredoc_counter)++));
+	file_name = ft_strjoin("/tmp/.heredoc", ft_itoa((*heredoc_counter)++));
 	fd = open(file_name, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (fd < 0)
 		return (ft_set_exit_status(ft_handle_error("failed to create heredoc")));
@@ -77,7 +77,7 @@ int	delete_heredoc_files(void)
 	heredoc_counter = get_heredoc_counter();
 	while ((*heredoc_counter) >= 0)
 	{
-		file_name = ft_strjoin_mini("/tmp/.heredoc", \
+		file_name = ft_strjoin("/tmp/.heredoc", \
 			ft_itoa((*heredoc_counter)--));
 		unlink(file_name);
 	}

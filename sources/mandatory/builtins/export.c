@@ -6,7 +6,7 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 16:55:26 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/13 18:47:57 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/20 15:57:22 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	ft_export(t_token *tokens)
 
 	i = 0;
 	status = 0;
-	args = get_cmd_and_args(tokens);
+	args = ft_get_cmd_and_args(tokens);
 	if (!args[1])
 		ft_print_env_sort();
 	while (args[++i])

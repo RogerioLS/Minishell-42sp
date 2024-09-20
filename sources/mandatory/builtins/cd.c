@@ -6,7 +6,7 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 14:34:20 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/13 18:46:16 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/20 16:21:46 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char *get_cwd(void)
 int check_access(char *path)
 {
     if (access(path, F_OK))
-        return (!!ft_fprintf(STDERR_FILENO, "cd: %s: no such file or directory\n", path));
+        return (!!ft_fprintf(STDERR_FILENO, "cd: %s: No such file or directory\n", path));
     else if (access(path, R_OK))
         return (!!ft_fprintf(STDERR_FILENO, "cd: %s: permission denied\n", path));
     return (SUCCESS);
@@ -77,7 +77,7 @@ int ft_cd(t_token *tokens)
 
     if (ft_token_lst_get_size(tokens) > 2)
         return (!!write(STDERR_FILENO, "cd: too many arguments\n", 23));
-    args = get_cmd_and_args(tokens);
+    args = ft_get_cmd_and_args(tokens);
     if (!args[1] || !ft_strcmp(args[1], "~"))
         return (change_to_home());
     return (change_dir(args[1]));

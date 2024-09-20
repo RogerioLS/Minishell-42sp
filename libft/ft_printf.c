@@ -5,54 +5,38 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/04 11:48:12 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/12 21:06:06 by ecoelho-         ###   ########.fr       */
+/*   Created: 2023/09/01 01:34:53 by ecoelho-          #+#    #+#             */
+/*   Updated: 2024/08/13 16:28:05 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	print_format(const char specifier, va_list args)
+int	ft_printf(const char *format, ...)
 {
-	if (specifier == 'c')
-		return (ft_putchar_fd(va_arg(args, int), 1));
-	else if (specifier == 's')
-		return (ft_putstr_fd(va_arg(args, char *), 1));
-	else if (specifier == 'd' || specifier == 'i')
-		return (ft_putnbr_fd(va_arg(args, int), 1));
-	else if (specifier == '%')
-		return (ft_putchar_fd('%', 1));
-	else if (specifier == 'p')
-		return (ft_putptr_fd(va_arg(args, long), 1));
-	else if (specifier == 'u')
-		return (ft_putnbr_fd((va_arg(args, unsigned int)), 1));
-	else if (specifier == 'x')
-		return (ft_putnbr_base_fd(va_arg(args, unsigned int),
-				"0123456789abcdef", 1));
-	else if (specifier == 'X')
-		return (ft_putnbr_base_fd(va_arg(args, unsigned int),
-				"0123456789ABCDEF", 1));
-	else
-		return (0);
-}
+	int			i;
+	int			count;
+	t_format	*flags;
 
-int	ft_printf(const char *str, ...)
-{
-	va_list	args;
-	int		counter;
-
-	if (str == NULL)
+	i = 0;
+	count = 0;
+	flags = (t_format *)malloc(sizeof(t_format));
+	if (format == NULL)
 		return (-1);
-	va_start(args, str);
-	counter = 0;
-	while (*str)
+	flags = inicialize_flags(flags);
+	va_start(flags->ap, format);
+	while (format[i])
 	{
-		if (*str == '%')
-			counter += print_format(*(++str), args);
+		if (format[i] == '%')
+		{
+			i = ft_eval_format(flags, format, i + 1);
+			count += ft_print_format(format[i++], flags);
+		}
 		else
-			counter += ft_putchar_fd(*str, 1);
-		str++;
+			count += write(1, &format[i++], 1);
+		flags = inicialize_flags(flags);
 	}
-	va_end(args);
-	return (counter);
+	va_end(flags->ap);
+	free(flags);
+	return (count);
 }

@@ -6,7 +6,7 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 20:02:15 by codespace         #+#    #+#             */
-/*   Updated: 2024/09/23 18:02:01 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/23 18:02:35 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_run_minishell(void)
 			if (ft_lexer(input, &tokens) == SUCCESS)
 			{
 				if (ft_parser(tokens, &tree) == SUCCESS)
-					ft_set_exit_status(executor(tree));
+					ft_set_exit_status(ft_executor(tree));
 			}
 		}
 		ft_reset_mini(input);

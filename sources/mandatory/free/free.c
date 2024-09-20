@@ -6,7 +6,7 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 00:34:57 by lluiz-de          #+#    #+#             */
-/*   Updated: 2024/09/04 19:33:22 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/20 15:59:51 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,4 @@ void	ft_free_env(void)
 	while (env[++i])
 		free(env[i]);
 	free(env);
-}
-
-void	ft_free_memory(void)
-{
-	ft_lstclear(ft_get_memory_lst(), &free);
 }

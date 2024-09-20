@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/16 16:56:31 by leduard2          #+#    #+#             */
-/*   Updated: 2024/09/12 21:06:06 by ecoelho-         ###   ########.fr       */
+/*   Created: 2024/02/16 16:56:31 by ecoelho-          #+#    #+#             */
+/*   Updated: 2024/09/20 16:19:32 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_collect_mem(void *content)
 
 void	ft_free_memory(void)
 {
-	ft_get_next_line(-1);
+	get_next_line(-1);
 	ft_lstclear(ft_get_memory_lst(), &free);
 }
 

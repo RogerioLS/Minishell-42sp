@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/17 19:45:48 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/12 21:06:06 by ecoelho-         ###   ########.fr       */
+/*   Created: 2023/07/18 18:44:12 by ecoelho-          #+#    #+#             */
+/*   Updated: 2024/08/13 16:28:05 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,29 @@
 
 void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	size_t	i;
-	char	*temp;
+	size_t			i;
+	unsigned char	*udest;
+	unsigned char	*usrc;
 
-	temp = malloc(sizeof(char) * n);
-	if (!temp)
-		return (NULL);
 	i = 0;
+	udest = (unsigned char *)dest;
+	usrc = (unsigned char *)src;
+	if (!udest && !usrc)
+		return (0);
+	if (udest < usrc)
+	{
+		while (i < n)
+		{
+			udest[i] = usrc[i];
+			i++;
+		}
+		return (udest);
+	}
+	i = n - 1;
 	while (i < n)
 	{
-		temp[i] = ((unsigned char *)src)[i];
-		i++;
+		udest[i] = usrc[i];
+		i--;
 	}
-	i = 0;
-	while (i < n)
-	{
-		((unsigned char *)dest)[i] = temp[i];
-		i++;
-	}
-	free (temp);
-	return (dest);
+	return (udest);
 }

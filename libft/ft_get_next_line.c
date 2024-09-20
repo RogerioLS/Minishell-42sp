@@ -1,109 +1,103 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_next_line.c                                 :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/11 15:02:24 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/12 21:06:06 by ecoelho-         ###   ########.fr       */
+/*   Created: 2023/08/09 18:35:57 by ecoelho-          #+#    #+#             */
+/*   Updated: 2024/09/20 16:02:03 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	*initialize_and_check_errors(int fd, char **remaining_line,
-		char **buff, int *bytes_read)
+static void	*ft_free_all(char **str1, char **str2, char **str3)
 {
-	char	*line_read;
-
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
-	*bytes_read = BUFFER_SIZE;
-	if ((*remaining_line) == NULL)
-		*remaining_line = ft_strdup("");
-	line_read = ft_strdup(*remaining_line);
-	free(*remaining_line);
-	*remaining_line = NULL;
-	*buff = ft_calloc(1, BUFFER_SIZE + 1);
-	return (line_read);
+	if (str1)
+	{
+		if (*str1 != NULL)
+			free(*str1);
+		*str1 = NULL;
+	}
+	if (str2)
+	{
+		if (*str2 != NULL)
+			free(*str2);
+		*str2 = NULL;
+	}
+	if (str3)
+	{
+		if (*str3 != NULL)
+			free(*str3);
+		*str3 = NULL;
+	}
+	return (NULL);
 }
 
-static int	*read_from_file(int fd, char **line_read, char *buff,
-		int *bytes_read)
+static char	*ft_read_file(char **s_buffer, int fd)
 {
+	ssize_t	bytes_read;
+	char	*local_buffer;
 	char	*temp;
 
-	while (!ft_strchr(*line_read, '\n') && *bytes_read == BUFFER_SIZE)
+	bytes_read = 1;
+	local_buffer = (char *)malloc(BUFFER_SIZE + NULL_BYTE);
+	if (*s_buffer == NULL)
+		*s_buffer = ft_strdup("");
+	if (local_buffer == NULL || *s_buffer == NULL)
+		return (ft_free_all(s_buffer, &local_buffer, NULL));
+	while (bytes_read != 0 && ft_strchr(*s_buffer, '\n') == NULL)
 	{
-		*bytes_read = read(fd, buff, BUFFER_SIZE);
-		if (*bytes_read < 0)
+		temp = *s_buffer;
+		bytes_read = read(fd, local_buffer, BUFFER_SIZE);
+		if (bytes_read == ERROR_CODE)
+			return (ft_free_all(&local_buffer, s_buffer, NULL));
+		local_buffer[bytes_read] = '\0';
+		*s_buffer = ft_strjoin(*s_buffer, local_buffer);
+		if (*s_buffer == NULL)
+			return (ft_free_all(&temp, &local_buffer, NULL));
+		ft_free_all(&temp, NULL, NULL);
+	}
+	ft_free_all(&local_buffer, NULL, NULL);
+	return (ft_strdup(*s_buffer));
+}
+
+static void	*ft_update_line_buffer(char **line, char **s_buffer)
+{
+	char	*nl_byte;
+	size_t	nl_index;
+	char	*temp;
+
+	nl_byte = ft_strchr(*line, '\n');
+	if (nl_byte == NULL)
+		return (ft_free_all(s_buffer, NULL, NULL));
+	nl_index = (ft_strlen(*line) - ft_strlen(nl_byte));
+	temp = *s_buffer;
+	*s_buffer = ft_strdup(nl_byte + 1);
+	if (*s_buffer == NULL)
+		return (ft_free_all(line, s_buffer, &temp));
+	*(*line + nl_index + 1) = '\0';
+	return (ft_free_all(&temp, NULL, NULL));
+}
+
+char	*get_next_line(int fd)
+{
+	static char	*s_buffer;
+	char		*line;
+
+	if (fd == ERROR_CODE || BUFFER_SIZE <= 0 || fd > FD_LIMIT)
+	{
+		if (s_buffer != NULL)
 		{
-			free(buff);
-			free(*line_read);
-			return (NULL);
+			free(s_buffer);
+			s_buffer = NULL;
 		}
-		buff[*bytes_read] = '\0';
-		temp = *line_read;
-		*line_read = ft_strjoin(*line_read, buff);
-		free(temp);
-	}
-	free(buff);
-	return (bytes_read);
-}
-
-static int	is_end_of_file(char *line_read, int *bytes_read)
-{
-	if (*bytes_read == 0 && *line_read == '\0')
-	{
-		free(line_read);
-		return (1);
-	}
-	return (0);
-}
-
-static char	*create_next_line(char *line_read, char **remaining_line)
-{
-	int		i;
-	char	*next_line;
-
-	i = 0;
-	next_line = ft_calloc(1, ft_strlen(line_read) + 1);
-	while (line_read[i] != '\n' && line_read[i] != '\0')
-	{
-		next_line[i] = line_read[i];
-		i++;
-	}
-	if (line_read[i] == '\n')
-		next_line[i++] = '\n';
-	if (line_read[i] != '\0')
-		*remaining_line = ft_strdup(&line_read[i]);
-	return (next_line);
-}
-
-char	*ft_get_next_line(int fd)
-{
-	char		*buff;
-	char		*line_read;
-	char		*next_line;
-	static char	*remaining_line[1024];
-	int			bytes_read;
-
-	if (fd < 0 || BUFFER_SIZE <= 0)
-	{
-		if (remaining_line[-fd] != NULL)
-			ft_free_str(remaining_line[-fd]);
 		return (NULL);
 	}
-	line_read = initialize_and_check_errors(fd, &remaining_line[fd], &buff,
-			&bytes_read);
-	if (line_read == NULL)
-		return (NULL);
-	if (read_from_file(fd, &line_read, buff, &bytes_read) == NULL)
-		return (NULL);
-	if (is_end_of_file(line_read, &bytes_read))
-		return (NULL);
-	next_line = create_next_line(line_read, &remaining_line[fd]);
-	free(line_read);
-	return (next_line);
+	line = ft_read_file(&s_buffer, fd);
+	if (line == NULL || s_buffer == NULL || *s_buffer == '\0')
+		return (ft_free_all(&s_buffer, &line, NULL));
+	ft_update_line_buffer(&line, &s_buffer);
+	return (line);
 }

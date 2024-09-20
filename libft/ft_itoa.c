@@ -5,36 +5,57 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/01 09:56:32 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/12 21:06:06 by ecoelho-         ###   ########.fr       */
+/*   Created: 2023/07/24 13:24:05 by ecoelho-          #+#    #+#             */
+/*   Updated: 2024/08/13 16:28:05 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+static int	ft_numlen(long n)
+{
+	int	count;
+
+	count = 0;
+	if (n == 0)
+		return (1);
+	if (n < 0)
+	{
+		n *= -1;
+		count++;
+	}
+	while (n > 0)
+	{
+		n /= 10;
+		count++;
+	}
+	return (count);
+}
+
 char	*ft_itoa(int n)
 {
-	char	*ascii;
-	int		len;
-	long	nbr;
+	char	*s;
+	int		i;
+	long	num;
 
-	len = ft_nbrlen(n, 10);
-	nbr = n;
-	if (nbr < 0)
-	{
-		nbr = -nbr;
-		len++;
-	}
-	ascii = ft_dalloc(sizeof(char), (len + 1));
-	if (ascii == NULL)
+	num = n;
+	if (num == 0)
+		return (ft_strdup("0"));
+	i = ft_numlen(num);
+	s = (char *)ft_dalloc((i + 1), sizeof(char));
+	if (s == NULL)
 		return (NULL);
-	ascii[len] = '\0';
-	while (len > 0)
+	s[i--] = '\0';
+	if (num < 0)
 	{
-		ascii[--len] = (nbr % 10) + '0';
-		nbr = nbr / 10;
+		num *= -1;
+		s[0] = '-';
 	}
-	if (n < 0)
-		ascii[0] = '-';
-	return (ascii);
+	while (num != 0)
+	{
+		s[i] = (num % 10) + '0';
+		num /= 10;
+		i--;
+	}
+	return (s);
 }

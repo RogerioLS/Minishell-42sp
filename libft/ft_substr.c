@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/19 18:30:51 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/12 21:06:06 by ecoelho-         ###   ########.fr       */
+/*   Created: 2023/07/21 17:29:18 by ecoelho-          #+#    #+#             */
+/*   Updated: 2024/09/18 12:02:09 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,24 @@
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*substr;
+	size_t	i;
 	size_t	s_len;
+	char	*sub;
 
-	s_len = ft_strlen((char *)s);
-	if (start > s_len)
-		return (ft_calloc(1, 1));
-	if (s_len - start >= len)
-		substr = ft_dalloc((len + 1), sizeof(char));
-	else
-		substr = ft_dalloc((s_len - start + 1), sizeof(char));
-	if (substr != NULL)
+	i = 0;
+	s_len = ft_strlen(s);
+	if (start >= s_len)
+		return (ft_strdup(""));
+	if (s_len - start < len)
+		len = s_len - start;
+	sub = (char *)ft_dalloc((len + 1), sizeof(char));
+	if (sub == NULL)
+		return (NULL);
+	while (i < len)
 	{
-		ft_strlcpy(substr, (&s[start]), (len + 1));
-		return (substr);
+		sub[i] = s[start + i];
+		i++;
 	}
-	return (NULL);
+	sub[i] = '\0';
+	return (sub);
 }

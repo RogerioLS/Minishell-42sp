@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/18 12:30:43 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/12 21:06:06 by ecoelho-         ###   ########.fr       */
+/*   Created: 2023/07/19 12:11:53 by ecoelho-          #+#    #+#             */
+/*   Updated: 2024/08/13 16:28:05 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,25 @@
 
 size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	size_t	dst_len;
-	size_t	src_len;
-	int		i;
+	size_t	srclen;
+	size_t	dstlen;
+	size_t	i;
+	size_t	j;
 
-	dst_len = ft_strlen(dst);
-	src_len = ft_strlen((char *)src);
-	i = 0;
-	if (size > dst_len)
+	srclen = ft_strlen(src);
+	dstlen = ft_strlen(dst);
+	i = dstlen;
+	j = 0;
+	if (size > dstlen)
 	{
-		while (src[i] && (dst_len + i) < size - 1)
+		while (i < size - 1 && src[j])
 		{
-			dst[dst_len + i] = src[i];
+			dst[i] = src[j];
 			i++;
+			j++;
 		}
-		dst[dst_len + i] = '\0';
-		return (dst_len + src_len);
+		dst[i] = '\0';
+		return (srclen + dstlen);
 	}
-	return (src_len + size);
+	return (srclen + size);
 }

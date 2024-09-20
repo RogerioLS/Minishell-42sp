@@ -6,7 +6,7 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 15:13:17 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/04 18:30:35 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/20 15:57:22 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_echo(t_token *tokens)
 	bool	has_n;
 
 	has_n = true;
-	args = get_cmd_and_args(tokens);
+	args = ft_get_cmd_and_args(tokens);
 	args++;
 	while (*args && ft_strncmp(*args, "-n", 2) == 0)
 	{

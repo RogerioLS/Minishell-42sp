@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_redirect.c                                 :+:      :+:    :+:   */
+/*   ft_execute_redirect.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -40,7 +40,7 @@ int	dup2_redir_file(int redir_type, int *fd)
 	return (SUCCESS);
 }
 
-int	execute_redirect(t_tree_node *left, t_tree_node *right, int redir_type)
+int	ft_execute_redirect(t_tree_node *left, t_tree_node *right, int redir_type)
 {
 	int		fd;
 	int		std_fd[2];
@@ -61,7 +61,7 @@ int	execute_redirect(t_tree_node *left, t_tree_node *right, int redir_type)
 	if (dup2_redir_file(redir_type, &fd) != SUCCESS)
 		return (FAILURE);
 	if (left->token)
-		exit_status = executor(left);
+		exit_status = ft_executor(left);
 	dup2(std_fd[0], STDIN_FILENO);
 	dup2(std_fd[1], STDOUT_FILENO);
 	return (exit_status);

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_pipe.c                                     :+:      :+:    :+:   */
+/*   ft_execute_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "mini_shell.h"
 
-void	wait_child_status(pid_t pid, int *status)
+void	ft_wait_child_status(pid_t pid, int *status)
 {
 	waitpid(pid, status, 0);
 	if (WIFEXITED(*status))
@@ -33,13 +33,13 @@ int	execute_child(int fd, int *pipe, t_tree_node *node)
 
 	dup2(pipe[fd], fd);
 	ft_close_pipe(pipe);
-	exit_status = executor(node);
+	exit_status = ft_executor(node);
 	ft_free_memory();
 	ft_free_env();
 	exit(exit_status);
 }
 
-int	execute_pipe(t_tree_node *left, t_tree_node *right)
+int	ft_execute_pipe(t_tree_node *left, t_tree_node *right)
 {
 	int	child_pid[2];
 	int	pipe_fd[2];
@@ -55,8 +55,8 @@ int	execute_pipe(t_tree_node *left, t_tree_node *right)
 	if (child_pid[1] == 0)
 		execute_child(STDIN_FILENO, pipe_fd, right);
 	ft_close_pipe(pipe_fd);
-	wait_child_status(child_pid[0], &exit_status[0]);
-	wait_child_status(child_pid[1], &exit_status[1]);
+	ft_wait_child_status(child_pid[0], &exit_status[0]);
+	ft_wait_child_status(child_pid[1], &exit_status[1]);
 	if (exit_status[0] == SIGINT + 128)
 		return (exit_status[0]);
 	return (exit_status[1]);

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/18 17:59:35 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/12 21:06:06 by ecoelho-         ###   ########.fr       */
+/*   Created: 2023/07/21 11:54:49 by ecoelho-          #+#    #+#             */
+/*   Updated: 2024/08/13 16:28:05 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,28 @@
 
 int	ft_atoi(const char *nptr)
 {
+	char	*c;
 	int		i;
-	int		s;
-	int		result;
+	int		sign;
+	int		sum;
 
-	s = 1;
 	i = 0;
-	result = 0;
-	while (ft_isspace(nptr[i]))
+	sign = 1;
+	c = (char *)nptr;
+	sum = 0;
+	while ((c[i] >= '\t' && c[i] <= '\r') || c[i] == ' ')
 		i++;
-	if (nptr[i] == '-')
+	if (c[i] == '-')
 	{
-		s = -1;
+		sign *= -1;
 		i++;
 	}
-	else if (nptr[i] == '+')
+	else if (c[i] == '+')
 		i++;
-	while (ft_isdigit(nptr[i]))
+	while (ft_isdigit(c[i]))
 	{
-		result = (nptr[i] - '0') + (result * 10);
+		sum = (sum * 10) + (c[i] - '0');
 		i++;
 	}
-	return (result * s);
+	return (sum * sign);
 }

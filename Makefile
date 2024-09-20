@@ -6,7 +6,7 @@
 #    By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/01 20:01:05 by codespace         #+#    #+#              #
-#    Updated: 2024/09/23 18:00:33 by ecoelho-         ###   ########.fr        #
+#    Updated: 2024/09/23 18:03:36 by ecoelho-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,8 +48,7 @@ LEXER_SOURCES		= $(LEXER_DIR)lexer.c \
 
 INITIALIZE_SOURCES	= $(INITIALIZE_DIR)
 
-TOKEN_SOURCES		= $(TOKEN_DIR)token_list.c \
-					$(TOKEN_DIR)token_memory_list.c
+TOKEN_SOURCES		= $(TOKEN_DIR)token_list.c
 
 PARSER_SOURCES		= $(PARSER_DIR)parser.c \
 					$(PARSER_DIR)bin_tree.c \
@@ -75,7 +74,6 @@ BUILTINS_SOURCES	= $(BUILTINS_DIR)builtins.c \
 UTILS_SOURCES		= $(UTILS_DIR)environ.c   \
 					$(UTILS_DIR)error.c       \
 					$(UTILS_DIR)builtins_utils.c   \
-					$(UTILS_DIR)fun_utils.c   \
 					$(UTILS_DIR)utils.c
 
 FREE_SOURCES		= $(FREE_DIR)free.c

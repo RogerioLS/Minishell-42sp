@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/03 15:31:30 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/12 21:06:06 by ecoelho-         ###   ########.fr       */
+/*   Created: 2023/08/02 17:09:39 by ecoelho-          #+#    #+#             */
+/*   Updated: 2024/08/13 16:28:05 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,13 @@
 
 void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	t_list	*temp;
-	t_list	*current;
+	t_list	*node;
 
-	if (lst == NULL)
-		return ;
-	current = *lst;
-	while (current != NULL)
+	while (*lst)
 	{
-		temp = current;
-		del(current->content);
-		current = current->next;
-		free(temp);
+		node = *lst;
+		*lst = node->next;
+		ft_lstdelone(node, del);
 	}
 	*lst = NULL;
 }

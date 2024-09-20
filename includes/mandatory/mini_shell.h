@@ -6,20 +6,14 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 20:04:17 by codespace         #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/09/23 18:01:31 by ecoelho-         ###   ########.fr       */
-=======
-/*   Updated: 2024/09/13 19:13:46 by ecoelho-         ###   ########.fr       */
->>>>>>> i dont know
+/*   Updated: 2024/09/23 18:03:11 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINI_SHELL_H
 # define MINI_SHELL_H
 
-// # include "../../libft/include/ft_printf.h"
-// # include "../../libft/include/get_next_line.h"
-# include "libft.h"
+# include "./libft.h"
 # include <errno.h>
 # include <fcntl.h>
 # include <readline/history.h>
@@ -72,8 +66,6 @@ enum						e_tokens
 	WORD,
 };
 
-char						*ft_strjoin_mini(char const *s1, char const *s2);
-
 // main
 void						ft_print_welcome(void);
 void						ft_set_env(char *new_str, char *key, char *value);
@@ -91,7 +83,6 @@ char						*ft_init_and_wait_input(t_token **list);
 
 // free
 void						ft_free_env(void);
-void						ft_free_memory(void);
 
 // utilis error
 int							ft_signal_error(void);
@@ -118,22 +109,13 @@ int							ft_get_token_type(char *input);
 int							ft_get_token_length(char *imput, int type);
 int							ft_get_word_length(char *input);
 
-// token
-t_list						**ft_get_memory_lst(void);
-void						ft_collect_mem(void *content);
-void						*ft_dalloc(size_t nmemb, size_t size);
-t_token						*ft_token_lst_new(char *value, int token_type);
-void						ft_token_lst_add_back(t_token **token_list,
-								t_token *new);
-int							ft_token_lst_get_size(t_token *token_list);
-t_token						*ft_token_lst_get_last(t_token *token_list);
-void						ft_sort_token_lst(t_token **head);
-
 // parser
 int							ft_parser(t_token *list, t_tree_node **root);
 int							ft_check_syntax(t_token *current);
 int							ft_check_control_operator_rule(t_token *token);
 int							ft_check_redirect_rule(t_token *token);
+
+// bin tree
 t_tree_node					*ft_build_execution_tree(t_token *token_list);
 void						ft_split_tokens_into_tree(t_tree_node *tree_node,
 								t_token *token_list);
@@ -147,57 +129,48 @@ t_token						*ft_search_pipe(t_token *token_list);
 t_token						*ft_search_redirect(t_token *token_list);
 t_tree_node					*ft_get_redir_filename(t_token *redir);
 
-int							delete_heredoc_files(void);
-char						*ft_strndup(char *s, int n);
+// token
+t_token						*ft_token_lst_new(char *value, int token_type);
+void						ft_token_lst_add_back(t_token **token_list,
+								t_token *new);
+int							ft_token_lst_get_size(t_token *token_list);
+t_token						*ft_token_lst_get_last(t_token *token_list);
+void						ft_sort_token_lst(t_token **head);
 
-//----------- builtins -----------//
-bool						is_builtin(t_token *tokens);
-int							execute_builtin(t_token *tokens);
-// cd.c
-int							ft_cd(t_token *tokens);
-// echo.c
-int							ft_echo(t_token *tokens);
-// env.c
-int							ft_env(t_token *cmd);
-// exit.c
-int							ft_exit(t_token *tokens);
-// export.c
-int							ft_export(t_token *tokens);
-// pwd.c
-int							ft_pwd(void);
-// unset.c
-int							ft_unset(t_token *tokens);
-
-//----------- Executor -----------//
-// execute_command.c
-int							execute_command(t_tree_node *token_node);
-char						**get_cmd_and_args(t_token *cmd);
-
-// execute_pipe.c
-int							execute_pipe(t_tree_node *left, t_tree_node *right);
-void						wait_child_status(pid_t pid, int *status);
-
-// execute_redirect.c
-int							execute_redirect(t_tree_node *left,
+// ft_executor
+int							ft_execute_command(t_tree_node *token_node);
+char						**ft_get_cmd_and_args(t_token *cmd);
+int							ft_execute_pipe(t_tree_node *left, t_tree_node *right);
+void						ft_wait_child_status(pid_t pid, int *status);
+int							ft_execute_redirect(t_tree_node *left,
 								t_tree_node *right, int redir_type);
-// executor.c
-int							executor(t_tree_node *root);
+int							ft_executor(t_tree_node *root);
 
-//----------- Expand -----------//
-// expand.c
+//expand
 void						expand_tokens(t_tree_node *cmd_node);
 char						*expand_vars(char *str);
-// expand_utils.c
 char						*remove_quotes(char *str);
 void						retokenize(t_token **token);
 void						handle_empty_value(t_token **current,
 								t_tree_node **cmd_node);
+
+// builtins
+bool						is_builtin(t_token *tokens);
+int							execute_builtin(t_token *tokens);
+int							ft_cd(t_token *tokens);
+int							ft_echo(t_token *tokens);
+int							ft_env(t_token *cmd);
+int							ft_exit(t_token *tokens);
+int							ft_export(t_token *tokens);
+int							ft_pwd(void);
+int							ft_unset(t_token *tokens);
 
 char						*get_key(char *arg);
 int							is_valid_identifier(char *str, char *cmd_name);
 int							is_env_key_present(char *key);
 int							is_key_without_value(char *key);
 
+// heredoc
 void						heredoc_signal_handler(int signum);
 int							create_heredoc_file(t_token *token);
 int							delete_heredoc_files(void);

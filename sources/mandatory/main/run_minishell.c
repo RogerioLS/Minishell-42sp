@@ -6,7 +6,7 @@
 /*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 18:28:02 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/13 18:51:47 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/23 16:40:30 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	ft_finish_program(int status)
 	ft_free_env();
 	ft_free_memory();
 	if (isatty(STDIN_FILENO) && isatty(STDOUT_FILENO))
-		write(STDOUT_FILENO, "bye\n", 4);
+		write(STDOUT_FILENO, "\nbye\n", 5);
 	rl_clear_history();
 	return (status);
 }

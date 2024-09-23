@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 20:04:17 by codespace         #+#    #+#             */
-/*   Updated: 2024/09/23 18:03:11 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/23 19:01:52 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,8 @@ void						ft_sort_token_lst(t_token **head);
 // ft_executor
 int							ft_execute_command(t_tree_node *token_node);
 char						**ft_get_cmd_and_args(t_token *cmd);
-int							ft_execute_pipe(t_tree_node *left, t_tree_node *right);
+int							ft_execute_pipe(t_tree_node *left, \
+							t_tree_node *right);
 void						ft_wait_child_status(pid_t pid, int *status);
 int							ft_execute_redirect(t_tree_node *left,
 								t_tree_node *right, int redir_type);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 00:49:55 by codespace         #+#    #+#             */
-/*   Updated: 2024/09/13 18:37:53 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/23 19:14:26 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_syntax_error(char *token)
 {
-	ft_fprintf(STDERR_FILENO, "minishell: syntax error near unexpected token `%s'\n",
+	ft_fprintf(STDERR_FILENO, "minishell: syntax error unexpected token `%s'\n",
 		token);
 	return (ft_set_exit_status(SYNTAX_ERROR));
 }

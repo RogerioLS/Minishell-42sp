@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_executor.c                                         :+:      :+:    :+:   */
+/*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/31 19:39:38 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/20 15:58:59 by ecoelho-         ###   ########.fr       */
+/*   Created: 2024/09/23 19:13:52 by roglopes          #+#    #+#             */
+/*   Updated: 2024/09/23 19:13:53 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ int	ft_executor(t_tree_node *root)
 		return (ft_execute_pipe(root->left, root->right));
 	else if (root->token->type >= REDIR_APPEND
 		&& root->token->type <= REDIR_OUT)
-		return (ft_execute_redirect(root->left, root->right, root->token->type));
+		return (ft_execute_redirect(root->left, root->right, \
+		root->token->type));
 	else if (root->token->type == OPEN_PAREN)
 		return (execute_block(root));
 	else

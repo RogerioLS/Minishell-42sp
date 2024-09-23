@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 16:00:56 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/12 21:41:40 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/23 19:18:18 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,14 @@ int	validate_argument(char *arg)
 	return (SUCCESS);
 }
 
+void	status_ft(int status)
+{
+	delete_heredoc_files();
+	ft_free_memory();
+	if (status)
+		exit(status % 256);
+}
+
 int	ft_exit(t_token *tokens)
 {
 	long	status;
@@ -57,11 +65,11 @@ int	ft_exit(t_token *tokens)
 	if (tokens->next)
 	{
 		status = ft_atol(tokens->next->value);
-		if (validate_argument(tokens->next->value)
-			|| *(tokens->next->value) == '\0')
+		if (validate_argument(tokens->next->value) || \
+				*(tokens->next->value) == '\0')
 		{
-			ft_fprintf(STDERR_FILENO, "exit: %s: numeric argument required\n",
-					tokens->next->value);
+			ft_fprintf(STDERR_FILENO, "exit:%s: numeric argument required\n", \
+			tokens->next->value);
 			exit(SYNTAX_ERROR);
 		}
 		if (tokens->next->next)
@@ -70,9 +78,6 @@ int	ft_exit(t_token *tokens)
 			exit(FAILURE);
 		}
 	}
-	delete_heredoc_files();
-	ft_free_memory();
-	if (status)
-		exit(status % 256);
+	status_ft(status);
 	exit(*ft_get_exit_status());
 }

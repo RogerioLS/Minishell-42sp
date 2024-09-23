@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 18:59:50 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/20 16:09:46 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/23 19:12:00 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ int	create_heredoc_file(t_token *token)
 	file_name = ft_strjoin("/tmp/.heredoc", ft_itoa((*heredoc_counter)++));
 	fd = open(file_name, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (fd < 0)
-		return (ft_set_exit_status(ft_handle_error("failed to create heredoc")));
+		return (ft_set_exit_status(ft_handle_error("failed to \
+		create heredoc")));
 	if (!ft_strchr(token->value, '\"') && !ft_strchr(token->value, '\''))
 		is_expandable = true;
 	token->value = remove_quotes(token->value);

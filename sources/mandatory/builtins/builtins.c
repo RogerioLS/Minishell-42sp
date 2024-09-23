@@ -3,86 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/16 13:29:34 by roglopes          #+#    #+#             */
-/*   Updated: 2024/07/30 01:15:57 by codespace        ###   ########.fr       */
+/*   Created: 2024/08/30 18:05:17 by ecoelho-          #+#    #+#             */
+/*   Updated: 2024/09/04 18:42:49 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/mandatory/mini_shell.h"
+#include "mini_shell.h"
 
-static void	insert_sorted(t_venv **sorted, t_venv *new_node)
+bool	is_builtin(t_token *tokens)
 {
-	t_venv	*current;
-
-	if (*sorted == NULL || ft_strncmp((*sorted)->key, new_node->key, \
-		ft_strlen((*sorted)->key)) >= 0)
-	{
-		new_node->next = *sorted;
-		*sorted = new_node;
-	}
-	else
-	{
-		current = *sorted;
-		while (current->next && ft_strncmp(current->next->key, new_node->key, \
-			ft_strlen(current->next->key)) < 0)
-			current = current->next;
-		new_node->next = current->next;
-		current->next = new_node;
-	}
+	if (!ft_strcmp(tokens->value, "cd") || !ft_strcmp(tokens->value, "echo")
+		|| !ft_strcmp(tokens->value, "env") || !ft_strcmp(tokens->value, "exit")
+		|| !ft_strcmp(tokens->value, "export") || !ft_strcmp(tokens->value,
+			"pwd") || !ft_strcmp(tokens->value, "unset"))
+		return (true);
+	return (false);
 }
 
-static void	sort_env(t_venv **envp)
+int	execute_builtin(t_token *tokens)
 {
-	t_venv	*sorted;
-	t_venv	*current;
-	t_venv	*next;
-
-	current = *envp;
-	sorted = NULL;
-	while (current)
-	{
-		next = current->next;
-		insert_sorted(&sorted, current);
-		current = next;
-	}
-	*envp = sorted;
-}
-
-static t_venv	*copy_env(t_venv *origin)
-{
-	t_venv	*current;
-	char	*key;
-	char	*value;
-	t_venv	*envp;
-
-	current = origin;
-	envp = NULL;
-	while (current)
-	{
-		key = ft_strdup(current->key);
-		if (current->value)
-		{
-			value = ft_strdup(current->value);
-			env_lstadd_back(&envp, env_lstnew(key, value));
-			free (value);
-		}
-		else
-			env_lstadd_back(&envp, env_lstnew(key, NULL));
-		free (key);
-		current = current->next;
-	}
-	return (envp);
-}
-
-int	ft_envprints(t_venv *env)
-{
-	t_venv	*copy;
-
-	copy = copy_env(env);
-	sort_env(&copy);
-	ft_env(&copy, TRUE);
-	free_envp(&copy);
-	return (0);
+	if (!ft_strcmp(tokens->value, "cd"))
+		return (ft_cd(tokens));
+	if (!ft_strcmp(tokens->value, "echo"))
+		return (ft_echo(tokens));
+	if (!ft_strcmp(tokens->value, "env"))
+		return (ft_env(tokens));
+	if (!ft_strcmp(tokens->value, "exit"))
+		return (ft_exit(tokens));
+	if (!ft_strcmp(tokens->value, "export"))
+		return (ft_export(tokens));
+	if (!ft_strcmp(tokens->value, "pwd"))
+		return (ft_pwd());
+	if (!ft_strcmp(tokens->value, "unset"))
+		return (ft_unset(tokens));
+	return (ft_handle_error("error executing builtin"));
 }

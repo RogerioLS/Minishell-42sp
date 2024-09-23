@@ -1,42 +1,53 @@
-NAME=libft.a
-CC=cc
-CFLAGS=-Wall -Wextra -Werror
-RM = rm -f
-INC = -I./include
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/07/17 16:51:34 by ecoelho-          #+#    #+#              #
+#    Updated: 2024/09/20 16:20:07 by ecoelho-         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-FILES_LIB = ft_isalpha  ft_isdigit  ft_isalnum  ft_isascii  ft_isprint  \
-		ft_strlen  ft_memset  ft_bzero  ft_memcpy  ft_memmove  \
-		ft_strlcpy  ft_strlcat  ft_toupper  ft_tolower  ft_strchr  \
-		ft_strrchr  ft_strncmp  ft_memchr  ft_memcmp  ft_strnstr  \
-		ft_atoi  ft_calloc  ft_strdup  ft_substr  ft_strjoin  \
-		ft_strtrim  ft_split  ft_itoa  ft_strmapi  ft_striteri  \
-		ft_putchar_fd  ft_putstr_fd  ft_putendl_fd  ft_putnbr_fd \
-		ft_isspace ft_lstsize ft_strcmp
-FILES_GNL = get_next_line get_next_line_utils
-FILES_PRINTF = ft_printf printf_utils
-
-SRC_DIR_LIB = src/
-SRC_DIR_GNL = gnl/
-SRC_DIR_PRINTF = printf/
-
-OBJ_LIB = $(addprefix $(SRC_DIR_LIB), $(addsuffix .o, $(FILES_LIB)))
-OBJ_PRINTF = $(addprefix $(SRC_DIR_PRINTF), $(addsuffix .o, $(FILES_PRINTF)))
-OBJ_GNL = $(addprefix $(SRC_DIR_GNL), $(addsuffix .o, $(FILES_GNL)))
+NAME 	=	libft.a
+FILES 	=	ft_isalpha.c			ft_isdigit.c			ft_isalnum.c			ft_isascii.c			ft_isprint.c		\
+			ft_strlen.c				ft_memset.c				ft_bzero.c				ft_memcpy.c				ft_memmove.c		\
+			ft_strlcpy.c			ft_strlcat.c			ft_toupper.c			ft_tolower.c			ft_strchr.c			\
+			ft_strrchr.c			ft_strncmp.c			ft_memchr.c				ft_memcmp.c				ft_strnstr.c		\
+			ft_atoi.c				ft_calloc.c				ft_strdup.c				ft_substr.c				ft_strjoin.c		\
+			ft_strtrim.c			ft_split.c				ft_itoa.c				ft_strmapi.c			ft_striteri.c		\
+			ft_putchar_fd.c			ft_putstr_fd.c			ft_putendl_fd.c			ft_putnbr_fd.c								\
+																																\
+			ft_lstnew.c				ft_lstadd_front.c		ft_lstsize.c			ft_lstlast.c			ft_lstadd_back.c	\
+			ft_lstdelone.c			ft_lstclear.c			ft_lstiter.c			ft_lstmap.c									\
+																																\
+			ft_isspace.c    		ft_issign.c				ft_putnbr_base_fd.c		ft_count_words.c		ft_nbrlen.c			\
+			ft_putptr_fd.c			ft_free_ptr_array.c		ft_free_str_array.c		ft_strtoupper.c			ft_strtolower.c		\
+			ft_atoi_base.c			ft_free_str.c			ft_strcmp.c				ft_atol.c				ft_strndup.c		\
+			ft_strchr_quote_aware.c	ft_strdup_calloc.c																							\
+																																\
+			ft_get_next_line.c		ft_printf.c				ft_fprintf.c			ft_collect_mem.c
+OBJS	= 	$(FILES:%.c=$(OBJ_DIR)/%.o)
+OBJ_DIR	= 	obj
+CC 		= 	cc
+FLAGS 	= 	-Wall -Werror -Wextra -Ofast
 
 all: $(NAME)
 
-$(NAME): $(OBJ_LIB) $(OBJ_PRINTF) $(OBJ_GNL)
+$(NAME): $(OBJS)
 
-%.o: %.c
-	$(CC) $(INC) $(CFLAGS) -c $< -o $@
-	ar rcs $(NAME) $@
+$(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(dir $@)
+	@$(CC) $(FLAGS) -I . -c $< -o $@ && printf "Compiling: $(notdir $<\n)"
+	@ar rcs $(NAME) $@
 
 clean:
-	rm -f $(OBJ_LIB) $(OBJ_PRINTF) $(OBJ_GNL)
+	@rm -rf $(OBJ_DIR)
 
 fclean: clean
-	$(RM) $(NAME)
+	@rm -f $(NAME)
 
-re:	clean all
+re: fclean all
 
-.PHONY:	all clean fclean re
+.PHONY: clean fclean re all

@@ -3,120 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/30 01:24:12 by codespace         #+#    #+#             */
-/*   Updated: 2024/08/16 23:04:30 by codespace        ###   ########.fr       */
+/*   Created: 2024/09/01 20:02:15 by codespace         #+#    #+#             */
+/*   Updated: 2024/09/23 18:02:35 by ecoelho-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/mandatory/mini_shell.h"
 
-volatile int	g_vsig;
-
-static int	is_v_input(char *input)
-{
-	int	i;
-
-	if (!input)
-	{
-		printf("exit\n");
-		exit (0);
-	}
-	if (!ft_strncmp(input, "", 1))
-	{
-		free (input);
-		return (0);
-	}
-	i = -1;
-	while (input[++i])
-	{
-		if (ft_isspace(input[i]) == 0)
-			break ;
-	}
-	if (input[i] == '\0')
-	{
-		free (input);
-		return (0);
-	}
-	return (1);
-}
-
-static char	*define_user(t_venv **envp, char *tag)
-{
-	t_venv	*tmp;
-	char	*user;
-
-	tmp = env_lstsearch(envp, tag);
-	user = NULL;
-	if (!tag || !tmp)
-		user = ft_strjoin("", "\033[1;31m/MH> $\033[0m ");
-	else
-		user = ft_strjoin(tmp->value, "\033[1;31mMH> $\033[0m ");
-	tmp = NULL;
-	return (user);
-}
-
-void	prop(int attribute)
-{
-	static struct termios	term;
-
-	if (!attribute)
-		tcgetattr(STDIN_FILENO, &term);
-	else
-		tcsetattr(STDIN_FILENO, TCSANOW, &term);
-}
-
-static int	sucess_input(t_venv **envp, int status)
+int	ft_run_minishell(void)
 {
 	char		*input;
-	char		*in_user;
-	int			valid;
+	t_token		*tokens;
+	t_tree_node	*tree;
 
-	g_vsig = 0;
-	in_user = define_user(envp, "");
-	prop(0);
-	input = readline(in_user);
-	free(in_user);
-	valid = is_v_input(input);
-	if (valid != TRUE)
-		return (valid);
-	add_history(input);
-	if (!all_checked(input))
+	while (42)
 	{
-		free(input);
-		ft_putendl_fd("Error in syntax.", 2);
-		return (2);
+		input = ft_init_and_wait_input(&tokens);
+		if (!input)
+			break ;
+		else if (*input != '\0')
+		{
+			add_history(input);
+			if (ft_lexer(input, &tokens) == SUCCESS)
+			{
+				if (ft_parser(tokens, &tree) == SUCCESS)
+					ft_set_exit_status(ft_executor(tree));
+			}
+		}
+		ft_reset_mini(input);
 	}
-	return (init_minihell(envp, input, status));
+	return (ft_finish_program(SUCCESS));
 }
 
 int	main(void)
 {
-	t_venv	*envp;
-	int		status;
-
-	init_signals();
-	initialize();
-	envp = NULL;
-	status = 0;
-	get_envp(&envp, __environ);
-	while (1)
-	{
-		status = sucess_input(&envp, status);
-		if (status == 131)
-			printf("Quit (core dumped)\n");
-		else if ((status == 2 || status == 0) && g_vsig == SIGINT)
-		{
-			printf("\n");
-			status = 130;
-		}
-		if (status == 131 || (status == 2 && g_vsig == SIGINT))
-			prop(1);
-	}
-	close (STDIN_FILENO);
-	close (STDOUT_FILENO);
-	free_envp(&envp);
-	rl_clear_history();
-	return (status);
+	ft_init_environ();
+	ft_terminal_properties();
+	// initialize();
+	ft_run_minishell();
 }

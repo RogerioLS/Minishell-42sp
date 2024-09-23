@@ -6,7 +6,7 @@
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 20:02:15 by codespace         #+#    #+#             */
-/*   Updated: 2024/09/23 19:17:21 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/09/23 20:31:23 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@ int	main(void)
 {
 	ft_init_environ();
 	ft_terminal_properties();
-	//initialize();
+	initialize();
 	ft_run_minishell();
 }

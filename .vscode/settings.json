@@ -10,6 +10,7 @@
 		"utility": "c",
 		"mini_shell.h": "c",
 		"system_error": "c",
-		"libft.h": "c"
+		"libft.h": "c",
+		"fcntl.h": "c"
 	}
 }

@@ -6,14 +6,14 @@
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 20:04:17 by codespace         #+#    #+#             */
-/*   Updated: 2024/09/23 19:01:52 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/09/23 20:37:00 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINI_SHELL_H
 # define MINI_SHELL_H
 
-# include "./libft.h"
+# include "../libft/libft.h"
 # include <errno.h>
 # include <fcntl.h>
 # include <readline/history.h>

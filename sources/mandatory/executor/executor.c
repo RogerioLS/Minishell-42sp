@@ -6,7 +6,7 @@
 /*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 19:13:52 by roglopes          #+#    #+#             */
-/*   Updated: 2024/09/23 19:13:53 by roglopes         ###   ########.fr       */
+/*   Updated: 2024/09/23 20:51:13 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int	execute_block(t_tree_node *root)
 
 int	ft_executor(t_tree_node *root)
 {
+	if (!root->token)
+		return (SUCCESS);
 	if (root->token->type == PIPE)
 		return (ft_execute_pipe(root->left, root->right));
 	else if (root->token->type >= REDIR_APPEND

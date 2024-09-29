@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 15:13:17 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/20 15:57:22 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2024/09/29 19:08:48 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ int	ft_echo(t_token *tokens)
 	char	**args;
 	bool	has_n;
 
-	has_n = true;
+	has_n = 0;
 	args = ft_get_cmd_and_args(tokens);
 	args++;
 	while (*args && ft_strncmp(*args, "-n", 2) == 0)
 	{
-		has_n = false;
+		has_n = 1;
 		args++;
 	}
 	ft_print_args(args, has_n);

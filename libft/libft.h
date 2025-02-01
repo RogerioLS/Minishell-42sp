@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecoelho- <ecoelho-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roglopes <roglopes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 15:32:55 by ecoelho-          #+#    #+#             */
-/*   Updated: 2024/09/20 16:08:19 by ecoelho-         ###   ########.fr       */
+/*   Updated: 2025/02/01 16:15:10 by roglopes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # define NULL_BYTE 1
 # define ERROR_CODE -1
 # define FD_LIMIT 1024
-# define S_QUOTE '\''
-# define D_QUOTE '\"'
+# define S_QUOTE 39
+# define D_QUOTE 34
 # define MAX_INT 2147483647
 # define MIN_INT -2147483648
 
